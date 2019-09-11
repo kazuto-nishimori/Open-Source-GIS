@@ -1,8 +1,4 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/kazuto-nishimori/kazuto-nishimori/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 At the most recent FOSS4G conference (2019), Minghini, Kotsev, and Lutz presented a study comparing and contrasting the end-user perspective of two spatial data repositories: INSPIRE and OpenStreetMap (OSM). The foremost difference between INSPIRE and OSM is their approach to data collection. INSPIRE is what is called a Spatial Data Infrastructure or SDI, an innovative system first theorized in the 1990s to improve the interoperability of spatial data between different data collection agencies and it can exist at a local, national, or international scales. Before SDI's spatial data remained prerogative only within national mapping agencies. However this new standard has gave way to the increased facility for data-sharing and partnerships between communities through the standardized data set, geoportals, and web catalogues. However, the SDI's method of data collection still remains a top-down approach, where the initiative and execution is spearheaded by national mapping agencies and their methods often outlined by legislation. On the other hand, OpenStreetMap takes advantage of the recent advancements and proliferation in location-enabled devices and free access to satellite data to turn citizens into key players of geospatial data collection. OSM is built on open-source software and with an open-content license. This bottom-up, crowdsourcing approach to SDI is called Volunteered Geographic Information (VGI).
 
@@ -21,38 +17,3 @@ https://www.int-arch-photogramm-remote-sens-spatial-inf-sci.net/XLII-4-W14/167/2
 
 
 
-
-
-
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/kazuto-nishimori/kazuto-nishimori/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
