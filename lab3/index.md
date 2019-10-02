@@ -5,7 +5,7 @@ Firstly, let us collect data from the [NASA Earthdata portal](https://search.ear
 
 ![Finding Data](Capture.PNG)
 
-We then prepare the dataset for analysis. The raster data is imported into SAGA and opened in a map. If there are multiple rasters covering the area of interest, as is the case with mine, when opening them into one map, there will be an obvious discontinuity between the rasters. However, this is (probably) not due to the dataset, but the representation of the data, as colors are assigned based on the relative highs and lows of each raster. To fix this, we must make a mosaic of the rasters (Tools -> Mosaicking). Chose the bilinear interpolation for the sampling method, since this is a quantitative raster. I will chose the appropriate Left, Right, Top, and Bottom coordinates to crop my final mosaic. Lastly, we will reproject the layer to the correct UTM zone (Tools -> Projection -> Proj.4 -> UTM Projection (Grid)).
+We then prepare the dataset for analysis. The raster data is imported into SAGA and opened in a map. If there are multiple rasters covering the area of interest, as is the case with mine, there will be an obvious discontinuity between the rasters upon opening them in the same map. However, this is (probably) not due to the dataset, but the representation of the data, as colors are assigned based on the relative highs and lows of each raster. To fix this, we must make a mosaic of the rasters (Tools -> Mosaicking). Chose the bilinear interpolation for the sampling method, since this is a quantitative raster. I will chose the appropriate Left, Right, Top, and Bottom coordinates to crop my final mosaic. Lastly, we will reproject the layer to the correct UTM zone (Tools -> Projection -> Proj.4 -> UTM Projection (Grid)).
 
 ![Pre-Mosaic](Capture1.PNG)
 ![Post-Mosaic](Capture2.PNG)
@@ -14,4 +14,12 @@ From here, all sorts of things are possible in SAGA. However, before continuing,
 
 ![Hillshade](Capture3.PNG)
 
+We will also tryout a hydrological analysis
+![Sink Drainage Route](Capture4.PNG)
+![Sink Drainage Route Zoom](Capture5.PNG)
+![Sink](sink.png)
+![Flow Accumulation](Capture6.PNG)
+![Flow Accumulation Zoom](Capture7.PNG)
+![Channel Network](Capture8.PNG)
+![Channel Network Zoom](Capture9.PNG)
 
