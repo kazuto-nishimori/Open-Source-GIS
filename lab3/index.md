@@ -14,12 +14,23 @@ From here, all sorts of things are possible in SAGA. However, before continuing,
 
 ![Hillshade](Capture3.PNG)
 
-We will also tryout a hydrological analysis
+We will also tryout a hydrological analysis. First, let us run the sink drainage route tool to detect sinks and which direction water would flow upon encountering a sink (Tools -> Terrain Analysis -> Preprocessing -> Sink Drainage Route). We then fill in these sinks using the sink removal tool (Tools -> Terrain Analysis -> Preprocessing -> Sink Removal). 
+
+![Sink](sink.png)
+
+This graphic can be helpful in understanding sinks in an hydrological system. The sink removal tool fills in these sinks and gives us a new elevation model.
+
 ![Sink Drainage Route](Capture4.PNG)
 ![Sink Drainage Route Zoom](Capture5.PNG)
-![Sink](sink.png)
+
+
+Next, we will try the flow accumulation model (Tools -> Terrain Analysis -> Hydrology -> Flow Accumulation (Top-Down)). This tool maps out, for each cell, how many cells contribute to its water flow. This is helpful in detecting where stream starts and how they build up. 
+
 ![Flow Accumulation](Capture6.PNG)
 ![Flow Accumulation Zoom](Capture7.PNG)
+
+Finally, a useful tool is the channel network tool that creates both a raster and vector representation of these channels that we can export and use in other GIS software. (Tools -> Terrain Analysis -> Channels -> Chanel Network)
+
 ![Channel Network](Capture8.PNG)
 ![Channel Network Zoom](Capture9.PNG)
 
