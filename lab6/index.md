@@ -182,9 +182,15 @@ SET score_norm = score_sum/area
 And we are done!
 
 ## Visualizing Results <a name="res"></a>
+
+One thing PostGIS cannot do is visualizing data: this must be done in QGIS. Drag and drop the `subward` table from the database manager to the main console of QGIS and it should create a new layer. I used symbology to create a choropleth map from the normalized trash score. The score was separated into five classes with natural breaks, but I added an extra class just for the value 0. This is because as we saw earlier, there is a gap in the waste site data, so a zero score does not necessarily mean zero vulnerability; it could simply be due to a lack of data. Therefore, I believed that it was important to visually distinguish the 0 values from low but non-zero values. 
+
 <img src="/lab6/image5.PNG" width="400">
-<img src="/lab6/image6.PNG" width="400">
+<img src="/lab6/image6.PNG" width="800">
+
+Here is a map comparing the distribution of waste site points to our final map. Notice that there are zero values in data-rich regions in the west. These areas are true-zeros whereas the zeros in and around Mbagala and Kurasini are most likely due to the lack of data. I suppose we can distinguish these regions by giving these true-zero sub-wards (sub-wards that intersect with waste sites) a value of zero, and giving other sub-wards a null value. However, this is beyond the scope of this lab. 
+
 <img src="/lab6/image8.PNG" width="400">
 
-
+In the next lab, we will be going into more depth about visualizing data from this lab, and how to upload an interactive map to the web!
 
