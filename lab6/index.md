@@ -35,7 +35,7 @@ We will be using a command line tool called [OSM2PGSQL](https://github.com/opens
 -Download the [batch script](convertOSM.bat) and [style file](dsm.style)
 
 ### Loading RA dataset to PostGIS server <a name="env-b"></a>
-The RA data can be downloaded to QGIS straight from its Web Feature Server (WFS) and then imported to our database. In QGIS `Browser`, right-click `WFS` and go to `New Connection` and enter the URL https://geonode.resilienceacademy.ac.tz/geoserver/ows. Open the ‘Dar es Salaam Waste Sites’ layer in QGIS. Then open `DB manager`, click `Import Layer/File`, and chose the layer. Be sure to rename it to have all lowercase, as SQL does not fare well with uppercase letters. I renamed by layer ‘ws’. Do the same for the ‘Dar es Salaam Administrative Subward’ layer. This layer is badly organized, so one must designate the id column to ‘fid’ or else it will fail. 
+The RA data can be downloaded to QGIS straight from its Web Feature Server (WFS) and then imported to our database. In QGIS `Browser`, right-click `WFS` and go to `New Connection` and enter the URL https://geonode.resilienceacademy.ac.tz/geoserver/ows. Open the ‘Dar es Salaam Waste Sites’ layer in QGIS. Then open `DB manager`, click `Import Layer/File`, and chose the layer. Be sure to rename it to have all lowercase, as SQL does not fare well with uppercase letters. I renamed by layer ‘ws’. Do the same for the ‘Dar es Salaam Administrative Subward’ layer. The data table of this layer has many incomplete rows including on the id column. The 'fid' column however is complete, so during import, you must designate the id column to ‘fid’ or else it will fail. 
 
 ## Looking at the Data <a name="look"></a>
 
@@ -57,11 +57,11 @@ WHERE waterway IS NOT NULL AND blockage IS NOT NULL AND blockage <> ‘no’
 
 Blocked waterways in magenta, layered on top. Waterways in green. 
 
-We see that the line segments are mostly concentrated at the downtown area in the center of the map. Since waterways include not only manmade drainage systems but also streams and rivers, this is a flaw in the dataset; some areas are simply not mapped. However, this should not be a problem to our research as the data is complete in the areas we are most interested: highly populated, low elevation/coastal regions where flood risk and vulnerability are highest. From the population map, we see that the map is complete in the highly-populated districts. So, I conclude that this data is complete enough for our research. 
+We see that the line segments are mostly concentrated at the downtown area in the center of the map. Since waterways include not only manmade drainage systems but also streams and rivers, this is a flaw in the dataset; some areas are simply not mapped. However, this should not pose a problem to our research as the data is complete in the areas we are most interested: highly populated, low elevation/coastal regions where flood risk and vulnerability are highest. Comparing with the population map, we see that the waterway map is complete in the highly-populated districts. So, I conclude that this data is complete enough for our research. 
 
 <img src="https://www.researchgate.net/profile/Marcia_Castro4/publication/42346117/figure/fig1/AS:340846374342658@1458275516854/Population-density-by-ward-and-major-roads-in-Dar-es-Salaam-Tanzania-2006-Ward.png" width="400">
 
-Source: Penrose, Katherine & Castro, Marcia & Werema, Japhet & Ryan, Edward. (2010). Informal Urban Settlements and Cholera Risk in Dar es Salaam, Tanzania. PLoS neglected tropical diseases. 4. e631. 10.1371/journal.pntd.0000631.
+<sub><sup>Source: Penrose, Katherine & Castro, Marcia & Werema, Japhet & Ryan, Edward. (2010). Informal Urban Settlements and Cholera Risk in Dar es Salaam, Tanzania. PLoS neglected tropical diseases. 4. e631. 10.1371/journal.pntd.0000631.<sup><sub>
 
 <img src="/lab6/image01.PNG" width="400">
 
