@@ -18,10 +18,13 @@
     
 ## Objective <a name="goal"></a>
 The goal of this lab is to use OpenStreetMap (OSM) and Tanzania Resilience Academy (RA) data to quantify a dimension of vulnerability, and create a visualization at the sub-ward level to aid policy action. I will specifically be looking at the vulnerability caused by the build-up of rubbish in areas that are near existing drain blockages, but are inaccessible by vehicle. The goal of my final visualization is to highlight the sub-wards that are in dire need of reviewing its road and trash-collection infrastructure to lower their vulnerability to the next big flood. 
+<img src="https://www.straitstimes.com/sites/default/files/styles/article_pictrure_780x520_/public/articles/2017/01/05/40648403_-_23_11_2016_-_tanzania-weather-daily-life.jpg?itok=K8AwbN0r&timestamp=1483572716">
 
+source:[The Straight Times](https://www.straitstimes.com/world/africa/tanzania-slum-uses-drones-to-map-out-flood-risk)
 
 ## Setting Up the Environment <a name="env"></a>
 The first step is always to find and import data. The two datasets used in this study, OSM and RA, offer community mapping data collected by volunteering citizens. There is a strong interest in this type of crowdsourced data in geospatial analysis, not only for the sheer volume of data newly available (think of OSM’s efforts in Haiti) but also for the method with which the data was collected: data collection by community leaders and members who have lived experience in the area concerned. 
+<img src="lab6/RA-Shield_Horizantal.png"> <img src="lab6/Openstreetmap_logo.svg.png">
 
 ### Loading OSM dataset to PostGIS server <a name="env-a"></a>
 We will be using a command line tool called [OSM2PGSQL](https://github.com/openstreetmap/osm2pgsql) to import the OSM data into our PostGIS server. Professor Holler has kindly set up the tool ready to be used for this lab. The `dsm-osm.osm` file was downloaded straight from OpenStreetMap using its export feature. The `dsm.style` file instructs the tool which features to load and which tags to use. You should look through the file and add/modify any features or tags not already mentioned. For my analysis, this was not necessary. Finally, the `convertOSM.bat` file performs the import function. The code locates the OSM2PGSQL tool, `dsm_osm.osm` file and the PostGIS server; these must be modified accordingly. When it is done, run the batch file. 
@@ -40,7 +43,7 @@ Let us visualize the OSM data we will be working with, namely the waterway data.
 The following code isolates the waterway line segments. 
 ```sql
 SELECT* FROM planet_osm_line
-WHERE waterway is not null
+WHERE waterway IS NOT NULL
 ```
 Then, click on load as new layer. I will do the same for blockages. 
 ```sql
