@@ -24,23 +24,23 @@ The goal of this lab is to use OpenStreetMap (OSM) and Tanzania Resilience Acade
 The first step is always to find and import data. The two datasets used in this study, OSM and RA, offer community mapping data collected by volunteering citizens. There is a strong interest in this type of crowdsourced data in geospatial analysis, not only for the sheer volume of data newly available (think of OSM’s efforts in Haiti) but also for the method with which the data was collected: data collection by community leaders and members who have lived experience in the area concerned. 
 
 ### Loading OSM dataset to PostGIS server <a name="env-a"></a>
-We will be using a command line tool called OSM2PGSQL (https://github.com/openstreetmap/osm2pgsql) to import the OSM data into our PostGIS server. Professor Holler has kindly set up the tool ready to be used for this lab. The .osm file was downloaded straight from OpenStreetMap using its export feature. The dsm.style file instructs the tool which features to load and which tags to use. You should look through the data and add/modify to add features or tags not already mentioned. For my analysis, this was not necessary. Finally, the convertOSM.bat file performs the import function. The code locates the OSM2PGSQL tool, dsm_osm.osm file and the PostGIS server; these must be modified accordingly. When it is done, run the batch file. 
-Download the OSM data here 
-Download the batch script, and style file here
+We will be using a command line tool called [OSM2PGSQL](https://github.com/openstreetmap/osm2pgsql) to import the OSM data into our PostGIS server. Professor Holler has kindly set up the tool ready to be used for this lab. The `dsm-osm.osm` file was downloaded straight from OpenStreetMap using its export feature. The `dsm.style` file instructs the tool which features to load and which tags to use. You should look through the file and add/modify any features or tags not already mentioned. For my analysis, this was not necessary. Finally, the `convertOSM.bat` file performs the import function. The code locates the OSM2PGSQL tool, `dsm_osm.osm` file and the PostGIS server; these must be modified accordingly. When it is done, run the batch file. 
+Download the [OSM data](https://www.openstreetmap.org/export#map=11/-6.8240/39.3026) (unfortunately my file was too large to be uploaded to Github, so the link takes you to OSM) 
+Download the [batch script](convertOSM.bat) and [style file](dsm.style)
 
 ### Loading RA dataset to PostGIS server <a name="env-b"></a>
-The RA data can be downloaded to QGIS straight from its Web Feature Server (WFS) and then imported to our database. In QGIS Browser, right-click WFS and go to New Connection and enter the URL https://geonode.resilienceacademy.ac.tz/geoserver/ows. Open the ‘Dar es Salaam Waste Sites’ layer in QGIS. Then open DB manager, click Import Layer/File, and chose the layer. Be sure to rename it to have all lowercase, as SQL does not fare well with uppercase letters. I renamed by layer ‘ws’. Do the same for the ‘Dar es Salaam Administrative Subward’ layer. This layer is badly organized, so one must designate the id column to ‘fid’ or else it will fail. 
+The RA data can be downloaded to QGIS straight from its Web Feature Server (WFS) and then imported to our database. In QGIS `Browser`, right-click `WFS` and go to `New Connection` and enter the URL https://geonode.resilienceacademy.ac.tz/geoserver/ows. Open the ‘Dar es Salaam Waste Sites’ layer in QGIS. Then open `DB manager`, click `Import Layer/File`, and chose the layer. Be sure to rename it to have all lowercase, as SQL does not fare well with uppercase letters. I renamed by layer ‘ws’. Do the same for the ‘Dar es Salaam Administrative Subward’ layer. This layer is badly organized, so one must designate the id column to ‘fid’ or else it will fail. 
 
 ## Looking at the Data <a name="look"></a>
 
 ### OSM data <a name="look-a"></a>
-Let us visualize the OSM data we will be working with, namely the waterway data. Certain line segments of the waterways have a tag indicating that it has a blockage. We will visualize both using a few lines of SQL in the Database Manager.
+Let us visualize the OSM data we will be working with, namely the waterway data. Certain line segments of the waterways have a tag indicating that it has a blockage. We will visualize both using a few lines of SQL in the Database Manager.""
 
 The following code isolates the waterway line segments. 
-
+```sql
 SELECT* FROM planet_osm_line
 WHERE waterway is not null
-
+```
 Then, click on load as new layer. I will do the same for blockages. 
 
 SELECT* FROM planet_osm_line
