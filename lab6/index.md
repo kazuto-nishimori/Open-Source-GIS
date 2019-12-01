@@ -1,7 +1,7 @@
 # Lab Six: OpenStreetMap Data on PostGIS
 
 ## Table of Contents
-1. [Goal](#goal)
+1. [Objective](#goal)
 2. [Setting Up the Environment](#env)
     1. [Loading OSM data to PostGIS](#env-a)
     2. [Loading RA data to PostGIS](#env-b)
@@ -16,7 +16,7 @@
     4. [Summing the trash score](#ana-d) 
 6. [Visualising Results](#res)  
     
-## Goal <a name="goal"></a>
+## Objective <a name="goal"></a>
 The goal of this lab is to use OpenStreetMap (OSM) and Tanzania Resilience Academy (RA) data to quantify a dimension of vulnerability, and create a visualization at the sub-ward level to aid policy action. I will specifically be looking at the vulnerability caused by the build-up of rubbish in areas that are near existing drain blockages, but are inaccessible by vehicle. The goal of my final visualization is to highlight the sub-wards that are in dire need of reviewing its road and trash-collection infrastructure to lower their vulnerability to the next big flood. 
 
 
