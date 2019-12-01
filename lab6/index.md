@@ -64,28 +64,29 @@ We see that the line segments are mostly concentrated at the downtown area in th
 <sub><sup>Source: Penrose, Katherine & Castro, Marcia & Werema, Japhet & Ryan, Edward. (2010). Informal Urban Settlements and Cholera Risk in Dar es Salaam, Tanzania. PLoS neglected tropical diseases. 4. e631. 10.1371/journal.pntd.0000631.<sup><sub>
 
 <img src="/lab6/image01.PNG" width="400">
-
+#### A note on possible source of error
 Zooming in, we see inconsistency in the way blockage is labeled. For some waterways, the entirety of its length is tagged as blocked. In others, only a small segment of the waterway (presumably the segment where the blockage is) is tagged. This will obviously create inconsistencies in the final analysis. 
 
 ### Resilience Academy Waste Site Data <a name="look-b"></a>
 
 Let us also visualize the RA’s data using QGIS. Each point corresponds to a waste site. 
 
-<img src="/lab6/image1.PNG" width="400">
+<img src="/lab6/image1.PNG" width="800">
 
-The points are concentrated in the downtown area as one would expect, but half of the wards do not have a single data point. For the underpopulated, peripheral regions, it is not a problem for the reasons discussed before. However, there is a notable lack in data in the southern portion of central Dar es Salaam, namely the Mbagala and Kurasini areas. This will introduce a significant gap of knowledge to our study, since these areas are of extreme interest: highly populated and with significant drain blockages. 
+The points are concentrated in the downtown area as one would expect, but half of the wards do not have a single data point. For the underpopulated, peripheral regions, this makes sense. However, there is a notable lack in data in the southern portion of central Dar es Salaam, namely the Mbagala and Kurasini areas. This will introduce a significant gap of knowledge to our study, since these areas are of extreme interest: highly populated and with significant drain blockages. 
 
 Several columns in this dataset are unique and interesting, and they prompted me to conduct this research in the first place. The access_typ column shows the accessibility for each waste site: foot only, by cart or by truck. The trash_size column reveals the size of the site: handful, bagful, cartload, or truckload. These two columns are the most useful for our research. Since we are interested in the inaccessible sites, the points with foot only access will be isolated. In addition, the trash size must be quantified into some sort of ‘trash score’ for it to be useful. We can easily isolate the points of interest with a quick SQL line in the DB manager. 
 ```sql
 SELECT* FROM ws
 WHERE access_typ = ‘Foot only’
 ```
-Then, click on load as new layer. I used symbology to differentiate the trash size. Blue is handful and red is truckload.
+Then, click on `load as new layer`. I used symbology to differentiate the trash size. Blue is handful and red is truckload.
 
 <img src="/lab6/image2.PNG" width="400">
 <img src="/lab6/image3.PNG" width="400">
 
-Zooming into the data reveals another possible source of error to our analysis. Many points hover around the border between sub-wards, possibly because these borders were defined by some geographical feature that has since become a dumping ground, most likely a river or a stream. Therefore, aggregating data in terms of sub-wards in fact does not make too much geographic sense; a blockage at the border is a problem for both neighboring sub-wards. However, I will continue with this aggregation method since it makes political sense: policy changes happen within these borders. (If I were tasked to make such a map by the government of Dar es Salaam, they would most likely request a map based on these political boundaries.)
+#### A note on possible source of error
+Zooming into the data reveals another possible source of error to our analysis. Many points hover around the border between sub-wards, possibly because these borders were defined by some geographical feature that has since become a dumping ground, most likely a river or a stream. Therefore, aggregating data in terms of sub-wards in fact does not make too much geographic sense; a blockage at the border is a problem for both neighboring sub-wards. However, I will continue with this aggregation method since it makes political sense: policy changes happen within these borders.  
 
 
 ## The Workflow <a name="flow"></a>
@@ -93,15 +94,15 @@ The workflow for this analysis is simple. In the end, I want to have within my s
 1)	Quantify the amount of trash for each site into a ‘trash score’. 
 2)	Create a buffer from the blocked waterways. 
 3)	Select all sites that are only accessible by foot, and lie inside the buffer.
-4)	For each sub-ward, sum the trash scores of the selected sites that lie within it and normalize by the area. 
+4)	For each sub-ward, sum the trash scores of the sites of interest within its border, and normalize it by the area. 
 
 ## The Analysis <a name="ana"></a>
 
 ### Quantifying trash score <a name="ana-a"></a>
 
-We must convert the qualitative indication of trash size (handful to truckload) to a quantitative score. This must necessarily introduce an element of bias: the choice of number here is completely arbitrary. In fact, there will be two layers of bias if we count the bias at the data collection stage, since one person’s handful could be another’s bagful. I chose a handful as our unit, bagful as 10 units, cartload as 50 and truckload as 250. I was guessing that the ‘truck’ here referred to a pick-up truck and 25 bags seemed an appropriate amount. 
+We must convert the qualitative indication of trash size (handful to truckload) to a quantitative score. This must necessarily introduce an element of bias: the choice of number here is completely arbitrary. In fact, there will be two layers of bias if we count the bias at the data collection stage, since one person’s handful could be another’s bagful. I chose a handful as our unit, bagful as 10 units, cartload as 50 and truckload as 250. I presumed that the ‘truck’ here referred to a pick-up truck so 25 bags seemed an appropriate amount. 
 ```sql
-ALTER TABLE ws ADD trash-score INT;
+ALTER TABLE ws ADD trash_score INT;
 UPDATE ws 
 SET trash_score = 
 CASE 
@@ -113,7 +114,7 @@ END
 ```
 ### Creating blocked waterway buffer <a name="ana-b"></a>
 
-We will create a new table for the buffer. Whenever creating a new table, it is paramount to include a unique id as one of our columns as I have done in the SELECT line. You might also notice that I put all the columns I wish migrate to the new table, namely the blockage and waterway columns. The last part selects the 20-meter buffer and makes it the new geometry column for the table. The last line makes sure that I only select only the blocked waterways. 
+We will create a new table for the buffer. Whenever creating a new table, it is paramount to include a unique id as one of our columns as I have done in the `SELECT` line. You might also notice that I put all the columns I wish migrate to the new table, namely the blockage and waterway columns. The last part of the `SELECT` line selects the 20-meter buffer and designates it the new geometry column for the table. The `WHERE` line makes sure that I only select only the blocked waterways. 
 ```sql
 CREATE TABLE waterway_buffer AS 
 SELECT osm_id, blockage, waterway, st_buffer(geography(a.way), 20)::geometry(‘polygon,4326’) AS geom
@@ -122,7 +123,7 @@ WHERE blockage IS NOT NULL AND blockage <> = ‘no’
 ```
 ### Selecting targeted waste sites <a name="ana-c"></a>
 
-Now, we create a Boolean column indicating whether it lies within the buffer. After we make the column, we set it to false. We then change it to true for all points that intersects the buffer, an operation performed by st_coveredby.
+Now, we create a Boolean column indicating whether it lies within the buffer. After we make the column, we set it to false. We then change it to true for all points that intersects the buffer, an operation performed by `st_coveredby`.
 ```sql
 ALTER TABLE ws ADD near_blockage BOOLEAN; 
 UPDATE ws SET near_blockage = FALSE;
@@ -131,7 +132,7 @@ SET near_blockage = TRUE
 FROM waterway_buffer as a
 WHERE st_coveredby(ws.geom,a.geom)
 ```
-Let us make a new table called ws_mod that only consists of the sites we are interested in, namely those with foot only access, near a blockage, and have a trash score. 
+Let us make a new table called `ws_mod` that only consists of the sites we are interested in, namely those with foot only access, near a blockage, and have a trash score. 
 ```sql
 CREATE TABLE ws_mod AS
 SELECT* FROM ws
@@ -139,9 +140,9 @@ WHERE access_typ = ‘Foot only’ AND near_blockage = TRUE AND trash_score IS N
 ```
 ### Summing the trash score <a name="ana-d"></a>
 
-To perform zonal statistics, we must first add a column in the waste site column that indicates the sub-ward district it is in. Then, we group the sites by their sub-ward ID and sum the score. This sum will be added to a new column in the sub-ward table. 
+To perform zonal statistics, we must first add a column in the waste site table that indicates the sub-ward district it is in. Then, we group the sites by their sub-ward ID and sum the score. This sum will be added to a new column in the sub-ward table. 
 
-Let us add a sub-ward id column to the ws_mod table. 
+Let us add a sub-ward id column to the `ws_mod` table. 
 ```sql
 ALTER TABLE ws_mod
 ADD COLUMN sw_id INT;
@@ -149,7 +150,7 @@ UPDATE ws_mod
 SET sw_id = subwards.fid FROM subwards
 WHERE st_intersects(ws_mod.geom,subwards.geom);
 ```
-We then add columns to the subwards table for the score, area of the sub-ward, and normalized score. Notice that I calculate the area using the st_area function. We also set the score_sum to be 0. 
+We then add columns to the subwards table for the score, area of the sub-ward, and the normalized score. Notice that I calculate the area using the `st_area` function. We also set the `score_sum` to be 0 for now. 
 ```sql
 ALTER TABLE subwards
 ADD COLUMN score-sum INT;
@@ -163,7 +164,7 @@ UPDATE subwards
 SET score_sum = 0;
 ```
 
-Finally, we are ready to perform the zonal statistics. This is where it gets tricky. We create a temporary table, which we call b. The GROUP BY function groups the trash scores into rows based on sw_id. The sum function adds the grouped scores. (One could easily use other functions here such as count and avg to perform other kinds of statistics.) Once this temporary table b is made, the score_sum column is set to equal the output of the sum function, given that its sub-ward ID matches that of the other table.  
+Finally, we are ready to perform the zonal statistics. This is where it gets tricky. We create a temporary table, which we call b. The `GROUP BY` function groups the trash scores into rows based on `sw_id`. The `sum` function adds the grouped scores. (One could swap in another function here such as `count` and `avg` to perform other kinds of statistics.) Once this temporary table b is made, the `score_sum` column is set to equal the output of the `sum` function, given that its sub-ward ID matches that of the other table. Finally, the column for the normalized score is updated.
 ```sql
 UPDATE subwards
 SET score_sum = a
@@ -176,6 +177,7 @@ WHERE subwards.fid = b.sw_id;
 UPDATE subwards
 SET score_norm = score_sum/area
 ```
+And we are done!
 
 ## Visualizing Results <a name="res"></a>
 <img src="/lab6/image5.PNG" width="400">
