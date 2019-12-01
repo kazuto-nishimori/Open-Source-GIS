@@ -47,11 +47,11 @@ Then, click on load as new layer. I will do the same for blockages.
 SELECT* FROM planet_osm_line
 WHERE waterway IS NOT NULL AND blockage IS NOT NULL AND blockage <> ‘no’
 ```
-![osm_data](image0.png)
+![](image0.PNG  | width=100)
 Blocked waterways in magenta, layered on top. Waterways in green. 
 
 We see that the line segments are mostly concentrated at the downtown area in the center of the map. Since waterways include not only manmade drainage systems but also streams and rivers, this is a flaw in the dataset; some areas are simply not mapped. However, this should not be a problem to our research as the data is complete in the areas we are most interested: highly populated, low elevation/coastal regions where flood risk and vulnerability are highest. From the population map, we see that the map is complete in the highly-populated districts. So, I conclude that this data is complete enough for our research. 
-![pop-density](https://www.researchgate.net/profile/Marcia_Castro4/publication/42346117/figure/fig1/AS:340846374342658@1458275516854/Population-density-by-ward-and-major-roads-in-Dar-es-Salaam-Tanzania-2006-Ward.png | width=200)
+<img src="https://www.researchgate.net/profile/Marcia_Castro4/publication/42346117/figure/fig1/AS:340846374342658@1458275516854/Population-density-by-ward-and-major-roads-in-Dar-es-Salaam-Tanzania-2006-Ward.png" width="500">
 Source: Penrose, Katherine & Castro, Marcia & Werema, Japhet & Ryan, Edward. (2010). Informal Urban Settlements and Cholera Risk in Dar es Salaam, Tanzania. PLoS neglected tropical diseases. 4. e631. 10.1371/journal.pntd.0000631.
 
 ![osm_data_zoom](image01.png)
