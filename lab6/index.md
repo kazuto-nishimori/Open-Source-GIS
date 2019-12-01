@@ -64,7 +64,9 @@ We see that the line segments are mostly concentrated at the downtown area in th
 <sub><sup>Source: Penrose, Katherine & Castro, Marcia & Werema, Japhet & Ryan, Edward. (2010). Informal Urban Settlements and Cholera Risk in Dar es Salaam, Tanzania. PLoS neglected tropical diseases. 4. e631. 10.1371/journal.pntd.0000631.<sup><sub>
 
 <img src="/lab6/image01.PNG" width="400">
+
 #### A note on possible source of error
+
 Zooming in, we see inconsistency in the way blockage is labeled. For some waterways, the entirety of its length is tagged as blocked. In others, only a small segment of the waterway (presumably the segment where the blockage is) is tagged. This will obviously create inconsistencies in the final analysis. 
 
 ### Resilience Academy Waste Site Data <a name="look-b"></a>
