@@ -25,8 +25,9 @@ The first step is always to find and import data. The two datasets used in this 
 
 ### Loading OSM dataset to PostGIS server <a name="env-a"></a>
 We will be using a command line tool called [OSM2PGSQL](https://github.com/openstreetmap/osm2pgsql) to import the OSM data into our PostGIS server. Professor Holler has kindly set up the tool ready to be used for this lab. The `dsm-osm.osm` file was downloaded straight from OpenStreetMap using its export feature. The `dsm.style` file instructs the tool which features to load and which tags to use. You should look through the file and add/modify any features or tags not already mentioned. For my analysis, this was not necessary. Finally, the `convertOSM.bat` file performs the import function. The code locates the OSM2PGSQL tool, `dsm_osm.osm` file and the PostGIS server; these must be modified accordingly. When it is done, run the batch file. 
-Download the [OSM data](https://www.openstreetmap.org/export#map=11/-6.8240/39.3026) (unfortunately my file was too large to be uploaded to Github, so the link takes you to OSM) 
-Download the [batch script](convertOSM.bat) and [style file](dsm.style)
+
+-Download the [OSM data](https://www.openstreetmap.org/export#map=11/-6.8240/39.3026) (unfortunately my file was too large to be uploaded to Github, so the link takes you to OSM) 
+-Download the [batch script](convertOSM.bat) and [style file](dsm.style)
 
 ### Loading RA dataset to PostGIS server <a name="env-b"></a>
 The RA data can be downloaded to QGIS straight from its Web Feature Server (WFS) and then imported to our database. In QGIS `Browser`, right-click `WFS` and go to `New Connection` and enter the URL https://geonode.resilienceacademy.ac.tz/geoserver/ows. Open the ‘Dar es Salaam Waste Sites’ layer in QGIS. Then open `DB manager`, click `Import Layer/File`, and chose the layer. Be sure to rename it to have all lowercase, as SQL does not fare well with uppercase letters. I renamed by layer ‘ws’. Do the same for the ‘Dar es Salaam Administrative Subward’ layer. This layer is badly organized, so one must designate the id column to ‘fid’ or else it will fail. 
@@ -34,7 +35,7 @@ The RA data can be downloaded to QGIS straight from its Web Feature Server (WFS)
 ## Looking at the Data <a name="look"></a>
 
 ### OSM data <a name="look-a"></a>
-Let us visualize the OSM data we will be working with, namely the waterway data. Certain line segments of the waterways have a tag indicating that it has a blockage. We will visualize both using a few lines of SQL in the Database Manager.""
+Let us visualize the OSM data we will be working with, namely the waterway data. Certain segments of the waterways have a tag indicating that it has a blockage. We will visualize both using a few lines of SQL in the Database Manager.
 
 The following code isolates the waterway line segments. 
 ```sql
@@ -42,18 +43,18 @@ SELECT* FROM planet_osm_line
 WHERE waterway is not null
 ```
 Then, click on load as new layer. I will do the same for blockages. 
-
+```sql
 SELECT* FROM planet_osm_line
 WHERE waterway IS NOT NULL AND blockage IS NOT NULL AND blockage <> ‘no’
-
-IMAGE0
+```
+![osm_data](image0.png)
 Blocked waterways in magenta, layered on top. Waterways in green. 
 
 We see that the line segments are mostly concentrated at the downtown area in the center of the map. Since waterways include not only manmade drainage systems but also streams and rivers, this is a flaw in the dataset; some areas are simply not mapped. However, this should not be a problem to our research as the data is complete in the areas we are most interested: highly populated, low elevation/coastal regions where flood risk and vulnerability are highest. From the population map, we see that the map is complete in the highly-populated districts. So, I conclude that this data is complete enough for our research. 
-( https://www.researchgate.net/profile/Marcia_Castro4/publication/42346117/figure/fig1/AS:340846374342658@1458275516854/Population-density-by-ward-and-major-roads-in-Dar-es-Salaam-Tanzania-2006-Ward.png)
+![pop-density](https://www.researchgate.net/profile/Marcia_Castro4/publication/42346117/figure/fig1/AS:340846374342658@1458275516854/Population-density-by-ward-and-major-roads-in-Dar-es-Salaam-Tanzania-2006-Ward.png | width=200)
 Source: Penrose, Katherine & Castro, Marcia & Werema, Japhet & Ryan, Edward. (2010). Informal Urban Settlements and Cholera Risk in Dar es Salaam, Tanzania. PLoS neglected tropical diseases. 4. e631. 10.1371/journal.pntd.0000631.
 
-IMAGE 01
+![osm_data_zoom](image01.png)
 
 Zooming in, we see inconsistency in the way blockage is labeled. For some waterways, the entirety of its length is tagged as blocked. In others, only a small segment of the waterway (presumably the segment where the blockage is) is tagged. This will obviously create inconsistencies in the final analysis. 
 
@@ -61,7 +62,7 @@ Zooming in, we see inconsistency in the way blockage is labeled. For some waterw
 
 Let us also visualize the RA’s data using QGIS. Each point corresponds to a waste site. 
 
-IMAGE 1
+![ra_data](image1.png)
 
 The points are concentrated in the downtown area as one would expect, but half of the wards do not have a single data point. For the underpopulated, peripheral regions, it is not a problem for the reasons discussed before. However, there is a notable lack in data in the southern portion of central Dar es Salaam, namely the Mbagala and Kurasini areas. This will introduce a significant gap of knowledge to our study, since these areas are of extreme interest: highly populated and with significant drain blockages. 
 
