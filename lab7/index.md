@@ -1,4 +1,4 @@
-# Lab7: Web Mapping with Leaflet
+# Lab Seven: Web Mapping with Leaflet
 
 ## Table of Contents
 1. [Objective](#goal)
