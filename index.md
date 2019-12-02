@@ -1,18 +1,21 @@
 
 
-[lab7](/lab7/index.md)
+# [Lab Seven: Web Mapping with Leaflet](/lab7/index.md)
+Creating a ‘slippy’ webmap is very easy to do thanks to the myriad of opensource plugins and software that is available now. The two most popular are OpenLayers and Leaflet, which uses javascript files exported from QGIS layers to create a in-browser visualisation. The goal of this lab is to create this webmap. The steps are straightforward, but bugs and glitches are rather common. I will walk you through how I made this webmap.
 
-[lab6](/lab6/index.md)
-
-[September 25th, 2019 --- updated qGIS model for distance and direction calculation](9-25-2019-Model.md)
-
+# [Lab Six: OpenStreetMap Data on PostGIS](/lab6/index.md)
+The goal of this lab is to use OpenStreetMap (OSM) and Tanzania Resilience Academy (RA) data to quantify a dimension of vulnerability, and create a visualization at the sub-ward level to aid policy action. I will specifically be looking at the vulnerability caused by the build-up of rubbish in areas that are near existing drain blockages, but are inaccessible by vehicle. The goal of my final visualization is to highlight the sub-wards that are in dire need of reviewing its road and trash-collection infrastructure to lower their vulnerability to the next big flood.
 
 
-[September 12th, 2019 --- qGIS model for distance and direction calculation](9-12-19-qGISModel.html)
-
+# [September 25th, 2019 --- updated qGIS model for distance and direction calculation](9-25-2019-Model.md)
 
 
 
-[September 9th, 2019 --- FOSS4G conference article review](9-9-19-article.html)
+# [September 12th, 2019 --- qGIS model for distance and direction calculation](9-12-19-qGISModel.html)
+
+
+
+
+# [September 9th, 2019 --- FOSS4G conference article review](9-9-19-article.html)
 
 
