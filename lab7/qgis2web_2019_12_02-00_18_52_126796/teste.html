@@ -204,12 +204,6 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['_uid_'] !== null ? Autolinker.link(feature.properties['_uid_'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(feature.properties['osm_id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <td colspan="2">' + (feature.properties['waterway'] !== null ? Autolinker.link(feature.properties['waterway'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
@@ -256,12 +250,6 @@
                 mouseover: highlightFeature,
             });
             var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['_uid_'] !== null ? Autolinker.link(feature.properties['_uid_'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(feature.properties['osm_id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['waterway'] !== null ? Autolinker.link(feature.properties['waterway'].toLocaleString()) : '') + '</td>\
                     </tr>\
