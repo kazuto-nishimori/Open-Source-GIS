@@ -11,8 +11,8 @@
 6. [Tweaking the html](#html)  
     1. [Changing the size of map](#html-a)
     2. [Modifying symbology](#html-b)    
-    3. [3](#html-c)
-    4. [4](#html-d) 
+    3. [Editing the legend](#html-c)
+    4. [Editing the footer](#html-d) 
     
 ## Objective <a name="goal"></a>
 
@@ -151,14 +151,14 @@ function style_Footsites_near_4_0(feature) {
             }
 ``` 
 
-### Editing the legend <a name="html-b"></a>
+### Editing the legend <a name="html-c"></a>
 Let us edit the text in the legend, since as of now it shows the name of the layer. The code for this is found at the bottom of the file in the function `L.control.layers`. I swapped `footsite_near` with the following. I added `<br>` tags to insert line breaks to preserve horizontal space. 
 
 ```html
-Sites accessible<br>    only by foot,<br>    near blockages
+Sites accessible<br>only by foot,<br>near blockages
 ```
 
-### Editing the footer
+### Editing the footer <a name="html-d"></a>
 The function `map.attributionControl.setPrefix()` contains the footer, and I added my name and a link to my Github page. I pasted the following line. 
 
 ```html
