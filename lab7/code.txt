@@ -1,0 +1,48 @@
+select osm_id, way, waterway
+from planet_osm_line
+where waterway is not null
+
+select osm_id, way, waterway
+from planet_osm_line
+where waterway is not null and blockage is not null and blockage <> 'no'
+
+select id,geom,trash_score
+from ws2
+where access_typ ='Foot only' and near_blockage is true and trash_score is not null
+
+
+
+
+Line 11 between the style markers. 
+
+        <style>
+        html, body, #map {
+
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+
+        }
+        </style>
+
+
+find the style function for the dots. change opacity to .15
+
+function style_Footsites_near_4_0(feature) {
+            switch(String(feature.properties['trash_scor'])) {
+                case '1':
+                    return {
+                pane: 'pane_Footsites_near_4',
+                radius: 1.0,
+                opacity: .15,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: .15,
+                fillColor: 'rgba(158,91,66,1.0)',
+                interactive: false,
+            }
