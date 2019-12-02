@@ -9,8 +9,8 @@
 4. [Exporting to Leaflet](#exp)
 5. [Problem with choropleth maps](#pro)
 6. [Tweaking the html](#html)  
-    1. [1](#html-a)
-    2. [2](#html-b)    
+    1. [Changing the size of map](#html-a)
+    2. [Modifying symbology](#html-b)    
     3. [3](#html-c)
     4. [4](#html-d) 
     
@@ -109,8 +109,61 @@ Lo and behold, the choropleth map finally worked. This does not fix the legend, 
 
 ## Tweaking the HTML <a name="html"></a>
 
-Further edits must be made in the html file to optimize user experience. Firstly, I changed the size of the map, which used to have a defined 
+### Changing the size of map <a name="html-a"></a>
 
+Further edits must be made in the html file to optimize user experience. Firstly, I changed the size of the map, which by default has a width and height defined by a certain number pixels.  The css code is towards the top of the html file, around line 10. The style tags can be simply replaced by the latter so that the map fills up the entire browser window. Notice that the width and height are now dynamically defined by percentage of the window rather than the number of pixels. 
+
+``` html
+
+
+<style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+
+```
+
+### Modifying symbology <a name="html-b"></a>
+
+During the export process, the opacity settings get lost. Therefore, it is necessary to change this through html as well. You will find style functions for each layer, and it is rather self-explanatory. The number following `opacity` and `fillOpacity` are respectively the opacities for the stroke and fill. For the waste site layer, I changed the two opacities to 0.15. Here, you can also do most things you can do under symbology such as swapping the color changing the radius of the dot.
+
+``` html
+function style_Footsites_near_4_0(feature) {
+            switch(String(feature.properties['trash_scor'])) {
+                case '1':
+                    return {
+                pane: 'pane_Footsites_near_4',
+                radius: 1.0,
+                opacity: .15,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: .15,
+                fillColor: 'rgba(158,91,66,1.0)',
+                interactive: false,
+            }
+``` 
+
+### Editing the legend <a name="html-b"></a>
+Let us edit the text in the legend, since as of now it shows the name of the layer. The code for this is found at the bottom of the file in the function `L.control.layers`. I swapped `footsite_near` with the following. I added `<br>` tags to insert line breaks to preserve horizontal space. 
+
+```html
+Sites accessible<br>    only by foot,<br>    near blockages
+```
+
+### Editing the footer
+The function `map.attributionControl.setPrefix()` contains the footer, and I added my name and a link to my Github page. I pasted the following line. 
+
+```html
+<a href="https://kazuto-nishimori.github.com/" target="_blank">Cartography by Kazuto Nishimori</a>
+```
 
 
 
