@@ -10,15 +10,10 @@
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
 		html, body, #map {
-
             width: 100%;
-
             height: 100%;
-
             padding: 0;
-
             margin: 0;
-
         }
         </style>
         <title></title>
@@ -50,7 +45,7 @@
             zoomControl:true, maxZoom:19, minZoom:6
         }).fitBounds([[-7.18518319096669,38.97477173853735],[-6.562886556431957,39.754075074602945]]);
         var hash = new L.Hash(map);
-        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        map.attributionControl.setPrefix('<a href="https://kazuto-nishimori.github.com/" target="_blank">Cartography by Kazuto Nishimori</a> <a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
