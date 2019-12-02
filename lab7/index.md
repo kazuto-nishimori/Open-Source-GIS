@@ -16,6 +16,8 @@
     
 ## Objective <a name="goal"></a>
 
+Creating a 'slippy' webmap is very easy to do thanks to the myriad of opensource plugins and software that is available now. The two most popular are OpenLayers and Leaflet, which uses javascript files exported from QGIS layers to create a in-browser visualisation. The goal of this lab is to create this [webmap](/qgis2web_2019_12_02-00_18_52_126796/index.html). The steps are straightforward, but bugs and glitches are rather common. I will walk you through how I made this webmap. 
+
 ## Creating the Layers to be Exported <a name="crt"></a>
 
 Before we export anything to leaflet, we must make new layers that are stripped of all columns expect the bare minimum: the data that will be displayed. The reason is twofold. This minimizes the size of the file, making the viewing experience on the web browser smoother. In addition, unsecured JSON files can be downloaded and its data extracted; one could accidentally leak sensitive or licensed data on the web. For these reasons, it is important to minimize the attributes. 
@@ -164,8 +166,7 @@ The function `map.attributionControl.setPrefix()` contains the footer, and I add
 ```html
 <a href="https://kazuto-nishimori.github.com/" target="_blank">Cartography by Kazuto Nishimori</a>
 ```
-
-
+And voila! This is the [final product.](/qgis2web_2019_12_02-00_18_52_126796/index.html) 
 
 
 
