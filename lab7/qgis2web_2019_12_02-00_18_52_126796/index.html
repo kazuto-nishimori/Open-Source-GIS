@@ -10,15 +10,10 @@
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
 		html, body, #map {
-
             width: 100%;
-
             height: 100%;
-
             padding: 0;
-
             margin: 0;
-
         }
         </style>
         <title></title>
@@ -50,7 +45,7 @@
             zoomControl:true, maxZoom:19, minZoom:6
         }).fitBounds([[-7.18518319096669,38.97477173853735],[-6.562886556431957,39.754075074602945]]);
         var hash = new L.Hash(map);
-        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        map.attributionControl.setPrefix('<a href="https://kazuto-nishimori.github.com/" target="_blank">Cartography by Kazuto Nishimori</a> <a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -64,51 +59,122 @@
         });
         layer_OSMStandard_0;
         map.addLayer(layer_OSMStandard_0);
+		
+		
         function pop_map_1(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['score_norm'] !== null ? Autolinker.link(feature.properties['score_norm'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['score_norm'] !== null ? Autolinker.link(String(feature.properties['score_norm'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_map_1_0() {
-            return {
+
+        function style_map_1_0(feature) {
+            if (feature.properties['score_norm'] >= 0 && feature.properties['score_norm'] <= 0.1 ) {
+                return {
                 pane: 'pane_map_1',
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
+                opacity: .1,
+                color: 'rgba(84, 84, 84, 1)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1.0, 
+                weight: 1, 
                 fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(243,166,178,1.0)',
+                fillOpacity: 0.2,
+                fillColor: 'rgba(158, 158, 158, 1)',
                 interactive: false,
             }
+            }
+			
+            if (feature.properties['score_norm'] >= 0.1 && feature.properties['score_norm'] <= 6548568.72 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 242, 242, 1)',
+                interactive: false,
+            }
+            }
+
+            if (feature.properties['score_norm'] >= 6548568.72 && feature.properties['score_norm'] <= 18422920.45 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 191, 191, 1)',
+                interactive: false,
+            }
+            }
+
+            if (feature.properties['score_norm'] >= 18422920.45 && feature.properties['score_norm'] <= 36497607.71 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 128, 128, 1)',
+                interactive: false,
+            }
+            }
+
+            if (feature.properties['score_norm'] >= 36497607.71 && feature.properties['score_norm'] <= 130215322.47 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 64, 64, 1)',
+                interactive: false,
+            }
+            }
+
+            if (feature.properties['score_norm'] >= 130215322.47 && feature.properties['score_norm'] <= 205005478.16 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 0, 0, 1)',
+                interactive: false,
+            }
+            }
         }
+
         map.createPane('pane_map_1');
         map.getPane('pane_map_1').style.zIndex = 401;
         map.getPane('pane_map_1').style['mix-blend-mode'] = 'normal';
         var layer_map_1 = new L.geoJson(json_map_1, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_map_1',
             layerName: 'layer_map_1',
             pane: 'pane_map_1',
@@ -117,6 +183,7 @@
         });
         bounds_group.addLayer(layer_map_1);
         map.addLayer(layer_map_1);
+		
         function pop_Waterway_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -132,12 +199,6 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['_uid_'] !== null ? Autolinker.link(feature.properties['_uid_'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(feature.properties['osm_id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <td colspan="2">' + (feature.properties['waterway'] !== null ? Autolinker.link(feature.properties['waterway'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
@@ -147,7 +208,7 @@
         function style_Waterway_2_0() {
             return {
                 pane: 'pane_Waterway_2',
-                opacity: 1,
+                opacity: .5,
                 color: 'rgba(24,143,139,1.0)',
                 dashArray: '',
                 lineCap: 'square',
@@ -185,12 +246,6 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['_uid_'] !== null ? Autolinker.link(feature.properties['_uid_'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['osm_id'] !== null ? Autolinker.link(feature.properties['osm_id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <td colspan="2">' + (feature.properties['waterway'] !== null ? Autolinker.link(feature.properties['waterway'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
@@ -200,7 +255,7 @@
         function style_Blockage_3_0() {
             return {
                 pane: 'pane_Blockage_3',
-                opacity: 1,
+                opacity: .5,
                 color: 'rgba(237,136,58,1.0)',
                 dashArray: '',
                 lineCap: 'square',
@@ -238,12 +293,6 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['_uid_'] !== null ? Autolinker.link(feature.properties['_uid_'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['id'] !== null ? Autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <td colspan="2">' + (feature.properties['trash_scor'] !== null ? Autolinker.link(feature.properties['trash_scor'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
@@ -256,14 +305,14 @@
                     return {
                 pane: 'pane_Footsites_far_4',
                 radius: 1.0,
-                opacity: 1,
+                opacity: .08,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: .15,
                 fillColor: 'rgba(218,210,235,1.0)',
                 interactive: false,
             }
@@ -272,14 +321,14 @@
                     return {
                 pane: 'pane_Footsites_far_4',
                 radius: 3.0,
-                opacity: 1,
+                opacity: .08,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: .15,
                 fillColor: 'rgba(218,210,235,1.0)',
                 interactive: false,
             }
@@ -288,14 +337,14 @@
                     return {
                 pane: 'pane_Footsites_far_4',
                 radius: 6.0,
-                opacity: 1,
+                opacity: .08,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: .15,
                 fillColor: 'rgba(218,210,235,1.0)',
                 interactive: false,
             }
@@ -304,14 +353,14 @@
                     return {
                 pane: 'pane_Footsites_far_4',
                 radius: 12.0,
-                opacity: 1,
+                opacity: .08,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: .15,
                 fillColor: 'rgba(218,210,235,1.0)',
                 interactive: false,
             }
@@ -370,14 +419,14 @@
                     return {
                 pane: 'pane_Footsites_near_5',
                 radius: 1.0,
-                opacity: 1,
+                opacity: .08,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: .15,
                 fillColor: 'rgba(158,91,66,1.0)',
                 interactive: false,
             }
@@ -386,14 +435,14 @@
                     return {
                 pane: 'pane_Footsites_near_5',
                 radius: 3.0,
-                opacity: 1,
+                opacity: .08,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: .15,
                 fillColor: 'rgba(158,91,66,1.0)',
                 interactive: false,
             }
@@ -402,14 +451,14 @@
                     return {
                 pane: 'pane_Footsites_near_5',
                 radius: 6.0,
-                opacity: 1,
+                opacity: .08,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: .15,
                 fillColor: 'rgba(158,91,66,1.0)',
                 interactive: false,
             }
@@ -418,14 +467,14 @@
                     return {
                 pane: 'pane_Footsites_near_5',
                 radius: 12.0,
-                opacity: 1,
+                opacity: .08,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1,
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: .15,
                 fillColor: 'rgba(158,91,66,1.0)',
                 interactive: false,
             }
@@ -453,7 +502,7 @@
         bounds_group.addLayer(layer_Footsites_near_5);
         map.addLayer(layer_Footsites_near_5);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Footsites_near<br /><table><tr><td style="text-align: center;"><img src="legend/Footsites_near_5_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_near_5_101.png" /></td><td>10</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_near_5_502.png" /></td><td>50</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_near_5_2503.png" /></td><td>250</td></tr></table>': layer_Footsites_near_5,'Footsites_far<br /><table><tr><td style="text-align: center;"><img src="legend/Footsites_far_4_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_far_4_101.png" /></td><td>10</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_far_4_502.png" /></td><td>50</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_far_4_2503.png" /></td><td>250</td></tr></table>': layer_Footsites_far_4,'<img src="legend/Blockage_3.png" /> Blockage': layer_Blockage_3,'<img src="legend/Waterway_2.png" /> Waterway': layer_Waterway_2,'<img src="legend/map_1.png" /> map': layer_map_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Sites accessible<br>only by foot,<br> near blockages<br /><table><tr><td style="text-align: center;"><img src="legend/Footsites_near_5_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_near_5_101.png" /></td><td>10</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_near_5_502.png" /></td><td>50</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_near_5_2503.png" /></td><td>250</td></tr></table>': layer_Footsites_near_5,'Sites accessible<br>    only by foot<br /><table><tr><td style="text-align: center;"><img src="legend/Footsites_far_4_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_far_4_101.png" /></td><td>10</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_far_4_502.png" /></td><td>50</td></tr><tr><td style="text-align: center;"><img src="legend/Footsites_far_4_2503.png" /></td><td>250</td></tr></table>': layer_Footsites_far_4,'<img src="legend/Blockage_3.png" /> Blockage': layer_Blockage_3,'<img src="legend/Waterway_2.png" /> Waterway': layer_Waterway_2,'<img src="legend/map_1.png" /> Area-Normalized<br>    Trash Score': layer_map_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
         setBounds();
         </script>
     </body>
