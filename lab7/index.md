@@ -88,7 +88,7 @@ I first exported the map but turned my choropleth map back into the original sub
 
 I looked at a html code of an existing choropleth [map]( https://gis4dev.github.io/leaflet_test/index.html) on leaflet made by my professor. I copied the entire block of code responsible for the choropleth layer onto notepad. I found and replaced every mention of the layer name with the name of my layer: ‘map_1’ using `ctrl + F`. I did the same for the feature name: ‘score_norm’. Of course, the bounds for the classification must be changed also. Finally, I changed the colors and opacity to the settings I had on the choropleth map in QGIS. The entire code can be found [here](test.html) but here is a snippet of what it looks like. 
 
-``` html
+```
 function style_map_1_0(feature) {
 
             if (feature.properties['score_norm'] >= 0 && feature.properties['score_norm'] <= 0.1 ) {
@@ -115,9 +115,7 @@ Lo and behold, the choropleth map finally worked. This does not fix the legend, 
 
 Further edits must be made in the html file to optimize user experience. Firstly, I changed the size of the map, which by default has a width and height defined by a certain number pixels.  The css code is towards the top of the html file, around line 10. The style tags can be simply replaced by the latter so that the map fills up the entire browser window. Notice that the width and height are now dynamically defined by percentage of the window rather than the number of pixels. 
 
-``` html
-
-
+``` 
 <style>
         html, body, #map {
             width: 100%;
@@ -125,15 +123,14 @@ Further edits must be made in the html file to optimize user experience. Firstly
             padding: 0;
             margin: 0;
         }
-        </style>
-
+</style>
 ```
 
 ### Modifying symbology <a name="html-b"></a>
 
 During the export process, the opacity settings get lost. Therefore, it is necessary to change this through html as well. You will find style functions for each layer, and it is rather self-explanatory. The number following `opacity` and `fillOpacity` are respectively the opacities for the stroke and fill. For the waste site layer, I changed the two opacities to 0.15. Here, you can also do most things you can do under symbology such as swapping the color changing the radius of the dot.
 
-``` html
+``` 
 function style_Footsites_near_4_0(feature) {
             switch(String(feature.properties['trash_scor'])) {
                 case '1':
