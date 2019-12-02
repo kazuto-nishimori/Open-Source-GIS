@@ -82,7 +82,7 @@ IMAGE of error
 
 I first exported the map but turned my choropleth map back into the original sub-ward map through symbology. I will edit the output file by transplanting code from a working leaflet choropleth map. 
 
-<img src="/lab7/image1.PNG" width="800">
+<img src="/lab7/image4.PNG" width="800">
 
 I looked at a html code of an existing choropleth [map]( https://gis4dev.github.io/leaflet_test/index.html) on leaflet made by my professor. I copied the entire block of code responsible for the choropleth layer onto notepad. I found and replaced every mention of the layer name with the name of my layer: ‘map_1’ using `ctrl + F`. I did the same for the feature name: ‘score_norm’. Of course, the bounds for the classification must be changed also. Finally, I changed the colors and opacity to the settings I had on the choropleth map in QGIS. The entire code can be found [here](test.html) but here is a snippet of what it looks like. 
 
