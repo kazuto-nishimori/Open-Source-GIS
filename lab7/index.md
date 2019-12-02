@@ -13,6 +13,7 @@
     2. [Modifying symbology](#html-b)    
     3. [Editing the legend](#html-c)
     4. [Editing the footer](#html-d) 
+7. [Final Product](#final)  
     
 ## Objective <a name="goal"></a>
 
@@ -163,6 +164,8 @@ The function `map.attributionControl.setPrefix()` contains the footer, and I add
 ```html
 <a href="https://kazuto-nishimori.github.com/" target="_blank">Cartography by Kazuto Nishimori</a>
 ```
+
+## Final Product <a name="final"></a>
 And voila! This is the [final product.](/qgis2web_2019_12_02-00_18_52_126796/index.html) 
 
 
