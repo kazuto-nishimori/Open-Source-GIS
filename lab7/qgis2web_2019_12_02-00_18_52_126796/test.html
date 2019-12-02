@@ -1,0 +1,123 @@
+
+        function pop_map_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['score_norm'] !== null ? Autolinker.link(String(feature.properties['score_norm'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+
+        function style_map_1_0(feature) {
+            if (feature.properties['score_norm'] >= 0 && feature.properties['score_norm'] <= 0.1 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: .1,
+                color: 'rgba(84, 84, 84, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 0.1,
+                fillColor: 'rgba(158, 158, 158, 1)',
+                interactive: true,
+            }
+            }
+			
+            if (feature.properties['score_norm'] >= 0.1 && feature.properties['score_norm'] <= 6548568.72 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 242, 242, 1)',
+                interactive: true,
+            }
+            }
+
+            if (feature.properties['score_norm'] >= 6548568.72 && feature.properties['score_norm'] <= 18422920.45 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 191, 191, 1)',
+                interactive: false,
+            }
+            }
+
+            if (feature.properties['score_norm'] >= 18422920.45 && feature.properties['score_norm'] <= 36497607.71 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 128, 128, 1)',
+                interactive: false,
+            }
+            }
+
+            if (feature.properties['score_norm'] >= 36497607.71 && feature.properties['score_norm'] <= 130215322.47 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 64, 64, 1)',
+                interactive: false,
+            }
+            }
+
+            if (feature.properties['score_norm'] >= 130215322.47 && feature.properties['score_norm'] <= 195005478.16 ) {
+                return {
+                pane: 'pane_map_1',
+                opacity: 1,
+                color: 'rgba(209, 209, 209, 1)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255, 0, 0, 1)',
+                interactive: false,
+            }
+            }
+        }
+
+        map.createPane('pane_map_1');
+        map.getPane('pane_map_1').style.zIndex = 401;
+        map.getPane('pane_map_1').style['mix-blend-mode'] = 'normal';
+        var layer_map_1 = new L.geoJson(json_map_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_map_1',
+            layerName: 'layer_map_1',
+            pane: 'pane_map_1',
+            onEachFeature: pop_map_1,
+            style: style_map_1_0,
+        });
+        bounds_group.addLayer(layer_map_1);
+        map.addLayer(layer_map_1);
