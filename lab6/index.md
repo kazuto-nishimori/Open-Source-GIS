@@ -80,7 +80,7 @@ The points are concentrated in the downtown area as one would expect, but half o
 Several columns in this dataset are unique and interesting, and they prompted me to conduct this research in the first place. The access_typ column shows the accessibility for each waste site: foot only, by cart or by truck. The trash_size column reveals the size of the site: handful, bagful, cartload, or truckload. These two columns are the most useful for our research. Since we are interested in the inaccessible sites, the points with foot only access will be isolated. In addition, the trash size must be quantified into some sort of ‘trash score’ for it to be useful. We can easily isolate the points of interest with a quick SQL line in the DB manager. 
 ```sql
 SELECT* FROM ws
-WHERE access_typ = ‘Foot only’
+WHERE access_typ = `Foot only`
 ```
 Then, click on `load as new layer`. I used symbology to differentiate the trash size. Blue is handful and red is truckload.
 
@@ -108,10 +108,10 @@ ALTER TABLE ws ADD trash_score INT;
 UPDATE ws 
 SET trash_score = 
 CASE 
-WHEN trash_size = ‘Handful’ THEN 1
-WHEN trash_size = ‘Bagful’ THEN 10
-WHEN trash_size = ‘Cartload’ THEN 50
-WHEN trash_size = ‘Truckload’ THEN 250
+WHEN trash_size = `Handful` THEN 1
+WHEN trash_size = `Bagful` THEN 10
+WHEN trash_size = `Cartload` THEN 50
+WHEN trash_size = `Truckload` THEN 250
 END
 ```
 ### Creating blocked waterway buffer <a name="ana-b"></a>
@@ -119,9 +119,9 @@ END
 We will create a new table for the buffer. Whenever creating a new table, it is paramount to include a unique id as one of our columns as I have done in the `SELECT` line. You might also notice that I put all the columns I wish migrate to the new table, namely the blockage and waterway columns. The last part of the `SELECT` line selects the 20-meter buffer and designates it the new geometry column for the table. The `WHERE` line makes sure that I only select only the blocked waterways. 
 ```sql
 CREATE TABLE waterway_buffer AS 
-SELECT osm_id, blockage, waterway, st_buffer(geography(a.way), 20)::geometry(‘polygon,4326’) AS geom
+SELECT osm_id, blockage, waterway, st_buffer(geography(a.way), 20)::geometry(`polygon,4326`) AS geom
 FROM planet_osm_line as a
-WHERE blockage IS NOT NULL AND blockage <> = ‘no’
+WHERE blockage IS NOT NULL AND blockage <> = `no`
 ```
 ### Selecting targeted waste sites <a name="ana-c"></a>
 
