@@ -1,4 +1,7 @@
 
+
+[lab7](/lab7/index.md)
+
 [lab6](/lab6/index.md)
 
 [September 25th, 2019 --- updated qGIS model for distance and direction calculation](9-25-2019-Model.md)
