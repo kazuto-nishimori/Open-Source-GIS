@@ -21,7 +21,7 @@
 Before we export anything to leaflet, we must make new layers that are stripped of all columns expect the bare minimum: the data that will be displayed. The reason is twofold. This minimizes the size of the file, making the viewing experience on the web browser smoother. In addition, unsecured JSON files can be downloaded and its data extracted; one could accidentally leak sensitive or licensed data on the web. For these reasons, it is important to minimize the attributes. 
 
 ### Using drop fields <a name="crt-a"></a>
-We can do this simply with the `Drop Fields` tool that can be found via the `Processing Toolbox`. It is simple as clicking on the columns to drop. For the final output layer from last week’s lab, I will only preserve the unique fid and the normalized scores. Afterwards, it is necessary to export this new layer as a shape file to make it permanent. 
+We can do this simply with the `Drop Fields` tool that can be found via the `Processing Toolbox`. It is as simple as clicking on the columns to drop. For the final output layer from last week’s lab, I will only preserve the unique fid and the normalized scores. Afterwards, it is necessary to export this new layer as a shape file to make it permanent. 
 
 <img src="/lab7/image1.PNG" width="800">
 
@@ -62,9 +62,9 @@ Once the layers are exported to Leaflet, it is very difficult to change the appe
 
 ## Exporting the Layers to Leaflet <a name="exp"></a>
 
-To export the layers, you must first install a plugin called QGIS2WEB. It is found with a quick search under `Plugins` -> `Manage and Install Plugins`. The new plugin is found under `Web` -> `QGIS2WEB` -> `Create Web Map`. This plugin automates the conversion of layers to JSON format and creates an html file. 
+To export the layers, you must first install a plugin called QGIS2WEB. It is found with a quick search under `Plugins` -> `Manage and Install Plugins`. The new plugin is found under `Web` -> `QGIS2WEB` -> `Create Web Map`. This plugin automates the conversion of layers to JSON format and creates a html file. 
 
-Make sure to click on only the layers you need. For each layer, checking the `visible` box sets that layer to be visible upon opening. The `popup` box can be toggled to choose whether the users can see the values by hovering over the feature. 
+Make sure to click on only the layers you need. For each layer, checking the `visible` box sets that layer to be visible upon opening the map. The `popup` box can be checked to allow users to see the values by hovering over the feature. 
 
 IMAGE HERE
 
@@ -76,13 +76,13 @@ Finally, chose a folder and export!
 
 ## Problem with Choropleth maps <a name="pro"></a>
 
-I learned the hard way that there is a rather common glitch with QGIS2WEB when trying to export a choropleth map. I could not get past a ‘NONETYPE’ error when trying to export this map. I tried many different things, but I could not figure out a straight forward way to circumvent this problem, and solving it was beyond the scope of this lab. Here is the bandage solution that I came up with. 
+I learned the hard way that there is a rather common glitch with QGIS2WEB when trying to export a choropleth map. I could not get past a ‘NONETYPE’ error when trying to export this map. I tried many different things, but it was impossible to circumvent this problem in a straight-forward way, and trying to fix the plug-in beyond the scope of this lab. Here is the bandage solution that I came up with. 
 
 IMAGE of error
 
 I first exported the map but turned my choropleth map back into the original sub-ward map through symbology. I will edit the output file by transplanting code from a working leaflet choropleth map. 
 
-IMAGE of how it looked post export
+<img src="/lab7/image1.PNG" width="800">
 
 I looked at a html code of an existing choropleth [map]( https://gis4dev.github.io/leaflet_test/index.html) on leaflet made by my professor. I copied the entire block of code responsible for the choropleth layer onto notepad. I found and replaced every mention of the layer name with the name of my layer: ‘map_1’ using `ctrl + F`. I did the same for the feature name: ‘score_norm’. Of course, the bounds for the classification must be changed also. Finally, I changed the colors and opacity to the settings I had on the choropleth map in QGIS. The entire code can be found [here](test.html) but here is a snippet of what it looks like. 
 
