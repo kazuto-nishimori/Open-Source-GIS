@@ -138,7 +138,7 @@ Let us make a new table called `ws_mod` that only consists of the sites we are i
 ```sql
 CREATE TABLE ws_mod AS
 SELECT* FROM ws
-WHERE access_typ = ‘Foot only’ AND near_blockage = TRUE AND trash_score IS NOT NULL
+WHERE access_typ = `Foot only` AND near_blockage = TRUE AND trash_score IS NOT NULL
 ```
 ### Summing the trash score <a name="ana-d"></a>
 
