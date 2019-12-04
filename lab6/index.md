@@ -193,5 +193,5 @@ Below is a map comparing the distribution of waste site points to our final map.
 
 <img src="/lab6/image8.PNG" width="400">
 
-In the next lab, we will be going into more depth about visualizing data from this lab, and how to upload an interactive map to the web!
+In the [next lab](/lab7), we will be going into more depth about visualizing data from this lab, and how to upload an [interactive map](/lab7/qgis2web_2019_12_02-00_18_52_126796) to the web! 
 
