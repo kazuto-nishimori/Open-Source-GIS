@@ -47,13 +47,13 @@
 
 [DHS]( https://dhsprogram.com/What-We-Do/Survey-Types/DHS.cfm) is conducted by [USAID]( https://www.usaid.gov/) every five years and collects nationally representative high-volume data on health and population in developing countries. This survey is at the household level, but to protect confidentiality, the geospatial information is not available at this scale. Instead, several neighboring households are grouped together into a cluster, and the cluster’s coordinates are randomized within a certain area (5km radius for rural areas and 2km for urban) that does not cross the district border. There are around 850 clusters in Malawi (area of 120,000 km2). This data contains several hundred columns for each household documenting anything from the number and type of cattle to respondent’s smoking habit. We used data from 2010 as the authors had done, but unfortunately it cannot be shared due to DHS’s policy. Fortunately, the data is easily obtainable but it does require a formal request. Here ere you can download the metadata: [DHS_metadata.text](/DHS_metadata.text), [DHS_Survey_Vars.pdf](/DHS_Survey_Vars.pdf. 
 )
-### Traditional Authority shape file
+#### Traditional Authority shape file
 The shape file for the TA was obtained here
 
-### Malawi lakes shape file
+#### Malawi lakes shape file
 The shape file for the major lakes of Malawi was obtained through the [Malawi Spatial Data Platform]( http://www.masdap.mw/)
 
-## Retracing the steps <a name="rac-b"></a>
+### Retracing the steps <a name="rac-b"></a>
 We followed Malcolm et al.’s methodology and instructions (where they existed) to attempt to reproduce the Adaptive Capacity map. However, the results were much less than satisfactory, even though we started with the same dataset as the authors. We attribute this to the significant holes in their explanation of the important decisions (i.e. sources of biases) that went into the production of the map.
 
 To create this map, the first step is to add a column to our survey data table that indicates the id of the TA in which it resides, since the results will later be aggregated by TA. However, the survey data has no coordinate information, only the cluster id. So, we added a TA id column to the DHS cluster shapefile and this column was populated using a simple `st_intersects()` operation with the TA layer. Then, this TA id column was joined to the survey table via cluster id.  
@@ -88,7 +88,7 @@ The map we recreated is no reproduction of the one by Malcomb et al.. Although w
 The SQL file for all the operations done in this step is found here. You can look through the code to see how we decided to quantify the results. 
 The final capacity map is found here. (Courtesy of Professor Holler) 
 
-## Uncertainty propagation <a name="rac-c"></a>
+### Uncertainty propagation <a name="rac-c"></a>
 
 Attempting to reproduce the map raised questions of uncertainty propagation that was never brought up by the authors. We propose that the method of data collection by the DHS makes this dataset not suitable for aggregation at the TA scale. As we discussed earlier, the survey is designed to be representative of the population of Malawi at the national scale. Although not explicitly stated, we can infer that this is also true at the district scale. We saw that the coordinates of the clusters were randomized in such way to never cross the district borders. This we presume is because the clusters were chosen to be representative of their district.
 
