@@ -41,7 +41,7 @@
 
 ## Reproducing Adaptive Capacity Map <a name="rac"></a>
 
-### Data Used in Adaptive Capacity map <a name="rac-a"></a>
+### Data Used <a name="rac-a"></a>
 
 #### Demographic and Health Surveys (DHS)
 
