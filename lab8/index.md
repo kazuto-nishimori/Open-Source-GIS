@@ -92,7 +92,7 @@ The map we recreated is no reproduction of the one by Malcomb et al.. Although w
 The SQL file for all the operations done in this step is found here. You can look through the code to see how we decided to quantify the results. 
 The final capacity map is found here. (Courtesy of Professor Holler) 
 
-### Uncertainty propagation end ethics of data presentation<a name="rac-c"></a>
+### Uncertainty propagation and ethics of data presentation<a name="rac-c"></a>
 
 Attempting to reproduce the map raised questions of uncertainty propagation that was never brought up by the authors. We propose that the method of data collection by the DHS makes this dataset not suitable for aggregation at the TA scale. As we discussed earlier, the survey is designed to be representative of the population of Malawi at the national scale. Although not explicitly stated, we can infer that this is also true at the district scale. We saw that the coordinates of the clusters were randomized in such way to never cross the district borders. This we presume is because the clusters were chosen to be representative of their district.
 
