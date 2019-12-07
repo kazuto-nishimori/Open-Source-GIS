@@ -31,7 +31,7 @@ source:[The Straight Times](https://www.straitstimes.com/world/africa/tanzania-s
 
 ### Software used
 
-- [QGIS 3.8.1](https://www.qgis.org/en/site/) with [GRASS 7.6.1](https://grass.osgeo.org/download/) 
+- [QGIS 3.8.1](https://www.qgis.org/en/site/) 
 - [PostGIS 2.5.3](https://postgis.net/source/)
 - [PostgreSQL 11.5](https://www.postgresql.org/download/)
 - [OSM2PGSQL Plugin](https://github.com/openstreetmap/osm2pgsql)
