@@ -20,7 +20,7 @@
     3. [Uncertainty propagation end ethics of data presentation](#rv-c)
 
 ## Objective <a name="goal"></a>
-This lab has two large goals. Firstly, we will reproduce a vulnerability map in an article published in 2014 on Applied Geography by Malcolm, Weaver, and Krakowka by using the datasets and methodologies outlined in their paper. Secondly, we will critique the methods used by the authors and discuss the broader issue of replicability in vulnerability analysis. This lab is an opportunity to dive deep into the reproducibility and replicability discussion that is becoming a hot issue in the social science community. 
+This lab has two large goals. Firstly, we will reproduce a vulnerability map published in Applied Geography by Malcolm, Weaver, and Krakowka using the datasets and methodologies outlined in their article. Secondly, we will critique the methods used by the authors and discuss the broader issue of replicability in vulnerability analysis. This lab is an opportunity to dive deep into the reproducibility and replicability discussion that is becoming a hot issue in the social science community. 
 
 ## Software and Documentation <a name="sw"></a>
 
