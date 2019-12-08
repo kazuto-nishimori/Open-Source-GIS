@@ -50,20 +50,24 @@ This lab has two large goals. Firstly, we will reproduce a vulnerability map pub
 
 #### Demographic and Health Surveys (DHS)
 
-[DHS]( https://dhsprogram.com/What-We-Do/Survey-Types/DHS.cfm) is conducted by [USAID]( https://www.usaid.gov/) every five years and collects nationally representative high-volume data on health and population in developing countries. This survey is conducted at the household level, but to protect confidentiality, the geospatial information is not available at this scale. Instead, several neighboring households are grouped together into a cluster, and the cluster’s coordinates are randomized within a certain area (5km radius for rural areas and 2km for urban) that does not cross the district border. There are around 850 clusters in Malawi (area of 120,000 km2). This data contains several hundred columns for each household documenting anything from the number and type of cattle to respondent’s smoking habit. We used data from 2010 as the authors had done, but unfortunately it cannot be shared due to DHS’s policy. Fortunately, the data is easily obtainable but it does require a formal request. Here ere you can download the metadata: [DHS_metadata.text](/DHS_metadata.text), [DHS_Survey_Vars.pdf](/DHS_Survey_Vars.pdf. 
+[DHS]( https://dhsprogram.com/What-We-Do/Survey-Types/DHS.cfm) is conducted by [USAID]( https://www.usaid.gov/) every five years and collects nationally representative high-volume data on health and population in developing countries. This survey is conducted at the household level, but to protect confidentiality, the geospatial information is not available at this scale. Instead, several neighboring households are grouped together into a cluster, and the cluster’s coordinates are randomized within a certain area (5km radius for rural areas and 2km for urban) that does not cross the district border. There are around 850 clusters in Malawi (area of 120,000 km2). This data contains several hundred columns for each household documenting anything from the number and type of cattle to respondent’s smoking habit. We used data from 2010 as the authors had done, but unfortunately it cannot be shared due to DHS’s policy. Fortunately, the data is easily obtainable via their website but it does require a formal request. Here you can download the metadata: [DHS_metadata.text](/DHS_metadata.text), [DHS_Survey_Vars.pdf](/DHS_Survey_Vars.pdf).
 )
 #### Traditional Authority shape file
-The shape file for the TA was obtained here
+The shape file for the TA was obtained via the [GADM database](http://www.gadm.org). 
 
 #### Malawi lakes shape file
-The shape file for the major lakes of Malawi was obtained through the [Malawi Spatial Data Platform]( http://www.masdap.mw/)
+The shape file for the major lakes of Malawi made by OpenStreetMap was obtained through the [Malawi Spatial Data Platform]( http://www.masdap.mw/) and 
+
+#### Download files
+Download Malawi lake shapefile [here](/major_lakes.shp).
+Download TA and DHS cluster shapefiles [here](/mwi_data.zip).
 
 ### Retracing the steps <a name="rac-b"></a>
 We followed Malcolm et al.’s methodology and instructions (where they existed) to attempt to reproduce the Adaptive Capacity map. However, the results were much less than satisfactory, even though we started with the same dataset as the authors. We attribute this to the significant holes in their explanation of important decisions (i.e. sources of biases) that went into the production of the map.
 
-To create this map, the first step is to add a column to our survey data table that indicates the id of the TA in which it resides, since the results will later be aggregated by TA. However, the survey data has no coordinate information, only the cluster id. So, we added a TA id column to the DHS cluster shapefile and this column was populated using a simple `st_intersects()` operation with the TA layer. Then, this TA id column was joined to the survey table via cluster id.  
+To create this map, the first step is to add a column to our survey data table that indicates the id of the TA in which it resides, since the results will later be aggregated by TA. However, the survey data has no coordinate information, only the cluster id. So, we add a TA id column to a separate shapefile containing the point geometries of the clusters and this column is populated using a simple `st_intersects()` operation with the TA layer. Then, this TA id column is joined to the survey table via cluster id.  
 
-Then, we looked at the metadata of the survey to locate the columns that the authors referenced. There was some guesswork involved, for example, the authors did not specify what animals count as livestock. These are the columns we chose to use. 
+Then, we look through at the metadata of the survey to locate the columns that the authors referenced. There is some guesswork involved, for example, the authors did not specify what animals count as livestock. These are the columns we chose to use. 
 
 ```
 household id: hhid
@@ -82,18 +86,18 @@ radio: hv207
 urban: Joined from DHS clusters shapefile
 ```
 
-It is also important to identify via metadata, how the null values are signified, because this depends on the column. For example, the no-data value could be ‘9’, ‘99’ or ‘98’. Rows containing null values were deleted. 
+It is also important to identify via metadata, how the null values are signified, because this depends on the column. For example, the no-data value could be ‘9’, ‘99’ or ‘98’. Rows containing null values are deleted. 
 
-The next step involved quantifying the survey results and dividing into quintiles. This step was the hardest to reproduce, and a lot of guesswork went in, as few details were ever published by the authors. Even the steps written down by the authors are unclear at times, for example the authors mention that the data was split into quintiles where the lowest quintile was given a score of 0 and the highest, a 5. This makes no sense as a scale from 0 to 5 is in fact a sextile. An example of the kind of guesswork involved is the binary yes-no question. How a binary is mapped to a quintile has rather significant implications because it affects its weight: 1 for no and 5 for yes carries a much larger weight than 2 and 4 respectively. Considering 5 out of the 7 criteria in the access category is a binary question, this is an unacceptable oversight. 
+The next step involves quantifying the survey results and dividing into quintiles. This step is the hardest to reproduce, and there will be a lot of guesswork, as few details were ever published by the authors. Even the steps written down by the authors are unclear at times, for example the authors mention that the data was split into quintiles where the lowest quintile was given a score of 0 and the highest, a 5. This makes no sense as a scale from 0 to 5 is in fact a sextile. An example of the kind of guesswork involved is the binary yes-no question. How a binary is mapped to a quintile has rather significant implications because it affects its weight: 1 for no and 5 for yes carries a much larger weight than 2 and 4 respectively. Considering 5 out of the 7 criteria in the access category is a binary question, this is an unacceptable oversight. 
 
-Next, the scores were weighed and added to recreate the final adaptive capacity score for each household. We weighed the scores in such a way (scale of 0.4 to 2) that the total household resilience score would be on a scale of 1 to 5. It is unclear how the authors scaled their score, as the capacity score is reported to have a range of -0.80 to 39.33 at the household level. The negative score is curious, since it is unclear how a “quintile” from 0 to 5 could possibly produce such a number, but this is not explained. Finally these scores were aggregated using their TA id, averaged and joined with the TA layer to create this map: 
+Next, the scores are weighed and added to recreate the final adaptive capacity score for each household. We weigh the scores in such a way (scale of 0.4 to 2) that the total household resilience score would be on a scale of 1 to 5. It is unclear how the authors scaled their score, as the capacity score is reported to have a range of -0.80 to 39.33 at the household level. The negative score is curious, since it is unclear how a quantile score ranging from 0 to 5 could possibly produce such a number, but this is not explained. Finally these scores are aggregated using their TA id, averaged and joined with the TA layer to create this map: 
 
-
+<img src="/lab8/capacity-comp.png">
 
 The map we created is no reproduction of the one by Malcomb et al.. Although we tried our best, the lack of important instructions in the methodology of Malcolm et al. made it impossible to reproduce the map, even with same data set. 
 
-The SQL file for all the operations done in this step is found here. You can look through the code to see how we decided to quantify the results. 
-The final capacity map is found here. (Courtesy of Professor Holler) 
+The SQL file for all the operations done in this step is found [here](/vulnerabilitySQL.sql). You can look through the code to see how we decided to quantify the results. 
+
 
 ### Uncertainty propagation and ethics of data presentation<a name="rac-c"></a>
 
