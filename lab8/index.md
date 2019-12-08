@@ -146,6 +146,7 @@ FINAL_SCORE = (6 - (DROUGHT_QUINTILE + (FLOOD + 1))) * 0.2 + CAPACITY
 
 <img src="/lab8/final.png">
 
+Download the models used for [low-res](/vulnerability.model3) and [high-res](/vulnerability-2.model3). 
 
 ### Error
 
