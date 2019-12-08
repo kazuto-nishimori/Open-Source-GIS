@@ -86,7 +86,7 @@ It is also important to identify via metadata, how the null values are signified
 
 The next step involved quantifying the survey results and dividing into quintiles. This step was the hardest to reproduce, and a lot of guesswork went in, as few details were ever published by the authors. Even the steps written down by the authors are unclear at times, for example the authors mention that the data was split into quintiles where the lowest quintile was given a score of 0 and the highest, a 5. This makes no sense as a scale from 0 to 5 is in fact a sextile. An example of the kind of guesswork involved is the binary yes-no question. How a binary is mapped to a quintile has rather significant implications because it affects its weight: 1 for no and 5 for yes carries a much larger weight than 2 and 4 respectively. Considering 5 out of the 7 criteria in the access category is a binary question, this is an unacceptable oversight. 
 
-Next, the scores were weighed and added to recreate the final adaptive capacity score for each household. We weighed the scores in such a way (scale of 0.4 to 2) that the total household resilience score is on a scale of 1 to 5. Although not explicitly stated, Malcolm et al most likely scaled the scores to be out of 100, seeing that they report the capacity score at a range of -0.80 to 39.33 at the household level. The negative score is curious, since it is unclear how a “quintile” from 0 to 5 could possibly produce such a number, but this is not explained. Finally these scores were aggregated using their TA id, averaged and joined with the TA layer to create this map: 
+Next, the scores were weighed and added to recreate the final adaptive capacity score for each household. We weighed the scores in such a way (scale of 0.4 to 2) that the total household resilience score would be on a scale of 1 to 5. It is unclear how the authors scaled their score, as the capacity score is reported to have a range of -0.80 to 39.33 at the household level. The negative score is curious, since it is unclear how a “quintile” from 0 to 5 could possibly produce such a number, but this is not explained. Finally these scores were aggregated using their TA id, averaged and joined with the TA layer to create this map: 
 
 
 
@@ -131,11 +131,11 @@ The first step is to create three rasters for capacity, drought, and flood, with
 
 Before converting the vector capacity layer into a raster, the null values are filtered out using `Extract by expression`. Then the output is cropped with the `Clip` function to match the extent of the livelihood zones shapefile. This was then fed through `Rasterize` with cell size as 0.0833 degrees to create the capacity raster. The flood layer has the correct cell size, but it was first cropped to match the extent of the drought raster: `Clip raster by extent`. Then it was further cropped using the capacity raster with `Clip`. Finally, the cell size of the drought layer was changed to 0.0833 and it was cropped using the capacity raster as well. 
 
-Now that all the rasters have the correct domain and cell size, the last step is to reclassify into quintiles before performing a weighted sum. Luckily, the flood layer is already in a quintile form (0-4) so only the drought layer needed to be reclassified. First, we used the GRASS extension `r.Quantile`, which outputs the quintile breaks in html form. These breaks were then used with `r.Recode` to reclassify the raster. The final step was performed with GDAL `Raster Calculator` using this weighted sum formula:
+Now that all the rasters have the correct domain and cell size, the last step is to reclassify into quintiles before performing a weighted sum. Luckily, the flood layer is already in a quintile form (0-4) so only the drought layer needed to be reclassified. First, we used the GRASS extension `r.Quantile`, which outputs the quintile breaks in html form. These breaks were then used with `r.Recode` to reclassify the raster. The final step was performed with GDAL `Raster Calculator`. Malcolm et al. calculated their score as _Adaptive Capacity + Livelihood Sensitivity - Physical Exposure_ which means that like their capacity map, a low number represents high vulnerability. Thus, I must invert the quintile numbers for the flood and drought rasters (by subtracting from 6) before adding. Since the capacity layer has already been weighted, it can just be added:
 
 ```
-(DROUGHT_QUINTILE + (FLOOD + 1)) * 0.2 + CAPACITY * 0.4
+FINAL_SCORE = (6 - (DROUGHT_QUINTILE + (FLOOD + 1))) * 0.2 + CAPACITY
 ```
 
-<img src="/lab8/highres.png">
+<img src="/lab8/final.png">
 
