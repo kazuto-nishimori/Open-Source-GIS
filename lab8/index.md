@@ -160,4 +160,4 @@ In addition, this map again raises question about uncertainty. The authors chose
 
 This is because for each pixel in the flood raster, there are four pixels in the drought raster. The traditional authorities have an even lower spatial resolution at only 203 unique elements across the entire map. If the small details in the map do not point to small variations in vulnerability, but only to the small variations in one of the layers, it makes little sense to output the final map at this high of a resolution. I made a lower resolution alternative to our final map: 
 
-<img src="/lab8/lowres.png" width="400">
+<img src="/lab8/lowres.png" width="500">
