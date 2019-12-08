@@ -107,9 +107,11 @@ A similar guarantee does not exist at the level of the traditional authorities. 
 
 This also raises a question about the ethics of data presentation by the USAID. Although the DHS survey is extensive, there are only 850 clusters nationwide; that is, on average 30 clusters chosen per district to best represent that district. Then, how much do the real coordinates of those clusters truly mean? Put another way, imagine you are tasked to find 30 people in a large concert hall to best represent the audience. The real coordinates of these 30 people, i.e. their seat numbers, mean very little, in so much as guaranteeing that they were in fact attending the concert. The seat numbers cannot be used to conclude anything about the population geography within the concert hall, but the 30 people as a sample together can be used to infer conclusions about the population geography within the larger city: the kind of person who attends a certain concert hall in a certain neighborhood. Thus, the geolocations of the clusters are only useful, in so much as guaranteeing that they lie within the district. This raises the question of whether it is even appropriate/ethical on the part of USAID to publish point data that can be used inappropriately. Is it not more fitting to publish the survey data with their district name but without cluster numbers? 
 
-## Reproducing Vulnerability Map
 
-### Data used 
+## Reproducing Vulnerability Map <a name="rv"></a>
+
+### Data used <a name="rv-a"></a>
+
 The vulnerability map is the synthesis of the map created above, the livelihood sensitivity map, and the physical exposure map. Two additional data sources are required. 
 
 #### Famine Early Warning System Network (FEWSNET) and Malawi Vulnerability Assessment Committee (MVAC) 
@@ -124,7 +126,7 @@ The authors used the Drought Physical Exposure raster from 2012. The file I foun
 
 The flood risk data was however, problematic. The file when downloaded using the `Data-Extraction` feature had the wrong extent, and was corrupt. Therefore, it was necessary (although not ideal) to download the global raster. It had to be cropped later. The data is from in 2011, same as the authors’. The reference system is WGS84 with spatial resolution of 0.08333 in decimal degrees or 1200 meters. 
 
-### Retracing the steps 
+### Retracing the steps <a name="rv-b"></a>
 
 Because of data unavailability, only the sensitivity portion could not be reproduced. The final map (which is 80% of Malcolm et al.’s map) is the weighted sum of the capacity map, converted into raster form and the two reclassified rasters for drought and flood. 
 
@@ -148,5 +150,14 @@ FINAL_SCORE = (6 - (DROUGHT_QUINTILE + (FLOOD + 1))) * 0.2 + CAPACITY
 
 Download the models used for [low-res](/vulnerability.model3) and [high-res](/vulnerability-2.model3). 
 
-### Error
+### Sources of uncertainty <a name="rv-c"></a>
+
+Looking at the map we created and the one created by the authors, the difference is immediately apparent. Although the southern portion looks more or less similar, the region to the West and North of Lilongwe is completely unalike. Of course, this is likely due in part to the 20% of data we are lacking. However, there might be more to it. The map by the authors cite the ‘Dartmouth Flood Observatory Data 1999-2007’ as one of their data sources in the map, even though they claimed to have used the UNEP flood data in their paper. Did they encounter the same error when trying to download the flood data from UNEP and changed data sources? If so, it is appalling that the authors did not mention so in their article. 
+
+In addition, this map again raises question about uncertainty. The authors chose to match the spatial resolution of the final output to that of the highest resolution data source: the drought raster. In my map, the pitfalls of this strategy are evident, as most of the fine details comes uniquely from the drought raster. Just have a look at the drought raster and the similarities are clear:
+
+<img src="/lab8/drought-hr.png" width="400">
+
+This is because for each pixel in the flood raster, there are four pixels in the drought raster. The traditional authorities have an even lower spatial resolution at only 203 unique elements across the entire map. If the small details in the map do not point to small variations in vulnerability, but only to the small variations in one of the layers, it makes little sense to output the final map at this high of a resolution. I made a lower resolution alternative to our final map: 
+
 
