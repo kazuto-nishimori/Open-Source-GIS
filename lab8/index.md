@@ -50,7 +50,7 @@ This lab has two large goals. Firstly, we will reproduce a vulnerability map pub
 
 #### Demographic and Health Surveys (DHS)
 
-[DHS]( https://dhsprogram.com/What-We-Do/Survey-Types/DHS.cfm) is conducted by [USAID]( https://www.usaid.gov/) every five years and collects nationally representative high-volume data on health and population in developing countries. This survey is at the household level, but to protect confidentiality, the geospatial information is not available at this scale. Instead, several neighboring households are grouped together into a cluster, and the cluster’s coordinates are randomized within a certain area (5km radius for rural areas and 2km for urban) that does not cross the district border. There are around 850 clusters in Malawi (area of 120,000 km2). This data contains several hundred columns for each household documenting anything from the number and type of cattle to respondent’s smoking habit. We used data from 2010 as the authors had done, but unfortunately it cannot be shared due to DHS’s policy. Fortunately, the data is easily obtainable but it does require a formal request. Here ere you can download the metadata: [DHS_metadata.text](/DHS_metadata.text), [DHS_Survey_Vars.pdf](/DHS_Survey_Vars.pdf. 
+[DHS]( https://dhsprogram.com/What-We-Do/Survey-Types/DHS.cfm) is conducted by [USAID]( https://www.usaid.gov/) every five years and collects nationally representative high-volume data on health and population in developing countries. This survey is conducted at the household level, but to protect confidentiality, the geospatial information is not available at this scale. Instead, several neighboring households are grouped together into a cluster, and the cluster’s coordinates are randomized within a certain area (5km radius for rural areas and 2km for urban) that does not cross the district border. There are around 850 clusters in Malawi (area of 120,000 km2). This data contains several hundred columns for each household documenting anything from the number and type of cattle to respondent’s smoking habit. We used data from 2010 as the authors had done, but unfortunately it cannot be shared due to DHS’s policy. Fortunately, the data is easily obtainable but it does require a formal request. Here ere you can download the metadata: [DHS_metadata.text](/DHS_metadata.text), [DHS_Survey_Vars.pdf](/DHS_Survey_Vars.pdf. 
 )
 #### Traditional Authority shape file
 The shape file for the TA was obtained here
@@ -90,7 +90,7 @@ Next, the scores were weighed and added to recreate the final adaptive capacity 
 
 
 
-The map we recreated is no reproduction of the one by Malcomb et al.. Although we tried our best, the lack of important instructions in the methodology of Malcolm et al. made it impossible to reproduce the map, even with same data set. 
+The map we created is no reproduction of the one by Malcomb et al.. Although we tried our best, the lack of important instructions in the methodology of Malcolm et al. made it impossible to reproduce the map, even with same data set. 
 
 The SQL file for all the operations done in this step is found here. You can look through the code to see how we decided to quantify the results. 
 The final capacity map is found here. (Courtesy of Professor Holler) 
@@ -127,14 +127,15 @@ Although it would have been a good learning exercise to perform the next sequenc
 
 Since we are dealing with rasters of varying spatial resolution, the first step is to decide on the spatial resolution for the final output. Conventional wisdom says that we should match the output resolution with that of the lowest resolution raster. However, the author takes the opposite approach and in this exercise, I made two versions. I only explain in detail the steps taken to create the low-resolution map (0.0833 deg.), but making the high-res map involves only a tiny modification to the QGIS model. 
 
-The first step is to create three rasters for capacity, drought, and flood, with identical domain and spatial resolution. The domain of this map is based on the spatial intersection of the livelihood zones and the capacity map with nulls removed (in other words, the area where all layers have data). Therefore, the first step is to convert the capacity map into a raster map with the correct domain and cell size. Then, I will rescale the cell sizes on the two remaining rasters, and use the capacity map as a sort of stencil to match the domain on all three rasters. 
+The first step is to create three rasters for capacity, drought, and flood, with identical domain and spatial resolution. The domain of this map is based on data availability of the capacity map and the domain of the livelihood zones. Therefore, the first step is to convert the capacity map into a raster map with the correct domain and cell size. Then, I will rescale the cell sizes on the two remaining rasters, and use the capacity map as a sort of stencil to match the domain on all three rasters. 
 
 Before converting the vector capacity layer into a raster, the null values are filtered out using `Extract by expression`. Then the output is cropped with the `Clip` function to match the extent of the livelihood zones shapefile. This was then fed through `Rasterize` with cell size as 0.0833 degrees to create the capacity raster. The flood layer has the correct cell size, but it was first cropped to match the extent of the drought raster: `Clip raster by extent`. Then it was further cropped using the capacity raster with `Clip`. Finally, the cell size of the drought layer was changed to 0.0833 and it was cropped using the capacity raster as well. 
 
 Now that all the rasters have the correct domain and cell size, the last step is to reclassify into quintiles before performing a weighted sum. Luckily, the flood layer is already in a quintile form (0-4) so only the drought layer needed to be reclassified. First, we used the GRASS extension `r.Quantile`, which outputs the quintile breaks in html form. These breaks were then used with `r.Recode` to reclassify the raster. The final step was performed with GDAL `Raster Calculator` using this weighted sum formula:
 
 ```
-(DROUGHT_QUINTILE + (FLOOD + 1)) * 0.4 + CAPACITY * 0.4
+(DROUGHT_QUINTILE + (FLOOD + 1)) * 0.2 + CAPACITY * 0.4
 ```
 
+<img src="/lab8/highres.png">
 
