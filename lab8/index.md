@@ -32,7 +32,7 @@ This lab has two large goals. Firstly, we will reproduce a vulnerability map pub
 - raster2pgsql plugin (comes with PostGIS)
 
 ### Documentation Referenced
-- Lab Instructions by Professor Holler: [request document by email](jholler@middlebury.edu)
+- Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 - https://www.w3resource.com/
 
 #### Works cited
