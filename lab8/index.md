@@ -37,7 +37,7 @@ This lab has two large goals. Firstly, we will reproduce a vulnerability map pub
 - Lab Instructions by Professor Holler: [request document by email](jholler@middlebury.edu)
 - https://www.w3resource.com/
 
-Works cited
+#### Works cited
 - Hinkel, Jochen. “‘Indicators of Vulnerability and Adaptive Capacity’: Towards a Clarification of the Science–policy Interface.” Global Environmental Change, vol. 21, no. 1, Jan. 2011, pp. 198–208. EBSCOhost, doi:10.1016/j.gloenvcha.2010.08.002.
 - Malcomb, Dylan W., et al. “Vulnerability Modeling for Sub-Saharan Africa: An Operationalized Approach in Malawi.” Applied Geography, vol. 48, Mar. 2014, pp. 17–30. EBSCOhost, doi:10.1016/j.apgeog.2014.01.004.
 - Tate, Eric. “Uncertainty Analysis for a Social Vulnerability Index.” Annals of the Association of American Geographers, vol. 103, no. 3, 2013, p. 526. EBSCOhost, doi:10.1080/00045608.2012.700616.
@@ -46,7 +46,7 @@ and Replicability in Science. Washington, DC: The National Academies Press. http
 
 ## Reproducibility and Replicability <a name="randr"></a>
 
-Reproducibility and replicability which has always been an important consideration in the natural sciences has been an increasingly important topic of discussion in the social sciences as well. The National Academies of Sciences, Engineering, and Medicine in their report on this issue defines the terms as the following:
+Reproducibility and replicability, which has always been an important consideration in the natural sciences, has been an increasingly important topic of discussion in the social sciences as well. The National Academies of Sciences, Engineering, and Medicine in their report on this issue defines the terms as the following:
 
 “Reproducibility is obtaining consistent results using the same input data, computational steps, methods, and code, and conditions of analysis. This definition is synonymous with “computational reproducibility,” and the terms are used interchangeably in this report. Replicability is obtaining consistent results across studies aimed at answering the same scientific question, each of which has obtained its own data.” 
 
