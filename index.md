@@ -1,4 +1,5 @@
-
+## [Lab Eight: Reproducibility, Replicability, and Uncertainty Propagation](/lab8)
+This lab has two large goals. Firstly, we will reproduce a vulnerability map published in Applied Geography by Malcolm, Weaver, and Krakowka using the datasets and methodologies outlined in their article. Secondly, we will critique the methods used by the authors and discuss the broader issue of replicability in vulnerability analysis. This lab is an opportunity to dive deep into the reproducibility and replicability discussion that is becoming a hot issue in the social science community.
 
 ## [Lab Seven: Web Mapping with Leaflet](/lab7/index.md)
 Creating a ‘slippy’ webmap is very easy to do thanks to the myriad of opensource plugins and software that is available now. The two most popular are OpenLayers and Leaflet, which uses javascript files exported from QGIS layers to create a in-browser visualisation. The goal of this lab is to create this webmap. The steps are straightforward, but bugs and glitches are rather common. I will walk you through how I made this webmap.
