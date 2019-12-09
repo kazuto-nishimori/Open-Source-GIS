@@ -151,13 +151,13 @@ The vulnerability map is the synthesis of the map created above, the livelihood 
 
 [UNEP Global Risk Platform]( https://preview.grid.unep.ch/ ) is a multi-agency effort to make available, the global natural hazard risk and exposure data. The article specifically uses the data for estimated flood risk and physical exposure to drought events. You can download the raster for the whole world, but it is more useful to use their `Data-Extraction` feature to download the raster with Malawi’s extent. 
 
-The authors used the Drought Physical Exposure raster from 2012. The file I found was time-stamped 2014 on the [website](https://preview.grid.unep.ch/index.php?preview=data&events=droughts&evcat=1&lang=eng) but the xml metadata file was stamped 2009. So, I am unsure exactly what year the data is from, and whether I have the same raster as the authors’. However, 2012 lies between 2009 and 2014, so I will say that the raster I used was at least very similar to the one used by Malcolm et al.The raster reports the absolute number of inhabitants at risk. This raster was created using three data sources, and its provenance is detailed in the website. The extent of the raster covers Malawi (32.66, -17.08 : 35.82, -9.33), its reference system is WGS84 and has a spatial resolution of 0.04166 degrees or 600 meters. 
+The authors used the Drought Physical Exposure raster from 2012. The file I found was time-stamped 2014 on the [website](https://preview.grid.unep.ch/index.php?preview=data&events=droughts&evcat=1&lang=eng) but the xml metadata file was stamped 2009. So, I am unsure exactly what year the data is from, and whether I have the same raster as the authors’. However, 2012 lies between 2009 and 2014, so I will say that the raster I used was at least very similar to the one used by Malcolm et al. The raster reports the absolute number of inhabitants at risk. It was created using three data sources, and its provenance is detailed in the website. The extent of the raster covers Malawi (32.66, -17.08 : 35.82, -9.33), its reference system is WGS84 and has a spatial resolution of 0.04166 degrees or 600 meters. 
 
 The flood risk data was however, problematic. The file when downloaded using the `Data-Extraction` feature had the wrong extent, and was corrupt. Therefore, it was necessary (although not ideal) to download the global raster. It had to be cropped later. This raster gives a quintile scale based on the amount of risk. The data is from in 2011, same as the authors’. The reference system is WGS84 with spatial resolution of 0.08333 in decimal degrees or 1200 meters. 
 
 ### Retracing the steps <a name="rv-b"></a>
 
-Because of data unavailability, only the sensitivity portion could not be reproduced. The final map (which is 80% of Malcolm et al.’s map) is the weighted sum of the capacity map, converted into raster form and the two reclassified rasters for drought and flood. 
+Because of data unavailability, the sensitivity portion could not be reproduced. Our final map (which is 80% of Malcolm et al.’s map) is the weighted sum of the capacity map, converted into raster form and the two reclassified rasters for drought and flood. 
 
 Although it would have been a good learning exercise to perform the next sequence in PostGIS, in the interest of time, we used GRASS and GDAL tools instead. However, in my independent project, I completed this section using PostGIS. For this lab, we used the Graphical Modeler on QGIS to automate parts of the process. 
 
@@ -191,7 +191,7 @@ This is because for each pixel in the flood raster, there are four pixels in the
 
 <img src="/lab8/lowres.png" width="500">
 
-The drought layer brings another source of uncertainty and error. Unlike the other layers, this raster presents its data in absolute terms: the number of prople exposed to drought. Tate (2013) mentions in his paper that "using absolute size, the areas of greatest vulnerability will always be those with the greatest population". To be consistent with the other layers, the authors ought to have normalized the values by population before reclassifying it into quintiles. 
+The drought layer brings another source of uncertainty and error. Unlike the other layers, this raster presents its data in absolute terms: the number of people exposed to drought. Tate (2013) mentions in his paper that "using absolute size, the areas of greatest vulnerability will always be those with the greatest population". To be consistent with the other layers, the authors ought to have normalized the values by population before reclassifying it into quintiles. 
 
 ## Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability <a name="conc"></a>
 
