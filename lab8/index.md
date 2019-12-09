@@ -18,6 +18,8 @@
     1. [Data used](#rv-a)
     2. [Retracing the steps](#rv-b)
     3. [Uncertainty propagation end ethics of data presentation](#rv-c)
+7. [Broader Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability](#conc)
+    
 
 ## Objective <a name="goal"></a>
 This lab has two large goals. Firstly, we will reproduce a vulnerability map published in Applied Geography by Malcolm, Weaver, and Krakowka using the datasets and methodologies outlined in their article. Secondly, we will critique the methods used by the authors and discuss the broader issue of replicability in vulnerability analysis. This lab is an opportunity to dive deep into the reproducibility and replicability discussion that is becoming a hot issue in the social science community. 
@@ -34,9 +36,23 @@ This lab has two large goals. Firstly, we will reproduce a vulnerability map pub
 ### Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](jholler@middlebury.edu)
 - https://www.w3resource.com/
-- Malcolm
+
+Works cited
+- Hinkel, Jochen. “‘Indicators of Vulnerability and Adaptive Capacity’: Towards a Clarification of the Science–policy Interface.” Global Environmental Change, vol. 21, no. 1, Jan. 2011, pp. 198–208. EBSCOhost, doi:10.1016/j.gloenvcha.2010.08.002.
+- Malcomb, Dylan W., et al. “Vulnerability Modeling for Sub-Saharan Africa: An Operationalized Approach in Malawi.” Applied Geography, vol. 48, Mar. 2014, pp. 17–30. EBSCOhost, doi:10.1016/j.apgeog.2014.01.004.
+- Tate, Eric. “Uncertainty Analysis for a Social Vulnerability Index.” Annals of the Association of American Geographers, vol. 103, no. 3, 2013, p. 526. EBSCOhost, doi:10.1080/00045608.2012.700616.
+- National Academies of Sciences, Engineering, and Medicine 2019. Reproducibility
+and Replicability in Science. Washington, DC: The National Academies Press. https://doi.org/10.17226/25303.
 
 ## Reproducibility and Replicability <a name="randr"></a>
+
+Reproducibility and replicability which has always been an important consideration in the natural sciences has been an increasingly important topic of discussion in the social sciences as well. The National Academies of Sciences, Engineering, and Medicine in their report on this issue defines the terms as the following:
+
+“Reproducibility is obtaining consistent results using the same input data, computational steps, methods, and code, and conditions of analysis. This definition is synonymous with “computational reproducibility,” and the terms are used interchangeably in this report. Replicability is obtaining consistent results across studies aimed at answering the same scientific question, each of which has obtained its own data.” 
+
+Reproducibility is often neglected in the field of geography. The analysis done by geographers is often a black box, where neither the raw data, code, nor the minute details of their methodology is ever published. In a way, we are expected to just ‘take their word’. Even in the digital age, where it is increasingly simple to attach supplemental documents of all types to a publication, this is not at all commonplace. In fields like mathematics, a paper has no significance until every step is thoroughly checked by peers, but the same kind of rigorous peer-review is simply impossible. In this lab, this is precisely what I will attempt to do.
+
+Replicability translated into geography can be understood in two ways. The first is whether two geographers arrive to the same conclusion about a place by using separate data sources but identical methodology. Unless the study is conducted in a data-rich place (or the extent is small so that data collection can be done by a small team of researchers), it is of course difficult to test this kind of replicability. The second is whether the same methodology employed with a different dataset from another place leads to the same conclusion. This is of course a tricky undertaking because no two places are alike, and different places are subject to different sociopolitical, environmental and economic forces. For example, a study on the segregation pattern in American suburbs cannot be meaningfully replicated in the context of a French suburb. In this lab, we will explore what replicability means in vulnerability research. 
 
 ## Malcomb et al.: Conceptualization and Methodology <a name="malc"></a>
 
@@ -101,7 +117,9 @@ The SQL file for all the operations done in this step is found [here](/vulnerabi
 
 ### Uncertainty propagation and ethics of data presentation<a name="rac-c"></a>
 
-Attempting to reproduce the map raised questions of uncertainty propagation that was never brought up by the authors. We propose that the method of data collection by the DHS makes this dataset not suitable for aggregation at the TA scale. As we discussed earlier, the survey is designed to be representative of the population of Malawi at the national scale. Although not explicitly stated, we can infer that this is also true at the district scale. We saw that the coordinates of the clusters were randomized in such way to never cross the district borders. This we presume is because the clusters were chosen to be representative of their district.
+Attempting to reproduce the map raised questions of uncertainty propagation that was never brought up by the authors. As Tate (2013) reminds us, when we deal with aggregation, we must always consider the areal unit problem which "manifests as a combination of a scale problem, where correlations between variables often increase with the level of aggregation, and an aggregation problem, in which correlations between enumeration units might depend as much on the manner of the aggregation as the relationships between variables". 
+
+We propose that the method of data collection by the DHS makes this dataset not suitable for aggregation at the TA scale. As we discussed earlier, the survey is designed to be representative of the population of Malawi at the national scale. Although not explicitly stated, we can infer that this is also true at the district scale. We saw that the coordinates of the clusters were randomized in such way to never cross the district borders. This we presume is because the clusters were chosen to be representative of their district.
 
 A similar guarantee does not exist at the level of the traditional authorities. There are 203 traditional authorities in the small nation of Malawi. This makes the coordinate randomization of 2-5km a very significant source of uncertainty; a point that was in a given TA could easily have been randomized to end up in a neighboring one. Malcolm et al. chose to aggregate at this level because they believed that at the district level, local hotspots of vulnerability could be averaged out and made invisible. They claim TA to be the lowest meaningful administrative level for aggregation, but with so much uncertainty, I disagree with their rationale and decision.   
 
@@ -122,9 +140,9 @@ The vulnerability map is the synthesis of the map created above, the livelihood 
 
 [UNEP Global Risk Platform]( https://preview.grid.unep.ch/ ) is a multi-agency effort to make available, the global natural hazard risk and exposure data. The article specifically uses the data for estimated flood risk and physical exposure to drought events. You can download the raster for the whole world, but it is more useful to use their `Data-Extraction` feature to download the raster with Malawi’s extent. 
 
-The authors used the Drought Physical Exposure raster from 2012. The file I found was time-stamped 2014 on the [website](https://preview.grid.unep.ch/index.php?preview=data&events=droughts&evcat=1&lang=eng) but the xml metadata file was stamped 2009. So, I am unsure exactly what year the data is from, and whether I have the same raster as the authors’. However, 2012 lies between 2009 and 2014, so I will say that the raster I used was at least very similar to the one used by Malcolm et al. This raster was created using three data sources, and its provenance is detailed in the website. The extent of the raster covers Malawi (32.66, -17.08 : 35.82, -9.33), its reference system is WGS84 and has a spatial resolution of 0.04166 degrees or 600 meters. 
+The authors used the Drought Physical Exposure raster from 2012. The file I found was time-stamped 2014 on the [website](https://preview.grid.unep.ch/index.php?preview=data&events=droughts&evcat=1&lang=eng) but the xml metadata file was stamped 2009. So, I am unsure exactly what year the data is from, and whether I have the same raster as the authors’. However, 2012 lies between 2009 and 2014, so I will say that the raster I used was at least very similar to the one used by Malcolm et al.The raster reports the absolute number of inhabitants at risk. This raster was created using three data sources, and its provenance is detailed in the website. The extent of the raster covers Malawi (32.66, -17.08 : 35.82, -9.33), its reference system is WGS84 and has a spatial resolution of 0.04166 degrees or 600 meters. 
 
-The flood risk data was however, problematic. The file when downloaded using the `Data-Extraction` feature had the wrong extent, and was corrupt. Therefore, it was necessary (although not ideal) to download the global raster. It had to be cropped later. The data is from in 2011, same as the authors’. The reference system is WGS84 with spatial resolution of 0.08333 in decimal degrees or 1200 meters. 
+The flood risk data was however, problematic. The file when downloaded using the `Data-Extraction` feature had the wrong extent, and was corrupt. Therefore, it was necessary (although not ideal) to download the global raster. It had to be cropped later. This raster gives a quintile scale based on the amount of risk. The data is from in 2011, same as the authors’. The reference system is WGS84 with spatial resolution of 0.08333 in decimal degrees or 1200 meters. 
 
 ### Retracing the steps <a name="rv-b"></a>
 
@@ -140,7 +158,7 @@ The first step was to create three rasters for capacity, drought, and flood, wit
 
 Before converting the vector capacity layer into a raster, the null values were filtered out using `Extract by expression`. Then the output was cropped with the `Clip` function to match the extent of the livelihood zones shapefile. This was then fed through `Rasterize` with cell size as 0.0833 degrees to create the capacity raster. The flood layer has the correct cell size, but it was first cropped to match the extent of the drought raster: `Clip raster by extent`. Then it was further cropped using the capacity raster with `Clip`. Finally, the cell size of the drought layer was changed to 0.0833 and it was cropped using the capacity raster as well. 
 
-With all three rasters having the correct domain and cell size, the last step was to reclassify into quintiles before performing a weighted sum. Luckily, the flood layer was already in a quintile form (0-4) so only the drought layer needed to be reclassified. First, we used the GRASS extension `r.Quantile`, which outputs the quintile breaks in html form. These breaks were then inputted to `r.Recode` to reclassify the raster. The final step was performed with GDAL `Raster Calculator`. Malcolm et al. calculated their score as _Adaptive Capacity + Livelihood Sensitivity - Physical Exposure_ which means that like their capacity map, a low number represents high vulnerability. Thus, I had to invert the quintile numbers for the flood and drought rasters (by subtracting from 6) before adding. Since the capacity layer had already been weighted, it was just added:
+With all three rasters having the correct domain and cell size, the last step was to reclassify into quintiles before performing a weighted sum. Luckily, the flood layer was already in a quintile form (0-4) so only the drought layer needed to be reclassified. First, we used the GRASS extension `r.Quantile`, which outputs the quintile breaks in html form. These breaks were then inputted to `r.Recode` to reclassify the raster. The final step was performed with GDAL `Raster Calculator`. Malcolm et al. calculated their score as _Adaptive Capacity + Livelihood Sensitivity - Physical Exposure_ which means that like their capacity map, a low number represents high vulnerability. Thus, we had to invert the quintile numbers for the flood and drought rasters (by subtracting from 6) before adding. Since the capacity layer had already been weighted, it was just added:
 
 ```
 FINAL_SCORE = (6 - (DROUGHT_QUINTILE + (FLOOD + 1))) * 0.2 + CAPACITY
@@ -158,6 +176,10 @@ In addition, this map again raises question about uncertainty. The authors chose
 
 <img src="/lab8/drought-hr.png" width="300">
 
-This is because for each pixel in the flood raster, there are four pixels in the drought raster. The traditional authorities have an even lower spatial resolution at only 203 unique elements across the entire map. If the small details in the map do not point to small variations in vulnerability, but only to the small variations in one of the layers, it makes little sense to output the final map at this high of a resolution. I made a lower resolution alternative to our final map: 
+This is because for each pixel in the flood raster, there are four pixels in the drought raster. The traditional authorities have an even lower spatial resolution at only 203 unique elements across the entire map. If the small details in the map do not point to small variations in vulnerability, but only to the small variations in one of the layers, it makes little sense to output the final map at this high of a resolution. Here is a lower resolution alternative to our final map: 
 
 <img src="/lab8/lowres.png" width="500">
+
+The drought layer brings another source of uncertainty and error. Unlike the other layers, this raster presents its data in absolute terms: the number of prople exposed to drought. Tate (2013) mentions in his paper that "using absolute size, the areas of greatest vulnerability will always be those with the greatest population". To be consistent with the other layers, the authors ought to have normalized the values by population before reclassifying it into quintiles. 
+
+## Broader Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability
