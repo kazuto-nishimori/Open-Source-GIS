@@ -37,7 +37,7 @@ source:[The Straight Times](https://www.straitstimes.com/world/africa/tanzania-s
 - [OSM2PGSQL Plugin](https://github.com/openstreetmap/osm2pgsql)
 
 ### Documentation Referenced
-- Lab Instructions by Professor Holler: [request document by email](jholler@middlebury.edu)
+- Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 - https://www.w3resource.com/
 
 ## Setting Up the Environment <a name="env"></a>
