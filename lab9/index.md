@@ -10,9 +10,13 @@
     2. [Important considerations with twitter data](#twit-b)
 5. [Learning rStudio](#rs)
     1. [Setting up the environment](#rs-a)
-    2. [Using rStudio and rtweet](#twit-b)
-    3. [Interpreting results](#twit-c)
-4. [Twitter Activity during Hurricane Dorian](#malc)
+    2. [Temporal analysis](#rs-b)
+    3. [Extracting precise geographies](#rs-c)
+    4. [Network analysis](#rs-d)
+    5. [Text analysis](#rs-e)
+    6. [Spatial analysis](#rs-f)
+    7. [Uploading results to PostGIS for further spatial analysis](#rs-g)
+4. [Twitter Activity during Hurricane Dorian](#dor)
     1. [Conceptual rationale](#malc-a)
     2. [Methodology](#malc-b)
 
@@ -72,5 +76,23 @@ evoTweets <- search_tweets("Evo OR Morales", n=10000, retryonratelimit=FALSE, in
 ```
 This command uses the API information we obtained earlier to search for tweets with keywords “Evo” or “Morales” in a 350km radius around central Florida (28.3, -81.6) and populates a table called “evoTweets”. No retweets were included. Now that we have the tweets, there is a plethora of things we can do with this data. 
 
-### blabla <a name="rs-b"></a>
+### Temporal analysis <a name="rs-b"></a>
+Temporal analysis 
+<img src="/lab9/Rplot.png" width="500">
+
+### Extracting precise geographies <a name="rs-c"></a>
+
+### Network analysis <a name="rs-d"></a>
+<img src="/lab9/Rplot03.png" width="500">
+
+### Text analysis <a name="rs-e"></a>
+<img src="/lab9/Rplot01.png" width="500">
+<img src="/lab9/Rplot02.png" width="500">
+<img src="/lab9/Rplot02-edit.png" width="500">
+
+### Spatial analysis <a name="rs-f"></a>
+Census shit
+<img src="/lab9/Rplot04.png" width="500">
+
+### Uploading results to PostGIS for further spatial analysis <a name="rs-g"></a>
 
