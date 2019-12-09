@@ -17,8 +17,8 @@
 6. [Reproducing Vulnerablity Map](#rv)
     1. [Data used](#rv-a)
     2. [Retracing the steps](#rv-b)
-    3. [Uncertainty propagation end ethics of data presentation](#rv-c)
-7. [Broader Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability](#conc)
+    3. [Sources of uncertainty](#rv-c)
+7. [Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability](#conc)
     
 
 ## Objective <a name="goal"></a>
@@ -58,7 +58,20 @@ Replicability translated into geography can be understood in two ways. The first
 
 ### Conceptual rationale <a name="malc-a"></a>
 
+Malawi is small landlocked nation in Southeastern Africa, and despite its size, its population density is one of the highest in the region, and is expected to double by 2035. 85% of the population live in rural areas and most rely on rain-fed agriculture; food security is a growing concern. Facing climate change, there is a strong interest in measuring vulnerability to ensure that funding streams of development loans are directed to the households most in need. As Hinkel has pointed out, “Assessing vulnerability thus has moved from being an academic exercise to being a political necessity” (2011). However, existing indices of vulnerability, they claim, have largely neglected the human dimensions, only focusing on indicators of flood, drought, precipitation and temperature. The goal of the authors is to create a new model of vulnerability assessment that “accounts for the complex physical and cultural dynamics at the household level” and one that is easily replicable to other countries. 
+
 ### Methodology <a name="malc-b"></a>
+
+The model the authors created is a hierarchical one that divides vulnerability into four ‘metathemes’ which they identified through field work and interviews. These interviews were intended to reveal the “household social and economic practices in the context of environmental uncertainty”. This community level interview was interpreted with the help of local government, NGO’s, and development organizations. 
+
+1)	Assets of land, livestock, and income
+2)	Access to markets, food, water, healthcare and labor
+3)	Livelihood sensitivity based market exposure, crop productivity and use of natural resources for coping with disasters
+4)	Physical exposure to recurring floods and droughts. 
+
+These metathemes were subdivided into indicators based on the interviews and data availability. Each indicator was then reclassified into a quintile score and their weighted sum produced the final resilience score. 
+
+<img src="/lab8/metatheme.png" width="800">
 
 ## Reproducing Adaptive Capacity Map <a name="rac"></a>
 
@@ -182,4 +195,11 @@ This is because for each pixel in the flood raster, there are four pixels in the
 
 The drought layer brings another source of uncertainty and error. Unlike the other layers, this raster presents its data in absolute terms: the number of prople exposed to drought. Tate (2013) mentions in his paper that "using absolute size, the areas of greatest vulnerability will always be those with the greatest population". To be consistent with the other layers, the authors ought to have normalized the values by population before reclassifying it into quintiles. 
 
-## Broader Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability
+## Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability <a name="conc"></a>
+
+In attempting to reproduce the maps made by Malcomb et al., we have discovered uncertainty at the micro-level. When decisions are made without regard to the uncertainty of the dataset, these uncertainties will be propagated and even be magnified, potentially altering the final output in significant ways. For example, we saw this when the authors aggregated data at a higher spatial resolution than appropriate, creating misleading outputs. We also observed the sensitivity of vulnerability models to small variations in procedure. The capacity map was recreated using the same data and method, but small differences in procedure lead to significantly different outputs. 
+
+There is also another, more macro-level source of uncertainty. As Jochen Hinkel (2011) points out, vulnerability cannot be ‘measured’, because it does not denote an observable phenomenon, but it is rather a theoretical concept. What we can do is to make the concept operational, using indicators: to map it using observable concepts. Therefore, the choice of indicator is the most consequential decision to be made in a vulnerability assessment. However, there exist no formalized strategies to do this; there is no consensus on what inputs to use or how to weigh these inputs, and this precisely is the greatest source of uncertainty in the vulnerability assessment. Despite the repeated assurance by the authors that the inputs selected were ‘evidence based’, I must agree with Hinkel that due to the complexity of the systems, the many variables needed, and the little amount of data available, there is too much uncertainty for a vulnerability study at this scale to be useful. 
+
+In their conclusion, the authors claim that their new multi-scale, multi-indicator approach is flexible enough to be expanded into 43 other countries in Africa where there exists similar DHS data. They are essentially claiming that their results are replicable across the whole continent: let us examine this in detail. In the methodology section, they tell the readers that the “selection of alternate indicators from the DHS surveys and expert-based weighting of variables are two measures of flexibility offered to policy-makers when employing this model”. In the same paragraph, they acknowledge that for the Malawi model, they went through multiple iterations of the weighting schemes until it finally outputted a map that matched their expected distribution of vulnerability based on the interviews they conducted. Essentially, Malcolm et al.’s claim to replicability is that the model’s indicators and the model itself can be altered and iterated until it outputs a map that satisfies the policy-maker’s idea of vulnerability. This assertion of replicability is absurd, and it further supports the argument by Hinkel that “indicators are often only used ‘symbolically’ for legitimizing decisions that would have been taken anyway” and are therefore subject to misuse. Of course, Malcolm et al. intended this flexibility, not for the misuse by policy makers, but to make the model adaptable to the varying environmental, sociopolitical and economic drivers of vulnerability across space and time. However, if these drivers are so divergent and require a case-by-case consideration, it seems that there is no place for replicability in the study of vulnerability (at least at the national scale). 
+
