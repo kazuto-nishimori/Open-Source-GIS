@@ -77,8 +77,13 @@ evoTweets <- search_tweets("Evo OR Morales", n=10000, retryonratelimit=FALSE, in
 This command uses the API information we obtained earlier to search for tweets with keywords “Evo” or “Morales” in a 350km radius around central Florida (28.3, -81.6) and populates a table called “evoTweets”. No retweets were included. Now that we have the tweets, there is a plethora of things we can do with this data. 
 
 ### Temporal analysis <a name="rs-b"></a>
-Temporal analysis 
+The twitter data downloaded with rtweet is neatly organized into a usable table. The column ‘hours’ contains the time stamp of each tweet. Dealing with timestamps is often a headache in coding because there exists a myriad of formats used. Thankfully, rtweet’s `ts_plot` function makes it extremely straight forward to create a plot with respect to time: 
+```
+evoTweetHours <- ts_data(evoTweets, by="hours")
+ts_plot(winterTweets, by="hours")
+```
 <img src="/lab9/Rplot.png" width="500">
+The plot agrees with what we expected. There is a sudden spike in tweets mentioning Evo Morales on the night of November 10, the day he announced his resignation. The tweets fluctuate up and down reflecting the waking hours of the tweeters, and each day the peaks diminish in height as they slowly lose interest in the topic. 
 
 ### Extracting precise geographies <a name="rs-c"></a>
 
