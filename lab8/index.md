@@ -50,7 +50,7 @@ _Reproducibility is obtaining consistent results using the same input data, comp
 
 Reproducibility is often neglected in the field of geography. The analysis done by geographers is often a black box, where neither the raw data, code, nor the minute details of their methodology is ever published. In a way, we are expected to just ‘take their word’. Even in the digital age, where it is increasingly simple to attach supplemental documents of all types to a publication, this is not at all commonplace. In fields like mathematics, a paper has no significance until every step is thoroughly checked by peers, but the same kind of rigorous peer-review is simply impossible. In this lab, this is precisely what I will attempt to do.
 
-Replicability translated into geography can be understood in two ways. The first is whether two geographers arrive to the same conclusion about a place by using separate data sources but identical methodology. Unless the study is conducted in a data-rich place (or the extent is small so that data collection can be done by a small team of researchers), it is of course difficult to test this kind of replicability. The second is whether the same methodology employed with a different dataset from another place leads to the same conclusion. This is of course a tricky undertaking because no two places are alike, and different places are subject to different sociopolitical, environmental and economic forces. For example, a study on the segregation pattern in American suburbs cannot be meaningfully replicated in the context of a French suburb. In this lab, we will explore what replicability means in vulnerability research. 
+Replicability translated into geography can be understood in two ways. The first is whether two geographers arrive to the same conclusion about a place by using separate data sources but identical methodology. Unless the study is conducted in a data-rich place (or the extent is small so that data collection can be done by a small team of researchers), it is of course difficult to test this kind of replicability. The second is whether the same methodology employed with a different dataset from another place leads to the same conclusion. This is a tricky undertaking because no two places are alike, and different places experience different sociopolitical, environmental and economic forces. For example, a study on the segregation pattern in American suburbs cannot be meaningfully replicated in the context of a French suburb. In this lab, we will explore what replicability means in vulnerability research. 
 
 ## Malcomb et al.: Conceptualization and Methodology <a name="malc"></a>
 
@@ -62,10 +62,10 @@ Malawi is small landlocked nation in Southeastern Africa, and despite its size, 
 
 The model the authors created is a hierarchical one that divides vulnerability into four ‘metathemes’ which they identified through field work and interviews. These interviews were intended to reveal the “household social and economic practices in the context of environmental uncertainty”. This community level interview was interpreted with the help of local government, NGO’s, and development organizations. 
 
-1)	Assets of land, livestock, and income
-2)	Access to markets, food, water, healthcare and labor
-3)	Livelihood sensitivity based market exposure, crop productivity and use of natural resources for coping with disasters
-4)	Physical exposure to recurring floods and droughts. 
+ 1)	Assets of land, livestock, and income
+ 2)	Access to markets, food, water, healthcare and labor
+ 3)	Livelihood sensitivity based market exposure, crop productivity and use of natural resources for coping with disasters
+ 4)	Physical exposure to recurring floods and droughts. 
 
 These metathemes were subdivided into indicators based on the interviews and data availability. Each indicator was then reclassified into a quintile score and their weighted sum produced the final resilience score. 
 
