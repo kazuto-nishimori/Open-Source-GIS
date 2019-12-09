@@ -1,7 +1,5 @@
 # Lab Eight: Reproducibility, Replicability, and Uncertainty Propagation
 
-## STATUS: UNDER CONSTRUCTION 
-
 ## Table of Contents
 
 1. [Objective](#goal)
