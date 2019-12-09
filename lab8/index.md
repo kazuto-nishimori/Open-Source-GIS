@@ -62,10 +62,10 @@ Malawi is small landlocked nation in Southeastern Africa, and despite its size, 
 
 The model the authors created is a hierarchical one that divides vulnerability into four ‘metathemes’ which they identified through field work and interviews. These interviews were intended to reveal the “household social and economic practices in the context of environmental uncertainty”. This community level interview was interpreted with the help of local government, NGO’s, and development organizations. 
 
- 1)	Assets of land, livestock, and income
- 2)	Access to markets, food, water, healthcare and labor
- 3)	Livelihood sensitivity based market exposure, crop productivity and use of natural resources for coping with disasters
- 4)	Physical exposure to recurring floods and droughts. 
+ 1.	Assets of land, livestock, and income
+ 2.	Access to markets, food, water, healthcare and labor
+ 3.	Livelihood sensitivity based market exposure, crop productivity and use of natural resources for coping with disasters
+ 4.	Physical exposure to recurring floods and droughts. 
 
 These metathemes were subdivided into indicators based on the interviews and data availability. Each indicator was then reclassified into a quintile score and their weighted sum produced the final resilience score. 
 
