@@ -215,12 +215,12 @@ dbWriteTable(con,'evo',evo, overwrite=TRUE)
 dbDisconnect(con)
 ```
 ### Download materials used <a name="rs-h"></a>
-[r file](/twitlab.r)
-[List of tweet IDs](/evoTweetID.csv)
+- [r file](/twitlab.r)
+- [List of tweet IDs](/evoTweetID.csv)
 
 ## Textual Analysis of Twitter Activity During Dorian
 <img src="/lab9/dorian-word-count.png" width="500">
-<img src="/lab9/dorian-word-plot.png" width="500">
+<img src="/lab9/dorian-word-map.png" width="500">
 
 ## Geographic Analysis of Twitter Activity During Dorian
 
