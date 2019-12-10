@@ -87,16 +87,84 @@ The plot agrees with what we expected. There is a sudden spike in tweets mention
 
 ### Extracting precise geographies <a name="rs-c"></a>
 
+As geographers, we are naturally interested in tweets with precise geographic information. However, since users must opt-in to share this data, it is only available in about 1-5 percent of all tweets. There are two types of geographic information in tweets, the first being the GPS coordinates that give the precise location of the user. Of course, not everyone is comfortable sharing their location with this much precision, so they might opt to share a place name instead, which could range in extent from a point-of-interest, neighborhood, town, to state. This place information is reported as a bounding box instead of a point. Let us select all tweets that report geographic information at the city level or smaller.  
+```
+evoTweets <- lat_lng(evoTweets,coords=c("coords_coords"))
+evoTweetsGeo <- subset(evoTweets, place_type == 'city'| place_type == 'neighborhood'| place_type == 'poi' | !is.na(lat))
+evoTweetsGeo <- lat_lng(evoTweetsGeo,coords=c("bbox_coords"))
+```
+The first line converts the GPS coordinates into latitude and longitude coordinates. The second and third lines select all bounding boxes of the desired extent and find the centroid of these boxes. The centroids and GPS points make up a new table named 'evoTweetsGeo'. Now we have point geometries that can be used for analysis. 
+
 ### Network analysis <a name="rs-d"></a>
+We can perform network analysis on rStudio using the igraph library. 
+
+```
+evoTweetNetwork <- network_graph(evoTweetsGeo, c("quote"))
+plot.igraph(evoTweetNetwork)
+```
 <img src="/lab9/Rplot03.png" width="500">
 
+Since we excluded retweets, there isn’t much here to see here. This analysis would be useful to visualize who the 'gatekeepers' of tweets are. As Wang et al. mentioined, on twitter there exists a few elite users and opinion leaders whom many users rely on for information. If we had retweet data, these users would be immediately visible as the major nodes of the network. 
+
 ### Text analysis <a name="rs-e"></a>
+
+The first step in text analysis is to isolate the words from the text which is done in the first three lines of the code. Then we must remove stop words. These are words such as articles and short function words (e.g. "the", "and", "like") that are not useful in natural language processing. The SMART list is a handy tool that contains all the major stop words in the English language. In line five, we delete all stop words from our list of words. 
+```
+evoTweetsGeo$text <- plain_tweets(evoTweetsGeo$text)
+evoText <- select(evoTweetsGeo,text)
+evoWords <- unnest_tokens(evoText, word, text)
+data("stop_words")
+stop_words <- stop_words %>% add_row(word="t.co",lexicon = "SMART")
+evoWords <- evoWords %>%
+anti_join(stop_words) 
+ ```
+Unfortunately, most of our tweets were in Spanish, so the SMART list was not very useful. I could not easily find a similar list for the Spanish language, so it was done manually. In the fifth line, I added the following code for each word I wanted removed. 
+```
+%>% add_row(word="SPANISH_STOP_WORD")
+``` 
+Then we made a graph of the most common words that appeared in the tweets. 
+```
+  evoWords %>%
+  count(word, sort = TRUE) %>%
+  top_n(15) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(x = word, y = n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+  labs(x = "Count",
+       y = "Unique words",
+       title = "Count of unique words found in tweets")
+```
 <img src="/lab9/Rplot01.png" width="500">
+
+The words "Evo" and "Morales" topped the charts, which is unsurprising since that was our search criteria. The usual suspects follow like "Bolivia", "pueblo" meaning people, and "fraude" because of the election fraud accusations he was facing at the time of his resignation.  
+
+Let us also visualize a word cloud that maps the interconnectivity of words; the closer the words, the more they were mentioned in conjunction. To do this, the first step is to create word pairs. Then, these pairs are counted by the number of occurrences and a network graph is created based on their frequency:
+```
+evoWordPairs <- evoTweetsGeo %>% select(text) %>%
+  mutate(text = removeWords(text, stop_words$word)) %>%
+  unnest_tokens(paired_words, text, token = "ngrams", n = 2)
+evoWordPairs <- separate(evoWordPairs, paired_words, c("word1", "word2"),sep=" ")
+evoWordPairs <- evoWordPairs %>% count(word1, word2, sort=TRUE)
+evoWordPairs %>%
+  filter(n >= 10) %>%
+  graph_from_data_frame() %>%
+  ggraph(layout = "fr") +
+  geom_node_point(color = "darkslategray4", size = 3) +
+  geom_node_text(aes(label = name), vjust = 1.8, size = 3) +
+  labs(title = "Word Network: Tweets in Florida after failed coup in Bolivia",
+       subtitle = "November 2019 - Text mining twitter data ",
+       x = "", y = "") +
+  theme_void()
+  ```
 <img src="/lab9/Rplot02.png" width="500">
-<img src="/lab9/Rplot02-edit.png" width="500">
+<img src="/lab9/Rplot02-edit.png" width="300">
+
+Curiously enough, the word cloud reveals the political fragmentation within the twitter userbase. On the one hand, there is the political right tweeting about the election fraud charges. On the other hand there is the left tweeting about the army and the coup attempt. These two groups occupy different places on the map. 
 
 ### Spatial analysis <a name="rs-f"></a>
-Census shit
+
 <img src="/lab9/Rplot04.png" width="500">
 
 ### Uploading results to PostGIS for further spatial analysis <a name="rs-g"></a>
