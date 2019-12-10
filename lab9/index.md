@@ -57,6 +57,7 @@ Twitter’s data is becoming more monetized and restricted for non-paying develo
 
 ## Learning rStudio <a name="rs"></a>
 <details><summary> In this section, I cover how to import tweets and census data, as well as how to create graphs visualisations in rStudio. I will be using some of these techniques in the lab, so you may skip this section for now and come back later if it interests you. </summary>
+    
 ### Setting up the environment <a name="rs-a"></a>
 
 rStudio is an opensource data science software with a diverse ecosystem of libraries. I will be using quite a few of these including 'rtweet', to connect with twitter API and 'tidycensus' to connect with the US census API. The first step is to install these libraries into the project using the following command:
