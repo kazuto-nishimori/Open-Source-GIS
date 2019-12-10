@@ -30,8 +30,9 @@ The goal of this lab is to be acquainted with the open source GIS environment; t
 ## The Distance and Direction QGIS Model <a name="model"></a>
 
 My model was designed to be used to be used in urban geography analysis: there exist many theories like the distance-decay model that conceptualize the urban space as being organized radially out from the central business district. Our tool calculates the distance and direction with respect to the central business district for each polygon in the input shapefile. So, we believe the most appropriate input for this model to be a shapefile of an urban area at the census-tract level.  (Although you might find other uses too!) 
+- Download the model [here](/dist_dir.model3) 
 
-### Obtaining Data <a name="model-a"></a>
+### The Input <a name="model-a"></a>
 
 Shapefile at the census-tract level can be easily found through the US census [website](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html). I was interested in San Antonio, so I downloaded the data for the whole of Texas. The attribute table of the shapefile only contains basic information like the tract id, state id, land area etc. so we must populate it with data we are interested in. We can find census attribute data easily through [American Fact Finder]( https://factfinder.census.gov/). 
 
@@ -46,6 +47,8 @@ Now that we have all the data, let us open QGIS. (The csv file should be importe
 If you would like to test my model without going through these steps, you may download the San Antonio shapefile already populated with data [here](/sa_joined.shp)
 
 ### Understanding the Model <a name="model-b"></a>
+
+<img src="/lab1/model.PNG" width="400">
 
 ### Outputs <a name="model-c"></a>
 
