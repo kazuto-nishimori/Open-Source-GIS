@@ -1,4 +1,4 @@
-# Lab Nine: Big Data and Twitter API
+# Lab: Big Data and Twitter API
 
 ## Table of Contents
 
