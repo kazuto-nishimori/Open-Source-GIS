@@ -35,13 +35,13 @@ My model was designed to be used to be used in urban geography analysis: there e
 
 Shapefile at the census-tract level can be easily found through the US census [website](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html). I was interested in San Antonio, so I downloaded the data for the whole of Texas. The attribute table of the shapefile only contains basic information like the tract id, state id, land area etc. so we must populate it with data we are interested in. We can find census attribute data easily through [American Fact Finder]( https://factfinder.census.gov/). 
 
-<img src=”/lab1/factfinder.png” width=”600”>
+<img src="/lab1/factfinder.PNG" width="600">
 
 In the “Advanced Search” section, we can set the geographies to census tracts, and chose a state or counties. I chose to download the data for the 8 counties that make up the Greater San Antonio Metropolitan Area. I was interested in median rent and Hispanic population, so I chose to download tables `B25064` and `B03002` from the 2017 ACS 5-year estimate dataset. Of course, you may choose any other tables depending on your analysis. 
 
 Now that we have all the data, let us open QGIS. (The csv file should be imported through `Layer -> Add Layer -> Add Delimited Text Layer`) We will select only the San Antonio counties from the shapefile and export to new layer, then join the rent and Hispanic values to the tracts using appropriate columns (GEOID). Important consideration here is that the census reports numbers as a string, so it is necessary to create integer columns for both data, and perform raster calculator to fill these columns. 
 
-<img src=”/lab1/Capture.PNG” width=”400”>
+<img src="/lab1/Capture.PNG" width="400">
 
 If you would like to test my model without going through these steps, you may download the San Antonio shapefile already populated with data [here](/sa_joined.shp)
 
