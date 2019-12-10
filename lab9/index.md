@@ -59,7 +59,7 @@ Twitter’s data is becoming more monetized and restricted for non-paying develo
 
 ### Setting up the environment <a name="rs-a"></a>
 
-rStudio is an opensource data science software with a diverse ecosystem of libraries. We will be using quite a few of these including 'rtweet', to connect with twitter API and 'tidycensus' to connect with the US census API. The first step is to install these libraries into the project using the following command:
+rStudio is an opensource data science software with a diverse ecosystem of libraries. I will be using quite a few of these including 'rtweet', to connect with twitter API and 'tidycensus' to connect with the US census API. The first step is to install these libraries into the project using the following command:
 ```
 install.packages(c("rtweet","tidycensus","tidytext","maps","RPostgres","igraph","tm", "ggplot2","RColorBrewer","rccmisc","ggraph"))
 ```
@@ -74,7 +74,7 @@ twitter_token <- create_token(
 )
 evoTweets <- search_tweets("Evo OR Morales", n=10000, retryonratelimit=FALSE, include_rts=FALSE, token=twitter_token, geocode="28.3,-81.6,350km")
 ```
-This command uses the API information we obtained earlier to search for tweets with keywords “Evo” or “Morales” in a 350km radius around central Florida (28.3, -81.6) and populates a table called “evoTweets”. No retweets were included. Now that we have the tweets, there is a plethora of things we can do with this data. 
+This command uses the API information we obtained earlier to search for tweets with keywords “Evo” or “Morales” in a 350km radius around central Florida (28.3, -81.6) and populates a table called “evoTweets”. No retweets were included. Now that I have the tweets, there is a plethora of things I can do with this data. 
 
 ### Temporal analysis <a name="rs-b"></a>
 The twitter data downloaded with rtweet is neatly organized into a usable table. The column ‘hours’ contains the time stamp of each tweet. Dealing with timestamps is often a headache in coding because there exists a myriad of formats used. Thankfully, rtweet’s `ts_plot` function makes it extremely straight forward to create a plot with respect to time: 
@@ -83,7 +83,7 @@ evoTweetHours <- ts_data(evoTweets, by="hours")
 ts_plot(winterTweets, by="hours")
 ```
 <img src="/lab9/Rplot.png" width="500">
-The plot agrees with what we expected. There is a sudden spike in tweets mentioning Evo Morales on the night of November 10, the day he announced his resignation. The tweets fluctuate up and down reflecting the waking hours of the tweeters, and each day the peaks diminish in height as they slowly lose interest in the topic. 
+The plot agrees with what I expected. There is a sudden spike in tweets mentioning Evo Morales on the night of November 10, the day he announced his resignation. The tweets fluctuate up and down reflecting the waking hours of the tweeters, and each day the peaks diminish in height as they slowly lose interest in the topic. 
 
 ### Extracting precise geographies <a name="rs-c"></a>
 
@@ -93,10 +93,10 @@ evoTweets <- lat_lng(evoTweets,coords=c("coords_coords"))
 evoTweetsGeo <- subset(evoTweets, place_type == 'city'| place_type == 'neighborhood'| place_type == 'poi' | !is.na(lat))
 evoTweetsGeo <- lat_lng(evoTweetsGeo,coords=c("bbox_coords"))
 ```
-The first line converts the GPS coordinates into latitude and longitude coordinates. The second and third lines select all bounding boxes of the desired extent and find the centroid of these boxes. The centroids and GPS points make up a new table named 'evoTweetsGeo'. Now we have point geometries that can be used for analysis. 
+The first line converts the GPS coordinates into latitude and longitude coordinates. The second and third lines select all bounding boxes of the desired extent and find the centroid of these boxes. The centroids and GPS points make up a new table named 'evoTweetsGeo'. Now I have point geometries that can be used for analysis. 
 
 ### Network analysis <a name="rs-d"></a>
-We can perform network analysis on rStudio using the igraph library. 
+I can perform network analysis on rStudio using the igraph library. 
 
 ```
 evoTweetNetwork <- network_graph(evoTweetsGeo, c("quote"))
@@ -104,11 +104,11 @@ plot.igraph(evoTweetNetwork)
 ```
 <img src="/lab9/Rplot03.png" width="500">
 
-Since we excluded retweets, there isn’t much here to see. This analysis would be useful to visualize who the 'gatekeepers' of tweets are. As Wang et al. mentioined, on twitter there exists a few elite users and opinion leaders whom many users rely on for information. If we had retweet data, these users would be immediately visible as the major nodes of the network. 
+Since I excluded retweets, there isn’t much here to see. This analysis would be useful to visualize who the 'gatekeepers' of tweets are. As Wang et al. mentioined, on twitter there exists a few elite users and opinion leaders whom many users rely on for information. If I had retweet data, these users would be immediately visible as the major nodes of the network. 
 
 ### Text analysis <a name="rs-e"></a>
 
-The first step in text analysis is to isolate the words from the text which is done in the first three lines of the code. Then we must remove stop words. These are words such as articles and short function words (e.g. "the", "and", "like") that are not useful in natural language processing. The SMART list is a handy tool that contains all the major stop words in the English language. In line five, we delete all stop words from our list of words. 
+The first step in text analysis is to isolate the words from the text which is done in the first three lines of the code. Then we must remove stop words. These are words such as articles and short function words (e.g. "the", "and", "like") that are not useful in natural language processing. The SMART list is a handy tool that contains all the major stop words in the English language. In line five, I delete all stop words from our list of words. 
 ```
 evoTweetsGeo$text <- plain_tweets(evoTweetsGeo$text)
 evoText <- select(evoTweetsGeo,text)
@@ -122,7 +122,7 @@ Unfortunately, most of our tweets were in Spanish, so the SMART list was not ver
 ```
 %>% add_row(word="SPANISH_STOP_WORD")
 ``` 
-Then we made a graph of the most common words that appeared in the tweets. 
+Then I made a graph of the most common words that appeared in the tweets. 
 ```
   evoWords %>%
   count(word, sort = TRUE) %>%
@@ -164,8 +164,32 @@ evoWordPairs %>%
 Curiously enough, the word cloud reveals the political fragmentation within the twitter userbase. On the one hand, there is the political right tweeting about the election fraud charges. On the other hand there is the left tweeting about the army and the coup attempt. These two groups occupy different places on the map. 
 
 ### Spatial analysis <a name="rs-f"></a>
+I can even do spatial analysis on r. To do this, let us import county shapefiles using the US census API. I first signed up for an account on their [website](https://api.census.gov/data/key_signup.html). Then I can use the ‘tidycensus’ library to import the files. I will filter just the Florida counties for this exercise.
+```
+Counties <- get_estimates("county",product="population",output="wide",geometry=TRUE,keep_geo_vars=TRUE, key="YOUR_API_KEY")
+floridaCounties <- filter(Counties,STATEFP %in% c("12") )
+```
+The `ggplot()` function can then be used to visualize the counties and the tweet locations. With very little code, it outputs a usable map, which is surprising. 
 
+```
+ggplot() +
+  geom_sf(data=floridaCounties, aes(fill=cut_number(DENSITY,5)), color="grey")+
+  scale_fill_brewer(palette="GnBu")+
+  guides(fill=guide_legend(title="Population Density"))+
+  geom_point(data = evoTweetsGeo, aes(x=lng,y=lat),
+             colour = 'purple', alpha = .5) +
+  labs(title = "Locations of Tweet mentioning Evo Morales during the coup")+
+  theme(plot.title=element_text(hjust=0.5),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank())
+```
 <img src="/lab9/Rplot04.png" width="500">
 
 ### Uploading results to PostGIS for further spatial analysis <a name="rs-g"></a>
-
+Finally, I will upload the data to PostGIS so that I can apply the toolset I have acquired throughout the semester. This is extremely simple with the use of the library `RPostgres`. Make sure to select only the columns needed as I did in line 2. There are certain operations that must be done in the PostGIS side, and I will discuss this in detail in the following sections.
+```
+con <- dbConnect(RPostgres::Postgres(), dbname='yourdatabase', host='hostname', user='yourUserName', password='yourPassword') 
+evo <- select(evoTweetsGeo,c("user_id","status_id","text","lat","lng"),starts_with("place"))
+dbWriteTable(con,'evo',evo, overwrite=TRUE)
+dbDisconnect(con)
+```
