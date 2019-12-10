@@ -104,7 +104,7 @@ plot.igraph(evoTweetNetwork)
 ```
 <img src="/lab9/Rplot03.png" width="500">
 
-Since we excluded retweets, there isn’t much here to see here. This analysis would be useful to visualize who the 'gatekeepers' of tweets are. As Wang et al. mentioined, on twitter there exists a few elite users and opinion leaders whom many users rely on for information. If we had retweet data, these users would be immediately visible as the major nodes of the network. 
+Since we excluded retweets, there isn’t much here to see. This analysis would be useful to visualize who the 'gatekeepers' of tweets are. As Wang et al. mentioined, on twitter there exists a few elite users and opinion leaders whom many users rely on for information. If we had retweet data, these users would be immediately visible as the major nodes of the network. 
 
 ### Text analysis <a name="rs-e"></a>
 
