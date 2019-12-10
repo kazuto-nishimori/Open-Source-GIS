@@ -55,8 +55,8 @@ We must first create a [developer account on twitter]( https://developer.twitter
 
 Twitter’s data is becoming more monetized and restricted for non-paying developers. With a free account, we are limited to tweets from the past 7 days, and only 18,000 tweets can be downloaded every 15 minutes. In addition, all developers must abide by these [restricted use cases](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases). Most notably, twitter forbids developers to extract sensitive data such as race, sexual orientation, religious and political beliefs about its users. In addition, redistribution of twitter data is restricted to 50,000 per day per user, and they can never be published (in a paper or a public Github repository). Instead, if one wishes to publish data for research reproducibility, one can publish only the unique tweet id’s, which can then be ‘rehydrated’ by a third party. Of course, this third party must own a paid developer account. 
 
- <details><summary><h2>Learning rStudio</h2></summary> <a name="rs"></a>
-
+## Learning rStudio <a name="rs"></a>
+<details><summary> In this section, I cover how to import tweets and census data, as well as how to create graphs visualisations in rStudio. I will be using some of these techniques in the lab, so you may skip this section for now and come back later if it interests you. </summary>
 ### Setting up the environment <a name="rs-a"></a>
 
 rStudio is an opensource data science software with a diverse ecosystem of libraries. I will be using quite a few of these including 'rtweet', to connect with twitter API and 'tidycensus' to connect with the US census API. The first step is to install these libraries into the project using the following command:
