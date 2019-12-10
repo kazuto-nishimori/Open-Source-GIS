@@ -1,4 +1,4 @@
-# Lab One: Creating a QGIS Model: Introduction to Open Source
+# Lab: Creating a QGIS Model: Introduction to Open Source
 
 ## Table of Contents
 1. [Objective](#goal)
