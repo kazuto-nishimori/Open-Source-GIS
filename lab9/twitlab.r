@@ -204,5 +204,5 @@ dbWriteTable(con,'floridacounties',necounties, overwrite=TRUE)
 dbDisconnect(con)
 
 ##################   EXPORT TWEET ID #########################
-evoTweetId <- select(evoTweets,c("user_id","status_id"))
+evoTweetId <- select(evoTweets,c("status_id"))
 write.csv(evoTweetId,file="evoTweetID.csv")
