@@ -103,7 +103,9 @@ evoTweetsGeo <- lat_lng(evoTweetsGeo,coords=c("bbox_coords"))
                 
 `lat_lng()` converts the GPS coordinates into latitude and longitude coordinates. `sub_set()` selects all bounding boxes of the desired extent `lat_long` is used again to find the centroid of these boxes. The centroids and GPS points make up a new table named 'evoTweetsGeo'. Now I have point geometries that can be used for analysis. 
 </details>
+
 ### Network analysis <a name="rs-d"></a>
+
 I can perform network analysis on rStudio using the igraph library. 
 
 ```
