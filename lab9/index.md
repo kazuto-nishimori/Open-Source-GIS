@@ -56,10 +56,10 @@ We must first create a [developer account on twitter]( https://developer.twitter
 Twitter’s data is becoming more monetized and restricted for non-paying developers. With a free account, we are limited to tweets from the past 7 days, and only 18,000 tweets can be downloaded every 15 minutes. In addition, all developers must abide by these [restricted use cases](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases). Most notably, twitter forbids developers to extract sensitive data such as race, sexual orientation, religious and political beliefs about its users. In addition, redistribution of twitter data is restricted to 50,000 per day per user, and they can never be published (in a paper or a public Github repository). Instead, if one wishes to publish data for research reproducibility, one can publish only the unique tweet id’s, which can then be ‘rehydrated’ by a third party. Of course, this third party must own a paid developer account. 
 
 ## Learning rStudio <a name="rs"></a>
-<details><summary> In this section, I cover how to import tweets and census data, as well as how to create graphs visualisations in rStudio. I will be using some of these techniques in the lab, so you may skip this section for now and come back later if it interests you. </summary>
+In this section, I cover how to import tweets and census data, as well as how to create graphs visualisations in rStudio. Since I will only be using some of these techniques in the lab, I have collapsed the sections that are not immedeately relevant. 
     
 ### Setting up the environment <a name="rs-a"></a>
-
+    
 rStudio is an opensource data science software with a diverse ecosystem of libraries. I will be using quite a few of these including 'rtweet', to connect with twitter API and 'tidycensus' to connect with the US census API. The first step is to install these libraries into the project using the following command:
 ```
 install.packages(c("rtweet","tidycensus","tidytext","maps","RPostgres","igraph","tm", "ggplot2","RColorBrewer","rccmisc","ggraph"))
@@ -83,6 +83,8 @@ The `search_tweets` command uses the API information we obtained earlier to sear
 
 
 ### Temporal analysis <a name="rs-b"></a>
+<details><summary> Expand </summary>
+
 The twitter data downloaded with rtweet is neatly organized into a usable table. The column ‘hours’ contains the time stamp of each tweet. Dealing with timestamps is often a headache in coding because there exists a myriad of formats used. Thankfully, rtweet’s `ts_plot` function makes it extremely straight forward to create a plot with respect to time: 
 ```
 evoTweetHours <- ts_data(evoTweets, by="hours")
@@ -90,6 +92,7 @@ ts_plot(winterTweets, by="hours")
 ```
 <img src="/lab9/Rplot00.png" width="500">
 The plot agrees with what I expected. There is a sudden spike in tweets mentioning Evo Morales on the night of November 10, the day he announced his resignation. The tweets fluctuate up and down reflecting the waking hours of the tweeters, and each day the peaks diminish in height as they slowly lose interest in the topic. 
+</details>
 
 ### Extracting precise geographies <a name="rs-c"></a>
 
@@ -106,7 +109,8 @@ evoTweetsGeo <- lat_lng(evoTweetsGeo,coords=c("bbox_coords"))
 </details>
 
 ### Network analysis <a name="rs-d"></a>
-
+<details><summary> Expand </summary>
+    
 I can perform network analysis on rStudio using the igraph library. 
 
 ```
@@ -116,6 +120,7 @@ plot.igraph(evoTweetNetwork)
 <img src="/lab9/Rplot03.png" width="500">
 
 Since I excluded retweets, there isn’t much here to see. This analysis would be useful to visualize who the 'gatekeepers' of tweets are. As Wang et al. mentioined, on twitter there exists a few elite users and opinion leaders whom many users rely on for information. If I had retweet data, these users would be immediately visible as the major nodes of the network. 
+</details>
 
 ### Textual analysis <a name="rs-e"></a>
 
@@ -219,7 +224,6 @@ dbDisconnect(con)
 - [r file](/twitlab.r)
 - [List of tweet IDs](/evoTweetID.csv)
 
-</details>
 
 ## Textual Analysis of Twitter Activity During Dorian
 <img src="/lab9/dorian-word-count.png" width="500">
