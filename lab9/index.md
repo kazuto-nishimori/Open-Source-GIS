@@ -59,15 +59,13 @@ Twitter’s data is becoming more monetized and restricted for non-paying develo
 
 ### Setting up the environment <a name="rs-a"></a>
 
-<details><summary>  </summary>
-<p>
-   
-
 rStudio is an opensource data science software with a diverse ecosystem of libraries. I will be using quite a few of these including 'rtweet', to connect with twitter API and 'tidycensus' to connect with the US census API. The first step is to install these libraries into the project using the following command:
 ```
 install.packages(c("rtweet","tidycensus","tidytext","maps","RPostgres","igraph","tm", "ggplot2","RColorBrewer","rccmisc","ggraph"))
 ```
 Let us test the rtweet library by importing some tweets. I was working on this lab in early November during the aftermath of the coup attempt in Bolivia and the resignation of Evo Morales. I thought it would be interesting to analyze tweets in Florida relating to this event. 
+
+<details><summary> Show Code </summary>
     
 ```
 twitter_token <- create_token(
@@ -79,10 +77,9 @@ twitter_token <- create_token(
 )
 evoTweets <- search_tweets("Evo OR Morales", n=10000, retryonratelimit=FALSE, include_rts=FALSE, token=twitter_token, geocode="28.3,-81.6,350km")
 ```   
+</details>
 The `search_tweets` command uses the API information we obtained earlier to search for tweets with keywords “Evo” or “Morales” in a 350km radius around central Florida (28.3, -81.6) and populates a table called “evoTweets”. No retweets were included. Now that I have the tweets, there is a plethora of things I can do with this data. 
 
-</p>
-</details>
 
 ### Temporal analysis <a name="rs-b"></a>
 The twitter data downloaded with rtweet is neatly organized into a usable table. The column ‘hours’ contains the time stamp of each tweet. Dealing with timestamps is often a headache in coding because there exists a myriad of formats used. Thankfully, rtweet’s `ts_plot` function makes it extremely straight forward to create a plot with respect to time: 
@@ -95,14 +92,17 @@ The plot agrees with what I expected. There is a sudden spike in tweets mentioni
 
 ### Extracting precise geographies <a name="rs-c"></a>
 
-As geographers, we are naturally interested in tweets with precise geographic information. However, since users must opt-in to share this data, it is only available in about 1-5 percent of all tweets. There are two types of geographic information in tweets, the first being the GPS coordinates that give the precise location of the user. Of course, not everyone is comfortable sharing their location with this much precision, so they might opt to share a place name instead, which could range in extent from a point-of-interest, neighborhood, town, to state. This place information is reported as a bounding box instead of a point. Let us select all tweets that report geographic information at the city level or smaller.  
+As geographers, we are naturally interested in tweets with precise geographic information. However, since users must opt-in to share this data, it is only available in about 1-5 percent of all tweets. There are two types of geographic information in tweets, the first being the GPS coordinates that give the precise location of the user. Of course, not everyone is comfortable sharing their location with this much precision, so they might opt to share a place name instead, which could range in extent from a point-of-interest, neighborhood, town, to state. This place information is reported as a bounding box instead of a point. Let us select all tweets that report geographic information at the city level or smaller. 
+<details><summary> Show Code </summary>
+    
 ```
 evoTweets <- lat_lng(evoTweets,coords=c("coords_coords"))
 evoTweetsGeo <- subset(evoTweets, place_type == 'city'| place_type == 'neighborhood'| place_type == 'poi' | !is.na(lat))
 evoTweetsGeo <- lat_lng(evoTweetsGeo,coords=c("bbox_coords"))
 ```
-The first line converts the GPS coordinates into latitude and longitude coordinates. The second and third lines select all bounding boxes of the desired extent and find the centroid of these boxes. The centroids and GPS points make up a new table named 'evoTweetsGeo'. Now I have point geometries that can be used for analysis. 
-
+                
+`lat_lng()` converts the GPS coordinates into latitude and longitude coordinates. `sub_set()` selects all bounding boxes of the desired extent `lat_long` is used again to find the centroid of these boxes. The centroids and GPS points make up a new table named 'evoTweetsGeo'. Now I have point geometries that can be used for analysis. 
+</details>
 ### Network analysis <a name="rs-d"></a>
 I can perform network analysis on rStudio using the igraph library. 
 
@@ -117,6 +117,8 @@ Since I excluded retweets, there isn’t much here to see. This analysis would b
 ### Textual analysis <a name="rs-e"></a>
 
 The first step in text analysis is to isolate the words from the text which is done in the first three lines of the code. Then we must remove stop words. These are words such as articles and short function words (e.g. "the", "and", "like") that are not useful in natural language processing. The SMART list is a handy tool that contains all the major stop words in the English language. In line five, I delete all stop words from our list of words. 
+<details><summary> Show Code </summary>
+    
 ```
 evoTweetsGeo$text <- plain_tweets(evoTweetsGeo$text)
 evoText <- select(evoTweetsGeo,text)
@@ -130,7 +132,10 @@ Unfortunately, most of our tweets were in Spanish, so the SMART list was not ver
 ```
 %>% add_row(word="SPANISH_STOP_WORD")
 ``` 
+</details>
 Then I made a graph of the most common words that appeared in the tweets. 
+<details><summary> Show Code </summary>
+    
 ```
   evoWords %>%
   count(word, sort = TRUE) %>%
@@ -144,11 +149,14 @@ Then I made a graph of the most common words that appeared in the tweets.
        y = "Unique words",
        title = "Count of unique words found in tweets")
 ```
+</details>
 <img src="/lab9/Rplot01.png" width="500">
 
 The words "Evo" and "Morales" topped the charts, which is unsurprising since that was our search criteria. The usual suspects follow like "Bolivia", "pueblo" meaning people, and "fraude" because of the election fraud accusations he was facing at the time of his resignation.  
 
 Let us also visualize a word cloud that maps the interconnectivity of words; the closer the words, the more they were mentioned in conjunction. To do this, the first step is to create word pairs. Then, these pairs are counted by the number of occurrences and a network graph is created based on their frequency:
+<details><summary> Show Code </summary>
+    
 ```
 evoWordPairs <- evoTweetsGeo %>% select(text) %>%
   mutate(text = removeWords(text, stop_words$word)) %>%
@@ -166,6 +174,7 @@ evoWordPairs %>%
        x = "", y = "") +
   theme_void()
   ```
+</details>
 <img src="/lab9/Rplot02.png" width="500">
 <img src="/lab9/Rplot02-edit.png" width="300">
 
@@ -178,6 +187,7 @@ Counties <- get_estimates("county",product="population",output="wide",geometry=T
 floridaCounties <- filter(Counties,STATEFP %in% c("12") )
 ```
 The `ggplot()` function can then be used to visualize the counties and the tweet locations. With very little code, it outputs a usable map, which is surprising. 
+<details><summary> Show Code </summary>
 
 ```
 ggplot() +
@@ -191,6 +201,7 @@ ggplot() +
         axis.title.x=element_blank(),
         axis.title.y=element_blank())
 ```
+</details>
 <img src="/lab9/Rplot04.png" width="500">
 
 ### Uploading results to PostGIS for further spatial analysis <a name="rs-g"></a>
