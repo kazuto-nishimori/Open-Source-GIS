@@ -214,7 +214,7 @@
         <Option type="List" name="FIELD_NAME">
           <Option type="Map">
             <Option type="int" value="2" name="source"/>
-            <Option type="QString" value=" concat(@fieldnameprefix , 'CardinalDir' )" name="static_value"/>
+            <Option type="QString" value=" concat(@fieldnameprefix, 'CardinalDir' )" name="static_value"/>
           </Option>
         </Option>
         <Option type="List" name="FIELD_PRECISION">
@@ -256,11 +256,12 @@
     <Option type="QString" value="This algorithm will calculate the distance and direction of each polygon in the input feature, with respect to a point. In lieu of the point, it is possible to select multiple features, and the algorithm will use their averaged centroid as the point. There is no need to reproject the input feature, as this algorithm transforms the input values into appropriate coordinate systems for eash operation (WGS 84 for distance and Mercator for direction)." name="ALG_DESC"/>
     <Option type="QString" value="Kazuto Nishimori" name="ALG_HELP_CREATOR"/>
     <Option type="QString" value="1.1" name="ALG_VERSION"/>
-    <Option type="QString" value="https://kazuto-nishimori.github.io" name="HELP_URL"/>
+    <Option type="QString" value="https://kazuto-nishimori.github.io/lab1" name="HELP_URL"/>
     <Option type="QString" value="" name="SHORT_DESCRIPTION"/>
     <Option type="QString" value="Selected features from which the distance and direction will be calculated." name="cbdselection"/>
     <Option type="QString" value="Give the field prefix. In the output attribute table, the column in which the distance data is stored will be named prefix + 'dist'. Likewise for the direction column, prefix + 'dir'.&#xa;&#xa;For example, using 'Chicago' as the Field Name Prefix, the columns will be named 'ChicagoDist' and'ChicagoDir'" name="fieldnameprefix"/>
     <Option type="QString" value="The input layer" name="inputfeature2"/>
+    <Option type="QString" value="The output will be identical to the input shapfile, but with three added columns. One for directin in degrees, one for distance in degrees, and lastly one for cardinal direction. &#xa;" name="qgis:fieldcalculator_3:output"/>
   </Option>
   <Option name="modelVariables"/>
   <Option type="QString" value="Middlebury" name="model_group"/>
