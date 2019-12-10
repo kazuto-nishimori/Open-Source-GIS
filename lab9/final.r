@@ -123,7 +123,7 @@ dorianWordPairs %>%
 
 
 ##################   EXPORT TWEET ID #########################
-dorianTweetId <- select(dorian,c("user_id","status_id"))
+dorianTweetId <- select(dorian,c("status_id"))
 write.csv(dorianTweetId,file="dorianTweetID.csv")
-novemberTweetId <- select(november,c("user_id","status_id"))
+novemberTweetId <- select(november,c("status_id"))
 write.csv(novemberTweetId,file="novemberTweetID.csv")
