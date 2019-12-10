@@ -59,11 +59,16 @@ Twitter’s data is becoming more monetized and restricted for non-paying develo
 
 ### Setting up the environment <a name="rs-a"></a>
 
+<details><summary>  </summary>
+<p>
+   
+
 rStudio is an opensource data science software with a diverse ecosystem of libraries. I will be using quite a few of these including 'rtweet', to connect with twitter API and 'tidycensus' to connect with the US census API. The first step is to install these libraries into the project using the following command:
 ```
 install.packages(c("rtweet","tidycensus","tidytext","maps","RPostgres","igraph","tm", "ggplot2","RColorBrewer","rccmisc","ggraph"))
 ```
 Let us test the rtweet library by importing some tweets. I was working on this lab in early November during the aftermath of the coup attempt in Bolivia and the resignation of Evo Morales. I thought it would be interesting to analyze tweets in Florida relating to this event. 
+    
 ```
 twitter_token <- create_token(
   app = “YOUR_APP_NAME", 
@@ -73,8 +78,11 @@ twitter_token <- create_token(
   access_secret = NULL
 )
 evoTweets <- search_tweets("Evo OR Morales", n=10000, retryonratelimit=FALSE, include_rts=FALSE, token=twitter_token, geocode="28.3,-81.6,350km")
-```
-This command uses the API information we obtained earlier to search for tweets with keywords “Evo” or “Morales” in a 350km radius around central Florida (28.3, -81.6) and populates a table called “evoTweets”. No retweets were included. Now that I have the tweets, there is a plethora of things I can do with this data. 
+```   
+The `search_tweets` command uses the API information we obtained earlier to search for tweets with keywords “Evo” or “Morales” in a 350km radius around central Florida (28.3, -81.6) and populates a table called “evoTweets”. No retweets were included. Now that I have the tweets, there is a plethora of things I can do with this data. 
+
+</p>
+</details>
 
 ### Temporal analysis <a name="rs-b"></a>
 The twitter data downloaded with rtweet is neatly organized into a usable table. The column ‘hours’ contains the time stamp of each tweet. Dealing with timestamps is often a headache in coding because there exists a myriad of formats used. Thankfully, rtweet’s `ts_plot` function makes it extremely straight forward to create a plot with respect to time: 
@@ -82,7 +90,7 @@ The twitter data downloaded with rtweet is neatly organized into a usable table.
 evoTweetHours <- ts_data(evoTweets, by="hours")
 ts_plot(winterTweets, by="hours")
 ```
-<img src="/lab9/Rplot.png" width="500">
+<img src="/lab9/Rplot00.png" width="500">
 The plot agrees with what I expected. There is a sudden spike in tweets mentioning Evo Morales on the night of November 10, the day he announced his resignation. The tweets fluctuate up and down reflecting the waking hours of the tweeters, and each day the peaks diminish in height as they slowly lose interest in the topic. 
 
 ### Extracting precise geographies <a name="rs-c"></a>
