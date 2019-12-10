@@ -106,7 +106,7 @@ plot.igraph(evoTweetNetwork)
 
 Since I excluded retweets, there isn’t much here to see. This analysis would be useful to visualize who the 'gatekeepers' of tweets are. As Wang et al. mentioined, on twitter there exists a few elite users and opinion leaders whom many users rely on for information. If I had retweet data, these users would be immediately visible as the major nodes of the network. 
 
-### Text analysis <a name="rs-e"></a>
+### Textual analysis <a name="rs-e"></a>
 
 The first step in text analysis is to isolate the words from the text which is done in the first three lines of the code. Then we must remove stop words. These are words such as articles and short function words (e.g. "the", "and", "like") that are not useful in natural language processing. The SMART list is a handy tool that contains all the major stop words in the English language. In line five, I delete all stop words from our list of words. 
 ```
@@ -193,3 +193,13 @@ evo <- select(evoTweetsGeo,c("user_id","status_id","text","lat","lng"),starts_wi
 dbWriteTable(con,'evo',evo, overwrite=TRUE)
 dbDisconnect(con)
 ```
+### Download materials used <a name="rs-h"></a>
+[r file](/twitlab.r)
+[List of tweet IDs](/evoTweetID.csv)
+
+## Textual Analysis of Twitter Activity During Dorian
+<img src="/lab9/dorian-word-count.png" width="500">
+<img src="/lab9/dorian-word-plot.png" width="500">
+
+## Geographic Analysis of Twitter Activity During Dorian
+
