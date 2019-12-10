@@ -48,9 +48,17 @@ If you would like to test my model without going through these steps, you may do
 
 ### Understanding the Model <a name="model-b"></a>
 
-<img src="/lab1/model.PNG" width="400">
+The model I made is straight forward. It asks for two inputs features: the census tracts and central business districs. The CBD can be any type of geometry, even multiple features. The `Centroids` function finds all of the centroids within the CBD and the `Mean coordinates` function averages them to create one point feature. Then, this is fed through the `Field calculator` to calculate the distance, direction, and cardinal direction for each census tract. 
+
+<img src="/lab1/model.PNG" width="600">
 
 ### Outputs <a name="model-c"></a>
+
+Here are the outputs of the model:
+<img src="/lab1/dist.PNG" width="700">
+<img src="/lab1/dir.PNG" width="700">
+<img src="/lab1/card.PNG" width="700">
+I
 
 ### Plotting Results in DataPlotly <a name="model-d"></a>
 
