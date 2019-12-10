@@ -55,7 +55,7 @@ We must first create a [developer account on twitter]( https://developer.twitter
 
 Twitter’s data is becoming more monetized and restricted for non-paying developers. With a free account, we are limited to tweets from the past 7 days, and only 18,000 tweets can be downloaded every 15 minutes. In addition, all developers must abide by these [restricted use cases](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases). Most notably, twitter forbids developers to extract sensitive data such as race, sexual orientation, religious and political beliefs about its users. In addition, redistribution of twitter data is restricted to 50,000 per day per user, and they can never be published (in a paper or a public Github repository). Instead, if one wishes to publish data for research reproducibility, one can publish only the unique tweet id’s, which can then be ‘rehydrated’ by a third party. Of course, this third party must own a paid developer account. 
 
-## Learning rStudio <a name="rs"></a>
+ <details><summary><h2>Learning rStudio</h2></summary> <a name="rs"></a>
 
 ### Setting up the environment <a name="rs-a"></a>
 
@@ -217,6 +217,8 @@ dbDisconnect(con)
 ### Download materials used <a name="rs-h"></a>
 - [r file](/twitlab.r)
 - [List of tweet IDs](/evoTweetID.csv)
+
+</details>
 
 ## Textual Analysis of Twitter Activity During Dorian
 <img src="/lab9/dorian-word-count.png" width="500">
