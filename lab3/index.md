@@ -15,7 +15,7 @@
 6. [Comparing ASTER and SRTM](#comp)
 
 ## Objective <a name="goal"></a>
-This lab has two learning goals: 1) to become familiar with the open source terrain analysis software [SAGA](http://www.saga-gis.org/en/index.html) and 2) to learn to examine and compare raster datasets with a critical lens. SAGA is an opensource terrain analysis software has been around since 2004, and it is ideal for physical geography analysis using raster data. We will be using two datasets, ASTER and SRTM, and through the analysis identify the dataset that is better suited for our study region. 
+This lab has two learning goals: 1) to become familiar with the open source terrain analysis software [SAGA](http://www.saga-gis.org/en/index.html) and 2) to learn to examine and compare raster datasets with a critical lens. SAGA is an opensource terrain analysis software has been around since 2004, and it is ideal for physical geography analysis using raster data. I will use two datasets, ASTER and SRTM, and through the analysis I will identify the dataset that is better suited for the study region. 
 
 ## Software and Documentation <a name="sw"></a>
 
