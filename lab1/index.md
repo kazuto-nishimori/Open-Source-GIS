@@ -67,6 +67,9 @@ Here are the outputs of the model:
 
 ### Plotting Results in DataPlotly <a name="model-d"></a>
 
+[Distance Plot](/distance.html)
+[Direction Plot](/direction.html)
+
 ### Possible Future Modifications <a name="model-e"></a>
 
 ## Discussion <a name="disc"></a>
