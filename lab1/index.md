@@ -88,3 +88,7 @@ In true open source fashion, I have decided to leave some space for future work.
 
 ## Discussion <a name="disc"></a>
 
+In this lab...
+
+
+
