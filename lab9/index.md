@@ -404,7 +404,7 @@ On the other hand, the normalized difference twitter index map showed a behaviou
 <img src="/lab9/ndti-clust.PNG" width="600">
 
 ### Kernel Density Map in QGIS <a name="geog-d"></a>
-Finally, I created a kernel density heatmap of the tweet rate during the hurricane. The algorithm requires point data, not shapefiles, so let us reduce the counties into centroids using the following code.
+Finally, I created a kernel density heatmap of the tweet rate during the hurricane. The algorithm requires point data, not shapefiles, so I will reduce the counties into centroids using the following code.
 
 <details><summary>Show Code </summary>
     
@@ -416,7 +416,7 @@ FROM countieseastg
 ```
 </details>
 
-Then the `Kernel Density Estimation` algorithm is found under processing toolbox. Running this with radius 100km and pixel size 500 meters produced a usable heatmap. I decided to overlay this with state borders. I isolated the borders with the following command:
+The `Kernel Density Estimation` algorithm is found under processing toolbox. Running this with radius 100km and pixel size 500 meters produced a usable heatmap. I decided to overlay this with state borders for clarity. I isolated the borders in SQL from the Eastern counties layer with the following command:
 <details><summary>Show Code </summary>
     
 ``` sql 
@@ -440,4 +440,15 @@ So did the DJT's sharpie gate have a significant influence on twitter activity? 
     <img src="/lab9/twrate_sig_1.png" width="600">
 </details>
 
-It seems that no, however dominant DJT might be in twitter discourse his sharpied-in hurricane path to Alabama did not seem to cause an upsurge of Dorian related tweets in that region. Instead, the tweet rate clearly highlights the actual path taken by Dorian along the Eastern Coast of USA. This supports Wang et al's finding that there is a distinct correlation with tweet areas related to disasters, and the actual affected geography (2016). 
+It seems that no, however dominant DJT might be in twitter discourse, his sharpied-in hurricane path to Alabama did not cause an upsurge of Dorian related tweets in that region. This we can conclude with statistical significance from the significance map. Instead, the tweet rate clearly highlights the actual path taken by Dorian along the Eastern Coast of USA. This supports Wang et al's finding that there is a correlation with areas with disaster-related tweets, and the actual affected geography (2016). 
+
+Want et al. argues that social media data is useful in disaster research and response, not just for the temporal and spatial accuracy of its distribution, but because it provides a human-centric perspective on disaster sensing. Elwood et al. further supports this notion and in response to possible criticism that social media data can be unreliable, they argue that in an case of an emergency, "decision makers must make choices between acting immediately with questionable data and waiting for better data to arrive" (2011) and usually the former is better. Furthermore, from our tweet rate distributions, it seems to point to the fact that these tweets are not in fact as questionable as one might expect. 
+
+However, one must also realize that there are significant downsides, even dangers in using social media data. 
+
+
+
+
+
+
+
