@@ -1,6 +1,6 @@
 ## [Lab: Big Data and Twitter API](/lab9)
 
-## [Lab: Reproducibility, Replicability in Geography Research](/lab8)
+## [Lab: Reproducibility and Replicability in Geography Research](/lab8)
 This lab has two large goals. Firstly, we will reproduce a vulnerability map published in Applied Geography by Malcolm, Weaver, and Krakowka using the datasets and methodologies outlined in their article. Secondly, we will critique the methods used by the authors and discuss the broader issue of replicability in vulnerability analysis. This lab is an opportunity to dive deep into the reproducibility and replicability discussion that is becoming a hot issue in the social science community.
 
 ## [Lab: Web Mapping with Leaflet](/lab7/index.md)
