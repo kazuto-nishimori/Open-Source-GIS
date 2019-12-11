@@ -60,31 +60,39 @@ Hillshading is a great place to start, as it facilitates the visualisation of ou
 
 <img src="/lab3/Capture3.PNG" width="500">
 
-### Sink drainage and removal
+### Preprocessing: sink drainage and removal
 
-I will also try out a hydrological analysis. First, I run the sink drainage route tool to detect sinks and which direction water would flow upon encountering a sink `Tools -> Terrain Analysis -> Preprocessing -> Sink Drainage Route`. We then fill in these sinks using the sink removal tool `Tools -> Terrain Analysis -> Preprocessing -> Sink Removal`. 
+Let us perform a preprocessing step to prepare our raster for hydrological analysis. First, I run the sink drainage route tool to detect sinks based on unusual water flow `Tools -> Terrain Analysis -> Preprocessing -> Sink Drainage Route`. Sinks are usually due to noises in the dataset that causes bumps in the terrain:
 
 <img src="/lab3/sink.png" width="300">
 
-This graphic can be helpful in understanding what sinks mean in an hydrological system. The sink removal tool outputs a new DEM with these sinks filled. 
-
+<details><summary>Sink drainage output</summary>
 <img src="/lab3/Capture4.PNG" width="400">
-<details><summary>Zoom in</summary>
+   </details> 
+<details><summary>Zoomed in</summary>
 <img src="/lab3/Capture5.PNG" width="500">
 </details>
+
+To get accurate water flow route and channels, these sinks must be removed using the sink removal tool `Tools -> Terrain Analysis -> Preprocessing -> Sink Removal`. The output is identical to the original DEM to the naked eye. 
+
 ### Flow accumulation 
 
 Next, I will run the flow accumulation function `Tools -> Terrain Analysis -> Hydrology -> Flow Accumulation (Top-Down)`. This tool maps out, for each cell, how many cells contribute to its water flow. This is helpful in detecting where streams start and how they build up. 
 
+<details><summary>Flow Accumulation Output</summary>
 <img src="/lab3/Capture6.PNG" width="500">
+    </details>
 <details><summary>Zoom in</summary>
 <img src="/lab3/Capture7.PNG" width="500">
 </details>
+
 ### Channel Network 
 
-Finally, a useful tool is the channel network tool that creates both a raster and vector representation of water channel. It can be exported to be used in other GIS software. `Tools -> Terrain Analysis -> Channels -> Chanel Network`
+Finally, a useful tool is the channel network tool that creates both a raster and vector layers of water channels. They can be exported to be used in other GIS software. `Tools -> Terrain Analysis -> Channels -> Chanel Network`
 
+<details><summary>Channel network output</summary>
 <img src="/lab3/Capture8.PNG" width="500">
+    </details>
 <details><summary>Zoom in</summary>
 <img src="/lab3/Capture9.PNG" width="500">
 </details>
