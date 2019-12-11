@@ -1,4 +1,4 @@
-# Lab Six: OpenStreetMap Data on PostGIS
+# OpenStreetMap Data on PostGIS
 
 ## Table of Contents
 
