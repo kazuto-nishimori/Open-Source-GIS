@@ -1,4 +1,4 @@
-# Lab Eight: Reproducibility, Replicability, and Uncertainty Propagation
+# Reproducibility and Replicability in Geography Research
 
 ## Table of Contents
 
