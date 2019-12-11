@@ -30,12 +30,21 @@
 - [QGIS 3.8.1](https://www.qgis.org/en/site/) 
 - [PostGIS 2.5.3](https://postgis.net/source/)
 - [PostgreSQL 11.5](https://www.postgresql.org/download/)
-- rStudio
-  - library 1
-  - library 2
-  - library 3
+- [GeoDa 1.10.0.8](https://geodacenter.github.io/)
+- [rStudio 1.2.1335](https://rstudio.com/)
+<details><summary>Libraries Used</summary>
+  - rtweet
+  - tidycensus
+  - maps
+  - RPostgres
+  - igraph
+  - tm
+  - ggplot2
+  - RColorBrewer
+  - rccmisc
+  - ggraph
+    </details>
   
-
 ### Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 - https://www.w3resource.com/
@@ -230,4 +239,8 @@ dbDisconnect(con)
 <img src="/lab9/dorian-word-map.png" width="500">
 
 ## Geographic Analysis of Twitter Activity During Dorian
+### Moving Data to PostGIS
+### Spatial Operations in PostGIS
+### Spatial Hotspot Analysis with GeoDa
+### Kernel Density Map in QGIS
 
