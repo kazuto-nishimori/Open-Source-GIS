@@ -61,7 +61,7 @@ Hillshading is a great place to start, as it facilitates the visualisation of ou
 
 ### Preprocessing: sink drainage and removal
 
-Let us perform a preprocessing step to prepare our raster for hydrological analysis. First, I run the sink drainage route tool to detect sinks based on unusual water flow `Tools -> Terrain Analysis -> Preprocessing -> Sink Drainage Route`. Sinks are usually due to noises in the dataset that causes bumps in the terrain:
+Let us perform a preprocessing step to prepare our raster for hydrological analysis. First, I run the sink drainage route tool to detect sinks based on unusual water flow `Tools -> Terrain Analysis -> Preprocessing -> Sink Drainage Route`. Sinks are usually due to noise in the dataset that causes bumps in the terrain:
 
 <img src="/lab3/sink.png" width="300">
 
@@ -87,7 +87,7 @@ Next, I will run the flow accumulation function `Tools -> Terrain Analysis -> Hy
 
 ### Channel Network 
 
-Finally, a useful tool is the channel network tool that creates both a raster and vector layers of water channels. They can be exported to be used in other GIS software. `Tools -> Terrain Analysis -> Channels -> Chanel Network`
+Finally, a useful tool is the channel network tool that creates both a raster and vector layer of water channels. They can be exported to be used in other GIS software. `Tools -> Terrain Analysis -> Channels -> Chanel Network`
 
 <details><summary>Channel network output</summary>
 <img src="/lab3/Capture8.PNG" width="500">
