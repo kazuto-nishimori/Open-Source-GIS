@@ -46,36 +46,36 @@ This page will go over the very basics of terrain analysis using publicly availb
 
 The [NASA Earthdata portal](https://search.earthdata.nasa.gov/search) is a great resource for downloading high resolution digital elevation models from anywhere in the world. It is free to use, but require an account. For this lab, we will be using Shuttle Radar Topography Mission (SRTM) 1 arcsecond dataset and looking at Mount Kilimanjaro in Tanzania. This data was obtained in a Space Shuttle mission, where during orbit, two radar sensors were placed at a significant distance apart to measure the elevation of the terrain from parallax. 1 arcsecond, i.e. 30 meters per pixel width, should provide the adequate definition for our project today. In the later sections, I will compare this SRTM dataset with another comparable dataset collected by a join US-Japanese satellite mission called the Aster Global DEM. We will explore the strengths and weakness of the datasets in the context of Mount Kilimanjaro. 
 
-<img src="/lab1/Capture.PNG" width="500">
+<img src="/lab3/Capture.PNG" width="500">
 
 We then prepare the dataset for analysis. The raster data is imported into SAGA and opened in a map. If there are multiple rasters covering the area of interest, as is the case with mine, there will be an obvious discontinuity between the rasters upon opening them in the same map. However, this is (probably) not due to the dataset, but the representation of the data, as colors are assigned based on the relative highs and lows of each raster. To fix this, we must make a mosaic of the rasters (Tools -> Mosaicking). Chose the bilinear interpolation for the sampling method, since this is a quantitative raster. I will chose the appropriate Left, Right, Top, and Bottom coordinates to crop my final mosaic. Lastly, we will reproject the layer to the correct UTM zone (Tools -> Projection -> Proj.4 -> UTM Projection (Grid)).
 
-<img src="/lab1/Capture1.PNG" width="500">
-<img src="/lab1/Capture2.PNG" width="500">
+<img src="/lab3/Capture1.PNG" width="500">
+<img src="/lab3/Capture2.PNG" width="500">
 
 From here, all sorts of things are possible in SAGA. However, before continuing, be sure to save the file, as SAGA can crash unexpectedly from time to time. Hillshading is a great place to start, as it facilitates the visualisation of our data. (Tools -> Terrain Analysis -> Lighting, Visibility -> Analytical Hillshading). Parameters should be modified as desired. One thing to note is that the default position of the sun is often at an angle that is physically impossible i.e. rays from the north in the northern hemisphere. Especially in fields such as cartography, one must make a conscious decision about the placement of the sun, whether to favor realism or legibility (the default setting looks natural to right-handed individuals who often illuminate their desk from the upper left position).
 
-<img src="/lab1/Capture3.PNG" width="500">
+<img src="/lab3/Capture3.PNG" width="500">
 
 We will also tryout a hydrological analysis. First, let us run the sink drainage route tool to detect sinks and which direction water would flow upon encountering a sink (Tools -> Terrain Analysis -> Preprocessing -> Sink Drainage Route). We then fill in these sinks using the sink removal tool (Tools -> Terrain Analysis -> Preprocessing -> Sink Removal). 
 
-<img src="/lab1/sink.png" width="500">
+<img src="/lab3/sink.png" width="500">
 
 This graphic can be helpful in understanding sinks in an hydrological system. The sink removal tool fills in these sinks and gives us a new elevation model.
 
-<img src="/lab1/Capture4.PNG" width="500">
-<img src="/lab1/Capture5.PNG" width="500">
+<img src="/lab3/Capture4.PNG" width="500">
+<img src="/lab3/Capture5.PNG" width="500">
 
 
 Next, we will try the flow accumulation model (Tools -> Terrain Analysis -> Hydrology -> Flow Accumulation (Top-Down)). This tool maps out, for each cell, how many cells contribute to its water flow. This is helpful in detecting where stream starts and how they build up. 
 
-<img src="/lab1/Capture6.PNG" width="500">
-<img src="/lab1/Capture7.PNG" width="500">
+<img src="/lab3/Capture6.PNG" width="500">
+<img src="/lab3/Capture7.PNG" width="500">
 
 Finally, a useful tool is the channel network tool that creates both a raster and vector representation of these channels that we can export and use in other GIS software. (Tools -> Terrain Analysis -> Channels -> Chanel Network)
 
-<img src="/lab1/Capture8.PNG" width="500">
-<img src="/lab1/Capture9.PNG" width="500">
+<img src="/lab3/Capture8.PNG" width="500">
+<img src="/lab3/Capture9.PNG" width="500">
 
 Update:
 
