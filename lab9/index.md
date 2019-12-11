@@ -1,4 +1,4 @@
-# Lab: Big Data and Twitter API
+# Big Data and Twitter API
 
 ## Table of Contents
 
