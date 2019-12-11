@@ -16,9 +16,15 @@
     5. [Text analysis](#rs-e)
     6. [Spatial analysis](#rs-f)
     7. [Uploading results to PostGIS for further spatial analysis](#rs-g)
-4. [Twitter Activity during Hurricane Dorian](#dor)
-    1. [Conceptual rationale](#malc-a)
-    2. [Methodology](#malc-b)
+4. [Textual Analysis of Twitter Activity During Dorian](#text)
+    1. [Outputs](#text-a)
+    2. [Discussion](#text-b)
+5. [Geographic Analysis of Twitter Activity During Dorian](#geog)
+    1. [Setting up PostGIS](#geog-a)
+    2. [Spatial Operations in PostGIS](#geog-b)
+    3. [Spatial Hotspot Analysis with GeoDa](#geog-c)
+    4. [Kernel Density Map in QGIS](#geog-d)
+    5. [Discussion](#geog-e)
 
 ## Objective <a name="goal"></a>
  
@@ -238,24 +244,24 @@ dbDisconnect(con)
 - [List of tweet IDs](/evoTweetID.csv)
 
 
-## Textual Analysis of Twitter Activity During Dorian
+## Textual Analysis of Twitter Activity During Dorian <a name="text"></a>
 
 Now that we have the toolset, let us answer the original research question. Did DJT's sharpiegate have an effect on twitter activity that was significant enough to alter emergency responders or academic research that relies on these tweets? I will first look at the outputs from the textural analysis. 
 
-### The outputs
+### Outputs <a name="text-a"></a>
 <img src="/lab9/dorian-word-count.png" width="500">
 <img src="/lab9/plot.png" width="500">
 
-### Discussion 
+### Discussion <a name="text-b"></a>
 
 In terms of word count, 'sharpiegate' along with mentions of DJT dominates the discussion on twitter. However, word count is not always a useful indicator of people's interest. This is because there is not an equivalent 'buzzword' for calling out for help, or expressing support to the victims. It makes sense that the words that top the charts are controversial, 'viral' topics that are marketed well using buzzwords. Looking at the word cloud, the mentions of 'sharpiegate' all but disappear at this scale. It appears that most tweets mention the victims, or give some words of encouragement and support. DJT makes an appearence on the map but only occupies the periphery of the word cloud.
 
-## Geographic Analysis of Twitter Activity During Dorian
+## Geographic Analysis of Twitter Activity During Dorian <a name="geog"></a>
 
 It will be interesting to see the geographic distribution of twitter activity during the hurricane. From rStudio, I will import the Dorian tweets, as well as tweets from November which I can compare as a baseline twitter activity. A comparison of Dorian tweets with baseline activity can be more telling than a simple population-based normalization, since twitter is not as universal as other socialmedia such as facebook. I will also import the US counties data that was imported to rStudio via the census API. 
 
 
-### Setting up PostGIS
+### Setting up PostGIS <a name="geog-a"></a>
 
 Exporting data to PostGIS on the rStudio side is covered in the "Learning rStudio" section. Once imported, we will first of all import the lambert conformal conic (ESRI:102004) spatial reference system for this lab. (This projection preserves shapes well) A website called spatialreference.org provides SQL queries that you can copy-and-paste. 
 
@@ -279,7 +285,7 @@ SET geom = st_transform (st_setsrid(st_makepoint(lng,lat),4326),102004);
 
 Do the same for the Dorian tweets table and US counties. Now the layers are ready for spatial analysis. 
 
-### Spatial Operations in PostGIS
+### Spatial Operations in PostGIS <a name="geog-b"></a>
 
 #### Dropping states outside of study area
 
@@ -378,7 +384,7 @@ SET ndti = 0 where ndti is NULL
 
 Now the county layer is ready to be imported by GeoDa for spatial hotspot analysis. 
 
-### Spatial Hotspot Analysis with GeoDa
+### Spatial Hotspot Analysis with GeoDa <a name="geog-c"></a>
 
 GeoDa in an open source spatial statistics software and I will be using their G* function in this lab. G* is akin to a Z score, but tailored to geographic analysis; it reveals clusters of hot- and cold-spots in the map. I will make hotspot maps for both tweet rate and the normalized difference index.
 
@@ -386,7 +392,7 @@ The first step is to connect to the PostGIS database. Then, I will create a spat
 
 Then go to `Space -> Local G* cluster map`. Make sure to include a significance map, cluster map, and row-standardized weights. Making a hotspot map is as simple as that. The outputs are provided in the following discussion section. 
 
-### Kernel Density Map in QGIS
+### Kernel Density Map in QGIS <a name="geog-d"></a>
 Finally, I created a kernel density heat map of the tweet rate during the hurricane. The algorithm requires point data, not shapefiles, so let us reduce the counties into centroids using the following code.
 
 <details><summary>Show Code </summary>
@@ -411,5 +417,5 @@ GROUP BY statefp
 ```
 </details>
 
-### Discussion 
+### Discussion  <a name="geog-e"></a>
 
