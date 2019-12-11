@@ -55,10 +55,15 @@ The model I made is straight forward. It asks for two inputs features: the censu
 ### Outputs <a name="model-c"></a>
 
 Here are the outputs of the model:
-<img src="/lab1/dist.PNG" width="700">
-<img src="/lab1/dir.PNG" width="700">
-<img src="/lab1/card.PNG" width="700">
-I
+<details><summary>Distance</summary>
+<img src="/lab1/dist.png" width="1000">
+</details>
+<details><summary>Direction</summary>
+<img src="/lab1/dir.png" width="1000">
+</details>  
+<details><summary>Cardinal Direction</summary>
+<img src="/lab1/card.png" width="1000">
+</details>
 
 ### Plotting Results in DataPlotly <a name="model-d"></a>
 
