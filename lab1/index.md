@@ -92,7 +92,12 @@ In true open source fashion, I have decided to leave some space for future work.
 
 ## Discussion <a name="disc"></a>
 
-In this lab...
+As Sergio Rey claims, open source might be the only truly innovative concept in business that has appeared in the 21st century (2009). It is an ecosystem of innovation and product development where individuals create, share, and modify. Its closest analogue is the academic community where there exists the same culture around peer-review, collaboration, improvement and reputation. And as I have learned, to be a part of this culture of ‘openness’ is not an easy feat. My work had to be notated, each decision justified, and the process well-documented. The thoroughness with which one must complete a task so that someone, somewhere can pick up the pieces later is quite daunting. 
+
+Rey also discusses some of the disadvantages of opensource, namely the inaccessibility for those less technically skilled. This I can admit I have experienced while working on this project. Opensource software is a patch work of code by difference people, including other opensource software. In the case of QGIS, it relies on SpatialLite for geodatabase functionality. DataPlotly runs on D3. If anything should go wrong, it can be very difficult for entry level users to find the appropriate help documentation. In my case, I could not find a way to have my model output distance in meters. One must be resourceful and modify codes from online forums to patch the problems that one encounters. 
+
+However, the advantages are also numerous. For example, people approach opensource software with a different mindset than they do a proprietary one. As Rey discusses, the user of proprietary software is often bounded by the functionality of the software, and they forget to think beyond the existing capabilities. On the other hand, the trajectory of opensource software is driven by the needs of the user. So, they work in quite the opposite way where the imagination of the user drives opensource innovation, whereas the functionality of proprietary software bounds the imagination. A great example of this was the direction plot in DataPlotly. In math and in geography, polar graphs are drawn differently, and the DataPlotly plugin only supported the math version of the graph (measured counterclockwise from the positive x-axis). A direction plot plotted in this way, however is not too useful in geography research. We could have easily abandoned the direction plot altogether, but our professor Joe Holler made small modifications to the code which gave the user an option between these two polar plots (it later became part of the plugin). This lab, although small in scope, was a great first step into the world of opensource. 
+
 
 
 
