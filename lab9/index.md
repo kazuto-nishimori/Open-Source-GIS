@@ -380,7 +380,36 @@ Now the county layer is ready to be imported by GeoDa for spatial hotspot analys
 
 ### Spatial Hotspot Analysis with GeoDa
 
-G* is akin to a Z score, but tailored to geographic analysis; it reveals clusters of hot- and cold-spots in the map. 
+GeoDa in an open source spatial statistics software and I will be using their G* function in this lab. G* is akin to a Z score, but tailored to geographic analysis; it reveals clusters of hot- and cold-spots in the map. I will make hotspot maps for both tweet rate and the normalized difference index.
+
+The first step is to connect to the PostGIS database. Then, I will create a spatial weights matrix, which is a matrix table that contains information about which features neighbor with which. The `weights file id variable`, is the feature id, which in this case is the county id or `GEOID` column. The default settings are kept for the `Threshold distance`.
+
+Then go to `Space -> Local G* cluster map`. Make sure to include a significance map, cluster map, and row-standardized weights. Making a hotspot map is as simple as that. The outputs are provided in the following discussion section. 
 
 ### Kernel Density Map in QGIS
+Finally, I created a kernel density heat map of the tweet rate during the hurricane. The algorithm requires point data, not shapefiles, so let us reduce the counties into centroids using the following code.
+
+<details><summary>Show Code </summary>
+    
+``` sql
+convert counties to centroid
+CREATE VIEW countiescentroids AS
+SELECT geoid, st_centroid(wkb_geometry) AS geom, pp_val
+FROM countieseastg
+```
+</details>
+
+Then the `Kernel Density Estimation` algorithm is found under processing toolbox. Running this with radius 100km and pixel size 500 meters produced a usable heatmap. I decided to overlay this with state borders. I isolated the borders with the following command:
+<details><summary>Show Code </summary>
+    
+``` sql 
+CREATE TABLE usstates AS
+SELECT statefp,
+  	   ST_Union(geom) as geom
+FROM uscounties
+GROUP BY statefp
+```
+</details>
+
+### Discussion 
 
