@@ -11,21 +11,7 @@
     4. [Network analysis](#rs-d)
     5. [Text analysis](#rs-e)
     6. [Spatial analysis](#rs-f)
-    
-4. [Getting Started with twitter API](#twit)
-    1. [Creating developer account ](#twit-a)
-    2. [Important considerations with twitter data](#twit-b)
-5. [Learning rStudio](#rs)
-    1. [Setting up the environment](#rs-a)
-    2. [Temporal analysis](#rs-b)
-    3. [Extracting precise geographies](#rs-c)
-    4. [Network analysis](#rs-d)
-    5. [Text analysis](#rs-e)
-    6. [Spatial analysis](#rs-f)
-    7. [Uploading results to PostGIS for further spatial analysis](#rs-g)
-4. [Twitter Activity during Hurricane Dorian](#dor)
-    1. [Conceptual rationale](#malc-a)
-    2. [Methodology](#malc-b)
+
 
 ## Objective <a name="goal"></a>
 The goal of this lab is 
@@ -36,8 +22,6 @@ The goal of this lab is
 
 - [SAGA 6.2](https://www.qgis.org/en/site/) 
 - [Python]
-
-  
 
 ### Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
@@ -80,27 +64,30 @@ Hillshading is a great place to start, as it facilitates the visualisation of ou
 
 I will also try out a hydrological analysis. First, I run the sink drainage route tool to detect sinks and which direction water would flow upon encountering a sink `Tools -> Terrain Analysis -> Preprocessing -> Sink Drainage Route`. We then fill in these sinks using the sink removal tool `Tools -> Terrain Analysis -> Preprocessing -> Sink Removal`. 
 
-<img src="/lab3/sink.png" width="500">
+<img src="/lab3/sink.png" width="300">
 
 This graphic can be helpful in understanding what sinks mean in an hydrological system. The sink removal tool outputs a new DEM with these sinks filled. 
 
-<img src="/lab3/Capture4.PNG" width="500">
+<img src="/lab3/Capture4.PNG" width="400">
+<details><summary>Zoom in</summary>
 <img src="/lab3/Capture5.PNG" width="500">
-
+</details>
 ### Flow accumulation 
 
 Next, I will run the flow accumulation function `Tools -> Terrain Analysis -> Hydrology -> Flow Accumulation (Top-Down)`. This tool maps out, for each cell, how many cells contribute to its water flow. This is helpful in detecting where streams start and how they build up. 
 
 <img src="/lab3/Capture6.PNG" width="500">
+<details><summary>Zoom in</summary>
 <img src="/lab3/Capture7.PNG" width="500">
-
+</details>
 ### Channel Network 
 
 Finally, a useful tool is the channel network tool that creates both a raster and vector representation of water channel. It can be exported to be used in other GIS software. `Tools -> Terrain Analysis -> Channels -> Chanel Network`
 
 <img src="/lab3/Capture8.PNG" width="500">
+<details><summary>Zoom in</summary>
 <img src="/lab3/Capture9.PNG" width="500">
-
+</details>
 
 
 Update:
