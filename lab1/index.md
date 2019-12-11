@@ -8,7 +8,7 @@
     2. [Understanding the Model](#model-b)
     3. [Outputs](#model-c)
     4. [Plotting Results in DataPlotly](#model-d)
-    5. [Future Work](#model-e)
+    5. [Room for Future Work](#model-e)
 4. [Discussion](#disc)
 
 ## Objective <a name="goal"></a>
@@ -81,7 +81,10 @@ Take a look also at a more conventional choropleth plot of the two data. You can
 <img src="/lab1/rent.png" width="1000">
 </details>
 
-### Future Work <a name="model-e"></a>
+### Room for Future Work <a name="model-e"></a>
+
+In true open source fashion, I have decided to leave some space for future work. I have tried to convert the model to use SQL instead, but I could not get this to work. Converting the model to SQL gives us access to a whole world of useful PostgreSQL functions. SQL will most likely provide a solution to my second problem, which is that the distance is measured in the same unit as the projection, in degrees. I thought of converting it into meters through a simple multiplication. However, this will not produce accurate results since the WGS84 is based on an ellipsoid and the radius is different based on the position on the globe. 
+
 
 ## Discussion <a name="disc"></a>
 
