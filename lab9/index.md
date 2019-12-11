@@ -209,7 +209,7 @@ floridaCounties <- filter(Counties,STATEFP %in% c("12") )
 The `ggplot()` function can then be used to visualize the counties and the tweet locations. With very little code, it outputs a usable map, which is surprising. 
 <details><summary> Show Code </summary>
 
-```
+``` 
 ggplot() +
   geom_sf(data=floridaCounties, aes(fill=cut_number(DENSITY,5)), color="grey")+
   scale_fill_brewer(palette="GnBu")+
@@ -248,6 +248,7 @@ dbDisconnect(con)
 Exporting data to PostGIS on the rStudio side is covered in the "Learning rStudio" section. Once imported, we will first of all, import the lambert conformal conic (ESRI:102004) spatial reference system for this lab. (This projection preserves shapes well.) A website called spatialreference.org provides SQL queries that you can copy-and-paste. 
 
 <details><summary>Show Code </summary>
+    
 ```sql
 INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext) values ( 102004, 'esri', 102004, '+proj=lcc +lat_1=33 +lat_2=45 +lat_0=39 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs ', 'PROJCS["USA_Contiguous_Lambert_Conformal_Conic",GEOGCS["GCS_North_American_1983",DATUM["North_American_Datum_1983",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic_2SP"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",-96],PARAMETER["Standard_Parallel_1",33],PARAMETER["Standard_Parallel_2",45],PARAMETER["Latitude_Of_Origin",39],UNIT["Meter",1],AUTHORITY["EPSG","102004"]]');
 ``` 
@@ -256,6 +257,7 @@ INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext) valu
 The tables that were imported from rStudio do not yet have a usable geometry column. I will add this with a `addgeometry()` function, and I will be sure to add the projection that I just imported.
 
 <details><summary>Show Code </summary>
+    
 ``` sql
 select addgeometrycolumn('novembertweets', 'geom', 102004, 'point', 2);
 UPDATE  novembertweets
@@ -270,6 +272,7 @@ Do the same for the Dorian tweets table and US counties. Now the layers are read
 Our analysis is focused on twitter activity in the Eastern US. I will use the following command to remove all counties that are outside of these states using their `statefp`. 
 
 <details><summary>Show Code </summary>
+    
 ``` sql
 alter table uscounties
 drop column geometry
@@ -361,6 +364,8 @@ SET ndti = 0 where ndti is NULL
 Now the county layer is ready to be imported by GeoDa for spatial hotspot analysis. 
 
 ### Spatial Hotspot Analysis with GeoDa
+
+G* is akin to a Z score, but tailored to geographic analysis; it reveals clusters of hot- and cold-spots in the map. 
 
 ### Kernel Density Map in QGIS
 
