@@ -25,6 +25,7 @@ The goal of this lab is
 
 ### Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
+- http://www.saga-gis.org/saga_tool_doc/7.4.0/index.html
 - https://www.w3resource.com/
 
 #### Works cited
@@ -33,12 +34,13 @@ The goal of this lab is
 
 This page will go over the very basics of terrain analysis using publicly availble NASA DEM data, as well as the open source software SAGA. [SAGA](http://www.saga-gis.org/en/index.html) been around since 2004, and it is a software ideal for physical geography analysis using raster data. 
 
-## Collecting and Preparing Data <a name="data"></a>
+## Data <a name="data"></a>
 
 ### NASA Earthdata Portal 
 
 The [NASA Earthdata Portal](https://search.earthdata.nasa.gov/search) is a great resource for downloading high resolution digital elevation models from anywhere in the world. It is free to use, but require an account. For this lab, we will be using Shuttle Radar Topography Mission (SRTM) 1 arcsecond dataset and looking at Mount Kilimanjaro in Tanzania. This data was obtained in a Space Shuttle mission, where during orbit, two radar sensors were placed at a significant distance apart to measure the elevation of the terrain from parallax. 1 arcsecond, i.e. 30 meters per pixel width, should provide the adequate definition for our project today. In the later sections, I will compare this SRTM dataset with another comparable dataset collected by a join US-Japanese satellite mission called the Aster Global DEM. We will explore the strengths and weakness of the datasets in the context of Mount Kilimanjaro. 
 
+Aster Data?
 
 ## SAGA Analysis
 An important note: Be sure to save the file often, as SAGA can crash unexpectedly.
@@ -97,23 +99,36 @@ Finally, a useful tool is the channel network tool that creates both a raster an
 </details>
 
 
-Update:
+## SAGA automation with Batch Script 
 
-This week, I automated last week’s analysis with a Batch file to reproduce the output with different datasets. Automation is surprisingly straightforward, and can be broken up into 3 steps.
-![Automation](Capture.PNG)
-Firstly, we must set all appropriate directories so that the command module can find the SAGA commands, the input files, and output directory. Then, we add the tools to be executed. We could search for each tool in command line format from this [website](http://www.saga-gis.org/saga_tool_doc/7.4.0/index.html). Alternatively, right clicking on any tool in SAGA will reveal a ‘copy as command-line’ option that is usually more convenient, as it copies all relevant inputs. Then, the last step is to set up the appropriate inputs, outputs for each command, save and run!
+SAGA analysis does not have to be done on the graphic user interface. Instead, there is a command-line tool, so one could easily write up a batch script to automate the analysis I did in the above section. This requires a little getting-used-to but it is exceedingly straightforward. 
+<img src="/lab3/Capture.PNG" width="600">
 
-Some helpful tips include using variables with the ‘set’ functions to minimize the number of times we need to type the input and output directories. In addition, when changing inputs or outputs, it is simple as changing the definition of the variable once. No need to go through each command to change each directory. 
+Firstly, I will set all appropriate directories so that the command module can find the SAGA commands, input files, and output directory. Then, I include the tools to be executed.  All the SAGA tools in command line format is available on this [website](http://www.saga-gis.org/saga_tool_doc/7.4.0/index.html). Alternatively, right clicking on any tool in SAGA will reveal a `copy as command-line` option that is usually more convenient. Finally, I reference the website and include all appropriate inputs and outputs for each command, save and run!
 
-I will link my [batch file](test.bat), as well as the [DEM file](ASTKilimanjaroDEMmosaic.sgrd) that I used in this example, so that you can experiment with your own computer. 
+#### Useful trick
+Using variables with the `set` function can minimize mistakes and make the batch file easily adaptable. For example, the input and output directories can be defined using a variable, so that if these directories should change, it is only necessary to modify it once: no need to go through each command to change them. 
 
+The files I used are available for download here:
+- [batch file](test.bat)
+- [DEM file](ASTKilimanjaroDEMmosaic.sgrd) 
 
-Since, I automated the process, I ran the same command using Aster and SRTM datasets to see if there are any significant differences in the outputs. And indeed, there were. An easy way to visualize the difference in DEM is to use the outputs from the Channel Network tool as it can be affected by small changes in elevation. The most striking difference I saw between the datasets was near the summit of Mt. Kilimanjaro. Here at high altitudes, SRTM seems to fail as the channel lines feature unnatural straight lines. 
+## Comparing Datasets
 
+Now that we have successfully automated the process, we can easily run a different dataset. I ran both the SRTM and ASTER rasters through the batch file. However, before doing that, I had to mosaic and reproject the rasters. The batch file for this process can be downloaded [here](/mosaic_utmproj_dem_AST.bat).
 
-![Summit_Comp](Comp_Center.PNG)
+Once I ran all of the SAGA analysis, I first took the difference of the rasters using `Grid -> Calculus -> Grid Difference`. This was done to show where the two rasters disagreed:
 
-Perhaps this difference at the peak is also due to the patchy data. Take a look at the NUM file below. The provenence of the data on the mountain is all over the place!. Compare that with a mostly seamless Aster data near the summit. In lower altitude areas, the two datasets match pretty well. 
-![NUM](NUM.jpg)
+<img src="/lab3/difference.PNG" width="600">
 
+Two places stick out immedeately. The first is near the peak of Mount Kilimanjaro. The second is the lake. 
+<details><summary>Zoom in to Mt. Kilimanjaro</summary>
+<img src="/lab3/difference-zm.PNG" width="600">
+    </details>
+<details><summary>Zoom in to the lakes</summary>
+<img src="/lab3/difference-zm2.PNG" width="600">
+    </details>
+    
+The difference around the lakes is plain and simple: it signifies the difference in calibration. However, the peak is curious. Let us take a close look at the hillshade around this region. I visualized the following in QGIS. 
 
+<img src="/lab3/comp-1.jpg" width="600">
