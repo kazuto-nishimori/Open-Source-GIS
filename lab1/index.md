@@ -25,7 +25,7 @@ The goal of this lab is to be acquainted with the open source GIS environment; t
 ### Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 #### Works cited
-
+- Rey, Sergio J. “Show Me the Code: Spatial Analysis and Open Source.” Journal of Geographical Systems, vol. 11, no. 2, 2009, pp. 191–207. EBSCOhost, doi:https://link.springer.com/journal/volumesAndIssues/10109.
 
 ## The Distance and Direction QGIS Model <a name="model"></a>
 
