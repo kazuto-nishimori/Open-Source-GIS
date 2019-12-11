@@ -52,6 +52,10 @@ The model I made is straight forward. It asks for two inputs features: the censu
 
 <img src="/lab1/model.PNG" width="600">
 
+Using the model is very simple. Under `CBD selection`, you will choose the layer which contains your central business district. As I have mentioned, this can be a point, polygon, or multiple polygons. What you input in `Field Name Prefix` will show up in the output column. For example, your distance column will be named "'Field Name Prefix'+ dist". Finally, under `Input Feature`, chose the census tract file. You could choose to save the output by assigning a name in the `output` section, or chose to leave it empty and the model will create a temporary layer.
+
+<img src="/lab1/model2.PNG" width="600">
+
 ### Outputs <a name="model-c"></a>
 
 Here are the outputs of the model:
