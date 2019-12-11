@@ -129,6 +129,7 @@ Two places stick out immedeately. The first is near the peak of Mount Kilimanjar
 <img src="/lab3/difference-zm2.PNG" width="600">
     </details>
     
-The difference around the lakes is plain and simple: it signifies the difference in calibration. However, the peak is curious. Let us take a close look at the hillshade around this region. I visualized the following in QGIS. 
+The difference around the lakes is plain and simple: it signifies the difference in calibration. However, the peak is curious. Let us take a close look at the hillshade around this region. I visualized the following in QGIS: 
 
-<img src="/lab3/comp-1.jpg" width="600">
+<img src="/lab3/comp-1.png" width="600">
+<img src="/lab3/comp-2.png" width="600">
