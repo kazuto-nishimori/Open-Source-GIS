@@ -239,14 +239,25 @@ dbDisconnect(con)
 
 
 ## Textual Analysis of Twitter Activity During Dorian
+
+Now that we have the toolset, let us answer the original research question. Did DJT's sharpiegate have an effect on twitter activity that was significant enough to alter emergency responders or academic research that relies on these tweets? I will first look at the outputs from the textural analysis. 
+
+### The outputs
 <img src="/lab9/dorian-word-count.png" width="500">
-<img src="/lab9/dorian-word-map.png" width="500">
+<img src="/lab9/plot.png" width="500">
+
+### Discussion 
+
+In terms of word count, 'sharpiegate' along with mentions of DJT dominates the discussion on twitter. However, word count is not always a useful indicator of people's interest. This is because there is not an equivalent 'buzzword' for calling out for help, or expressing support to the victims. It makes sense that the words that top the charts are controversial, 'viral' topics that are marketed well using buzzwords. Looking at the word cloud, the mentions of 'sharpiegate' all but disappear at this scale. It appears that most tweets mention the victims, or give some words of encouragement and support. DJT makes an appearence on the map but only occupies the periphery of the word cloud.
 
 ## Geographic Analysis of Twitter Activity During Dorian
 
+It will be interesting to see the geographic distribution of twitter activity during the hurricane. From rStudio, I will import the Dorian tweets, as well as tweets from November which I can compare as a baseline twitter activity. A comparison of Dorian tweets with baseline activity can be more telling than a simple population-based normalization, since twitter is not as universal as other socialmedia such as facebook. I will also import the US counties data that was imported to rStudio via the census API. 
+
+
 ### Setting up PostGIS
 
-Exporting data to PostGIS on the rStudio side is covered in the "Learning rStudio" section. Once imported, we will first of all, import the lambert conformal conic (ESRI:102004) spatial reference system for this lab. (This projection preserves shapes well.) A website called spatialreference.org provides SQL queries that you can copy-and-paste. 
+Exporting data to PostGIS on the rStudio side is covered in the "Learning rStudio" section. Once imported, we will first of all import the lambert conformal conic (ESRI:102004) spatial reference system for this lab. (This projection preserves shapes well) A website called spatialreference.org provides SQL queries that you can copy-and-paste. 
 
 <details><summary>Show Code </summary>
     
@@ -255,7 +266,7 @@ INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext) valu
 ``` 
 </details>
 
-The tables that were imported from rStudio do not yet have a usable geometry column. I will add this with a `addgeometry()` function, and I will be sure to add the projection that I just imported.
+The tables that were imported from rStudio do not yet have usable geometry columns. I will add this with a `addgeometry()` function (and be sure to add the projection that was just imported!).
 
 <details><summary>Show Code </summary>
     
@@ -269,8 +280,10 @@ SET geom = st_transform (st_setsrid(st_makepoint(lng,lat),4326),102004);
 Do the same for the Dorian tweets table and US counties. Now the layers are ready for spatial analysis. 
 
 ### Spatial Operations in PostGIS
+
 #### Dropping states outside of study area
-Our analysis is focused on twitter activity in the Eastern US. I will use the following command to remove all counties that are outside of these states using their `statefp`. 
+
+Our analysis is focused on twitter activity in the Eastern US. I will use the following command to remove all counties that lie outside of these states using their `statefp`. 
 
 <details><summary>Show Code </summary>
     
@@ -284,7 +297,8 @@ WHERE statefp NOT IN ('54', '51', '50', '47', '45', '44', '42', '39', '37', '36'
 </details>
 
 #### Spatial Intersection 
-I want to count the number of tweets in each county. To do so, let us first create a column in both tweet layers to indicate the county in which it resides. Then, I will perform `st_intersects` with the counties layer to populate this column.
+
+I want to count the number of tweets in each county. To do so, let us first create a column in both tweet layers to indicate the county in which they reside. Then, I will perform `st_intersects` with the counties layer to populate this column.
 
 <details><summary>Show Code </summary>
 
@@ -313,7 +327,7 @@ GROUP BY geoid
 ```
 </details>
 
-Now, let us perform the other half of zonal statistics by adding a counting column to the counties for each tweet. For each county, the `group by` groups all tweets, and the number of tweets are recorded in the counting column. This we have seen many times before. 
+Now, let us perform the other half of zonal statistics by adding a counting column to the counties layer for the Dorian and November tweets. For each county, the `group by` function groups all tweets by county ID, and the number of tweets are recorded in the counting column. This, we have seen many times before. 
 
 <details><summary>Show Code </summary>
     
