@@ -33,17 +33,19 @@
 - [GeoDa 1.10.0.8](https://geodacenter.github.io/)
 - [rStudio 1.2.1335](https://rstudio.com/)
 <details><summary>Libraries Used</summary>
-  - rtweet
-  - tidycensus
-  - maps
-  - RPostgres
-  - igraph
-  - tm
-  - ggplot2
-  - RColorBrewer
-  - rccmisc
-  - ggraph
-    </details>
+    
+  1. rtweet
+  2. tidycensus
+  3. maps
+  4. RPostgres
+  5. igraph
+  6. tm
+  7. ggplot2
+  8. RColorBrewer
+  9. rccmisc
+  10. ggraph
+
+</details>
   
 ### Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
