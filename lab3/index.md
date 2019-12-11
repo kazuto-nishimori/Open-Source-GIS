@@ -4,48 +4,40 @@
 
 1. [Objective](#goal)
 2. [Software and Documentation](#sw)
-3. [ollecting and Preparing Data](#data)
-    1. [NASA](#data-a)
-    2. [Preparing Rasters in SAGA](#data-b)
-    3. [Extracting precise geographies](#rs-c)
-    4. [Network analysis](#rs-d)
-    5. [Text analysis](#rs-e)
-    6. [Spatial analysis](#rs-f)
-
+3. [NASA Data Portal](#data)
+4. [SAGA Analysis](#saga)
+    1. [Mosaic](#saga-a)
+    2. [Hillshade](#saga-b)
+    3. [Sink drainage and removal](#saga-c)
+    4. [Flow accumulation ](#saga-d)
+    5. [Channel Network ](#saga-e)
+5. [SAGA automation with Batch Script ](#saga)
+6. [Comparing ASTER and SRTM](#comp)
 
 ## Objective <a name="goal"></a>
-The goal of this lab is 
+This lab has two learning goals: 1) to become familiar with the open source terrain analysis software [SAGA](http://www.saga-gis.org/en/index.html) and 2) to learn to examine and compare raster datasets with a critical lens. SAGA is an opensource terrain analysis software has been around since 2004, and it is ideal for physical geography analysis using raster data. We will be using two datasets, ASTER and SRTM, and through the analysis identify the dataset that is better suited for our study region. 
 
 ## Software and Documentation <a name="sw"></a>
 
 ### Software used
 
 - [SAGA 6.2](https://www.qgis.org/en/site/) 
-- [Python]
+- [QGIS 3.8.1](https://www.qgis.org/en/site/)
 
 ### Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
-- http://www.saga-gis.org/saga_tool_doc/7.4.0/index.html
-- https://www.w3resource.com/
-
-#### Works cited
+- [SAGA help documentation](http://www.saga-gis.org/saga_tool_doc/7.4.0/index.html)
 
 
-
-This page will go over the very basics of terrain analysis using publicly availble NASA DEM data, as well as the open source software SAGA. [SAGA](http://www.saga-gis.org/en/index.html) been around since 2004, and it is a software ideal for physical geography analysis using raster data. 
-
-## Data <a name="data"></a>
-
-### NASA Earthdata Portal 
+## NASA Earthdata Portal  <a name="data"></a>
 
 The [NASA Earthdata Portal](https://search.earthdata.nasa.gov/search) is a great resource for downloading high resolution digital elevation models from anywhere in the world. It is free to use, but require an account. For this lab, we will be using Shuttle Radar Topography Mission (SRTM) 1 arcsecond dataset and looking at Mount Kilimanjaro in Tanzania. This data was obtained in a Space Shuttle mission, where during orbit, two radar sensors were placed at a significant distance apart to measure the elevation of the terrain from parallax. 1 arcsecond, i.e. 30 meters per pixel width, should provide the adequate definition for our project today. In the later sections, I will compare this SRTM dataset with another comparable dataset collected by a join US-Japanese satellite mission called the Aster Global DEM. We will explore the strengths and weakness of the datasets in the context of Mount Kilimanjaro. 
 
-Aster Data?
 
-## SAGA Analysis
+## SAGA Analysis <a name="saga"></a>
 An important note: Be sure to save the file often, as SAGA can crash unexpectedly.
 
-### Mosaic 
+### Mosaic <a name="saga-a"></a>
 
 Let us import the raster layers to SAGA. If there are multiple rasters covering the area of interest, as is the case with mine, there will be an obvious discontinuity between the rasters when opened in the same map. Fortunately, this is (probably) not due to the dataset, but the representation of the data, as colors are assigned based on the relative highs and lows of each raster. To fix this, I will make a mosaic of the rasters `Tools -> Mosaicking`. Choose the bilinear interpolation for the sampling method, since this is a quantitative raster. I will chose the appropriate bounding box coordinates to crop my final mosaic. Lastly, I will reproject the layer to the correct UTM zone `Tools -> Projection -> Proj.4 -> UTM Projection (Grid)`.
 <details><summary>Before Mosaic</summary>
@@ -55,13 +47,13 @@ Let us import the raster layers to SAGA. If there are multiple rasters covering 
 <img src="/lab3/Capture2.PNG" width="500">
 </details>
 
-### Hillshade
+### Hillshade <a name="saga-b"></a>
 
 Hillshading is a great place to start, as it facilitates the visualisation of our data. `Tools -> Terrain Analysis -> Lighting, Visibility -> Analytical Hillshading`. Parameters should be modified as desired. One thing to note is that the default position of the sun is often at an angle that is physically impossible i.e. rays from the north in the northern hemisphere. Especially in fields such as cartography, it is important to make a conscious decision about the placement of the sun, whether to favor realism or legibility (the default setting looks natural to right-handed individuals who illuminate their desk from the upper left position).
 
 <img src="/lab3/Capture3.PNG" width="500">
 
-### Preprocessing: sink drainage and removal
+### Sink drainage and removal <a name="saga-c"></a>
 
 Let us perform a preprocessing step to prepare our raster for hydrological analysis. First, I run the sink drainage route tool to detect sinks based on unusual water flow `Tools -> Terrain Analysis -> Preprocessing -> Sink Drainage Route`. Sinks are usually due to noise in the dataset that causes bumps in the terrain:
 
@@ -76,7 +68,7 @@ Let us perform a preprocessing step to prepare our raster for hydrological analy
 
 To get accurate water flow route and channels, these sinks must be removed using the sink removal tool `Tools -> Terrain Analysis -> Preprocessing -> Sink Removal`. The output is identical to the original DEM to the naked eye. 
 
-### Flow accumulation 
+### Flow accumulation <a name="saga-d"></a>
 
 Next, I will run the flow accumulation function `Tools -> Terrain Analysis -> Hydrology -> Flow Accumulation (Top-Down)`. This tool maps out, for each cell, how many cells contribute to its water flow. This is helpful in detecting where streams start and how they build up. 
 
@@ -87,7 +79,7 @@ Next, I will run the flow accumulation function `Tools -> Terrain Analysis -> Hy
 <img src="/lab3/Capture7.PNG" width="500">
 </details>
 
-### Channel Network 
+### Channel Network <a name="saga-e"></a>
 
 Finally, a useful tool is the channel network tool that creates both a raster and vector layer of water channels. They can be exported to be used in other GIS software. `Tools -> Terrain Analysis -> Channels -> Chanel Network`
 
@@ -99,7 +91,7 @@ Finally, a useful tool is the channel network tool that creates both a raster an
 </details>
 
 
-## SAGA automation with Batch Script 
+## SAGA automation with Batch Script <a name="auto"></a>
 
 SAGA analysis does not have to be done on the graphic user interface. Instead, there is a command-line tool, so one could easily write up a batch script to automate the analysis I did in the above section. This requires a little getting-used-to but it is exceedingly straightforward. 
 <img src="/lab3/Capture.PNG" width="600">
@@ -113,7 +105,7 @@ The files I used are available for download here:
 - [batch file](test.bat)
 - [DEM file](ASTKilimanjaroDEMmosaic.sgrd) 
 
-## Comparing Datasets
+## Comparing ASTER and SRTM <a name="comp"></a>
 
 Now that we have successfully automated the process, we can easily run a different dataset. I ran both the SRTM and ASTER rasters through the batch file. However, before doing that, I had to mosaic and reproject the rasters. The batch file for this process can be downloaded [here](/mosaic_utmproj_dem_AST.bat).
 
@@ -133,11 +125,11 @@ The difference around the lakes is plain and simple: it signifies the difference
 
 <img src="/lab3/comp-1.png" width="1100">
 
-Clearly, there is something going on in the SRTM layer. It appears as though huge chunks of data are missing, and filled in with interpolated results. Let us look at the num file for this region. Num files are metadata raster files that signify the provenance of the data. Indeed, the problematic area was derived from another source: GMTED2010 7.5 arcsecond. Compared to the 1 arcsecond SRTM data, the resolution is 8 times worse which explains the lack of resolution here. Perhaps the SRTM could not capture data here because of perpetual clouds over the valleys, but this is only speculation. 
+Clearly, there is something going on in the SRTM layer. It appears as though huge chunks of data are missing, and filled in with interpolated results. Let us look at the num file for this region. Num files are metadata raster files that signify the provenance of the data. Indeed, the problematic area was derived from another source: GMTED2010 7.5 arcsecond. Compared to the 1 arcsecond SRTM data, the resolution is 8 times worse which explains the lack of detail. Perhaps the SRTM could not capture data here because of perpetual clouds over the valleys, but this is only speculation. 
 
 <img src="/lab3/num.png" width="1000">
 
-When we look at the channel network in the peaks, both the SRTM and ASTER reveal errors. It seems like there is something about high elevation that makes data capture difficult. However, SRTM stands out as being much more affected. 
+When we look at the channel network in the mountain peak region, both the SRTM and ASTER reveal errors. It seems like there is something about high elevation that makes data capture difficult. However, SRTM stands out as being much more affected (blue line)
 
 <img src="/lab3/peak.PNG" width="1000">
 
@@ -149,8 +141,10 @@ The striations were severe enough to affect the channel simulations in this regi
 
 <img src="/lab3/srtmdem2-1.PNG" width="600">
 
-Finally, I noticed channel network gets confused in extremely flat areas. This might not have to do so much with the accuracy of the DEM; small differences in elevation will have significant effects in how the channel networks are drawn. Examine this close up of a farm and a lake. The channel network's do not align at all here. 
+Finally, I noticed channel network gets confused in extremely flat areas. This might not have to do so much with the accuracy of the DEM; small differences in elevation will have significant effects in how the channel networks are drawn. Examine this close-up of a farm and a lake. The channel networks do badly in the flat farmland, and go haywire on the lake. 
 
 <img src="/lab3/flat.PNG" width="600">
-<img src="/lab3/flat2.PNG" width="600">
 
+#### Which is better?
+
+It is quite clear from these comparisons that ASTER data is a much more reliable digital elevation model compared to the SRTM, at least in the region around Mount Kilimanjaro. 
