@@ -41,7 +41,7 @@ The [NASA Earthdata Portal](https://search.earthdata.nasa.gov/search) is a great
 
 
 ## SAGA Analysis
-An important note: Be sure to save the file before continuing, as SAGA can crash unexpectedly.
+An important note: Be sure to save the file often, as SAGA can crash unexpectedly.
 
 ### Mosaic 
 
