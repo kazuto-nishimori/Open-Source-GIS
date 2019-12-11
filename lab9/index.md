@@ -60,7 +60,7 @@ Recently, big data has gathered the interest of many, and in the geography commu
 - spatialreference.org 
 
 #### Works cited
-
+- Wang, Z. (. 1. )., et al. “Spatial, Temporal, and Content Analysis of Twitter for Wildfire Hazards.” Natural Hazards, vol. 83, no. 1, pp. 523–540. EBSCOhost, doi:10.1007/s11069-016-2329-6. Accessed 11 Dec. 2019.
 
 ## Getting started with twitter API  <a name="twit"></a>
 
