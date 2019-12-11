@@ -400,7 +400,7 @@ Finally, I created a kernel density heat map of the tweet rate during the hurric
 ``` sql
 convert counties to centroid
 CREATE VIEW countiescentroids AS
-SELECT geoid, st_centroid(wkb_geometry) AS geom, pp_val
+SELECT geoid, st_centroid(wkb_geometry) AS geom, tweetrate
 FROM countieseastg
 ```
 </details>
@@ -417,5 +417,16 @@ GROUP BY statefp
 ```
 </details>
 
+Download all the  SQL queries [here](/twit.sql)
+
 ### Discussion  <a name="geog-e"></a>
 
+So did the DJT's sharpie gate have a significant influence on twitter activity? Let us take a look:
+
+<img src="/lab9/kd.png" width="600">
+<img src="/lab9/twrate_clust_1.png" width="600">
+<details><summary>Significance map</summary>
+    <img src="/lab9/twrate_sig_1.png" width="600">
+</details>
+
+It seems that no, however dominant DJT might be in twitter discourse his sharpied-in hurricane path to Alabama did not seem to cause an upsurge of Dorian related tweets in that region. Instead, the tweet rate clearly highlights the actual path taken by Dorian along the Eastern Coast of USA. This supports Wang et al's finding that there is a distinct correlation with tweet areas related to disasters, and the actual affected geography (2016). 
