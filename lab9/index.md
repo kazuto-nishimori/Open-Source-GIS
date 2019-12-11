@@ -22,7 +22,7 @@
 
 ## Objective <a name="goal"></a>
  
-Recently, big data has gathered the interest of many, and in the geography community, its use in the study of natural disasters and its potential as a tool for emergency responders are being examined closely. In this lab, the goal is to become familiar with twitter's API through rStudio, and import the geolocated tweets to PostGIS and GeoDa to perform spatial analysis. Specifically, we will examine activity during Hurricane Dorian that devastated the Bahamas and affected the East Coast of the United States. Of course, this event was in part overshadowed by DJT's infamous 'sharpiegate'. By examining twitter activity, I wish to uncover whether such a controversy alter tweet activity in a significant way to affect emergency responders or academic research. 
+Recently, big data has gathered the interest of many, and in the geography community, its use in the study of natural disasters and its potential as a tool for emergency responders are being examined closely. In this lab, the goal is to become familiar with twitter's API through rStudio, and import the geolocated tweets to PostGIS and GeoDa to perform spatial analysis. Specifically, we will examine activity during Hurricane Dorian that devastated the Bahamas and affected the East Coast of the United States. Of course, this event was in part overshadowed by DJT's infamous 'sharpiegate'. By examining twitter activity, I wish to uncover whether such a controversy could alter tweet activity in significant ways to affect emergency responders or academic research. 
 
 ## Software and Documentation <a name="sw"></a>
 
