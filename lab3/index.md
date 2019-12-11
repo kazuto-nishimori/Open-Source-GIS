@@ -131,5 +131,17 @@ Two places stick out immedeately. The first is near the peak of Mount Kilimanjar
     
 The difference around the lakes is plain and simple: it signifies the difference in calibration. However, the peak is curious. Let us take a close look at the hillshade around this region. I visualized the following in QGIS: 
 
-<img src="/lab3/comp-1.png" width="600">
+<img src="/lab3/comp-1.png" width="1100">
+
+Clearly, there is something going on in the SRTM layer. It appears as though huge chunks of data are missing, and filled in with interpolated results. Let us look at the num file for this region. Num files are metadata raster files that signify the provenance of the data. Indeed, the problematic area was derived from another source: GMTED2010 7.5 arcsecond. Compared to the 1 arcsecond SRTM data, the resolution is 8 times worse which explains the lack of resolution here. Perhaps the SRTM could not capture data here because of perpetual clouds over the valleys, but this is only speculation. 
+
+<img src="/lab3/num.png" width="1000">
+
+Looking at the hillshade revealed another problematic area in the SRTM. There appears to be unnatural striations in the data. This is not present in the ASTER dataset. I presume this has something to do with error caused while the shuttle was orbiting and scanning the region. 
+
 <img src="/lab3/comp-2.png" width="600">
+
+The striations were severe enough to affect the channel simulations in this region. 
+
+<img src="/lab3/srtmdem2-1.PNG" width="600">
+
