@@ -35,24 +35,23 @@ This page will go over the very basics of terrain analysis using publicly availb
 
 ## Collecting and Preparing Data <a name="data"></a>
 
-### NASA Earthdata Portal <a name="data-a"></a>
+### NASA Earthdata Portal 
 
 The [NASA Earthdata Portal](https://search.earthdata.nasa.gov/search) is a great resource for downloading high resolution digital elevation models from anywhere in the world. It is free to use, but require an account. For this lab, we will be using Shuttle Radar Topography Mission (SRTM) 1 arcsecond dataset and looking at Mount Kilimanjaro in Tanzania. This data was obtained in a Space Shuttle mission, where during orbit, two radar sensors were placed at a significant distance apart to measure the elevation of the terrain from parallax. 1 arcsecond, i.e. 30 meters per pixel width, should provide the adequate definition for our project today. In the later sections, I will compare this SRTM dataset with another comparable dataset collected by a join US-Japanese satellite mission called the Aster Global DEM. We will explore the strengths and weakness of the datasets in the context of Mount Kilimanjaro. 
 
-### Preparing Rasters in SAGA <a name="data-b"></a>
 
-The dataset must be pre-processed before analysis. The raster data is imported into SAGA and opened in a map. If there are multiple rasters covering the area of interest, as is the case with mine, there will be an obvious discontinuity between the rasters when opened in the same map. Fortunately, this is (probably) not due to the dataset, but the representation of the data, as colors are assigned based on the relative highs and lows of each raster. To fix this, I will make a mosaic of the rasters `Tools -> Mosaicking`. Choose the bilinear interpolation for the sampling method, since this is a quantitative raster. I will chose the appropriate bounding box coordinates to crop my final mosaic. Lastly, I will reproject the layer to the correct UTM zone `Tools -> Projection -> Proj.4 -> UTM Projection (Grid)`.
+## SAGA Analysis
+An important note: Be sure to save the file before continuing, as SAGA can crash unexpectedly.
+
+### Mosaic 
+
+Let us import the raster layers to SAGA. If there are multiple rasters covering the area of interest, as is the case with mine, there will be an obvious discontinuity between the rasters when opened in the same map. Fortunately, this is (probably) not due to the dataset, but the representation of the data, as colors are assigned based on the relative highs and lows of each raster. To fix this, I will make a mosaic of the rasters `Tools -> Mosaicking`. Choose the bilinear interpolation for the sampling method, since this is a quantitative raster. I will chose the appropriate bounding box coordinates to crop my final mosaic. Lastly, I will reproject the layer to the correct UTM zone `Tools -> Projection -> Proj.4 -> UTM Projection (Grid)`.
 <details><summary>Before Mosaic</summary>
 <img src="/lab3/Capture1.PNG" width="500">
 </details>
 <details><summary>After Mosaic</summary>
 <img src="/lab3/Capture2.PNG" width="500">
 </details>
-
-
-## SAGA Analysis
-
-From here, all sorts of things are possible in SAGA. However, be sure to save the file before continuing, as SAGA can crash unexpectedly from time to time. 
 
 ### Hillshade
 
