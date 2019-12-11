@@ -139,7 +139,7 @@ Clearly, there is something going on in the SRTM layer. It appears as though hug
 
 When we look at the channel network in the peaks, both the SRTM and ASTER reveal errors. It seems like there is something about high elevation that makes data capture difficult. However, SRTM stands out as being much more affected. 
 
-<img src="/lab3/peak.png" width="1000">
+<img src="/lab3/peak.PNG" width="1000">
 
 Looking at the hillshade revealed another problematic area in the SRTM. There appears to be unnatural striations in the data. This is not present in the ASTER dataset. I presume this has something to do with error caused while the shuttle was orbiting and scanning the region. 
 
