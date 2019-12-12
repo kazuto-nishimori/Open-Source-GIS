@@ -119,7 +119,7 @@ The next step involved quantifying the survey results and dividing into quintile
 
 Next, the scores were weighed and added to recreate the final adaptive capacity score for each household. We weighed the scores in such a way (scale of 0.4 to 2) that the total household resilience score would be on a scale of 1 to 5. It is unclear how the authors scaled their score, as the capacity score is reported to have a range of -0.80 to 39.33 at the household level. The negative score is curious, since it is unclear how a quantile score ranging from 0 to 5 could possibly produce such a number, but this is not explained. Finally these scores were aggregated using their TA id, averaged and joined with the TA layer to create this map (4 intervals, natural breaks): 
 
-<img src="/lab8/capacity-comp.png">
+<img src="/lab8/capacity.png">
 
 The map we created is similar but it is no reproduction of the one by Malcomb et al.. Although we tried our best, the lack of important instructions in the methodology of Malcolm et al. made it impossible to reproduce the map, even with same data set. 
 
@@ -175,7 +175,7 @@ With all three rasters having the correct domain and cell size, the last step wa
 FINAL_SCORE = (6 - (DROUGHT_QUINTILE + (FLOOD + 1))) * 0.2 + CAPACITY
 ```
 
-<img src="/lab8/final.png">
+<img src="/lab8/mmm.png">
 
 Download the models used for [low-res](/vulnerability.model3) and [high-res](/vulnerability-2.model3). 
 
