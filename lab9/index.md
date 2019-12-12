@@ -60,6 +60,8 @@ Recently, big data has gathered the interest of many, and in the geography commu
 - spatialreference.org 
 
 #### Works cited
+- Kate Crawford, and Megan Finn. “The Limits of Crisis Data: Analytical and Ethical Challenges of Using Social and Mobile Data to Understand Disasters.” GeoJournal, vol. 80, no. 4, 2015, p. 491. EBSCOhost, search.ebscohost.com/login.aspx?direct=true&db=edsjsr&AN=edsjsr.44076312&scope=site.
+- Sarah Elwood, et al. “Researching Volunteered Geographic Information: Spatial Data, Geographic Research, and New Social Practice.” Annals of the Association of American Geographers, vol. 102, no. 3, 2012, p. 571. EBSCOhost, doi:10.1080/00045608.2011.595657.
 - Wang, Z. (. 1. )., et al. “Spatial, Temporal, and Content Analysis of Twitter for Wildfire Hazards.” Natural Hazards, vol. 83, no. 1, pp. 523–540. EBSCOhost, doi:10.1007/s11069-016-2329-6. Accessed 11 Dec. 2019.
 
 ## Getting started with twitter API  <a name="twit"></a>
@@ -442,9 +444,9 @@ So did the DJT's sharpie gate have a significant influence on twitter activity? 
 
 It seems that no, however dominant DJT might be in twitter discourse, his sharpied-in hurricane path to Alabama did not cause an upsurge of Dorian related tweets in that region. This we can conclude with statistical significance from the significance map. Instead, the tweet rate clearly highlights the actual path taken by Dorian along the Eastern Coast of USA. This supports Wang et al's finding that there is a correlation with areas with disaster-related tweets, and the actual affected geography (2016). 
 
-Want et al. argues that social media data is useful in disaster research and response, not just for the temporal and spatial accuracy of its distribution, but because it provides a human-centric perspective on disaster sensing. Elwood et al. further supports this notion and in response to possible criticism that social media data can be unreliable, they argue that in an case of an emergency, "decision makers must make choices between acting immediately with questionable data and waiting for better data to arrive" (2011) and usually the former is better. Furthermore, from our tweet rate distributions, it seems to point to the fact that these tweets are not in fact as questionable as one might expect. 
+Wang et al. argues that social media data is useful in disaster research and response, not just for the temporal and spatial accuracy of its distribution, but because it provides a human-centric perspective on disaster sensing. Elwood et al. further supports this notion and in response to possible criticism that social media data can be unreliable, they argue that in a case of an emergency, "decision makers must make choices between acting immediately with questionable data and waiting for better data to arrive" (2011) and usually the former is better. Furthermore, from our tweet rate distributions, it seems to point to the fact that these tweets are not in fact as questionable as one might expect. 
 
-However, one must also realize that there are significant downsides, even dangers in using social media data. 
+However, one must also realize that there are significant downsides, even dangers in using social media data mining for disaster responses. As Crawford et al. points out when typhoon Yolanda struck the Philippines, the social media activity in the worst affected areas in fact dropped by as much as 20% due to power outages (2015). Furthermore, the authors argue that disaster analysis using social media perpetuate the wrong notion that disasters are singular events, a break from the norm. It could be too easy to overlook the social processes that create and perpetuate vulnerability and to look at disasters only as an inevitable act of god. 
 
 
 
