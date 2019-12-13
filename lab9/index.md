@@ -99,6 +99,7 @@ twitter_token <- create_token(
 )
 evoTweets <- search_tweets("Evo OR Morales", n=10000, retryonratelimit=FALSE, include_rts=FALSE, token=twitter_token, geocode="28.3,-81.6,350km")
 ```   
+
 </details>
 The `search_tweets` command uses the API information we obtained earlier to search for tweets with keywords “Evo” or “Morales” in a 350km radius around central Florida (28.3, -81.6) and populates a table called “evoTweets”. No retweets were included. Now that I have the tweets, there is a plethora of things I can do with this data. 
 
@@ -107,6 +108,7 @@ The `search_tweets` command uses the API information we obtained earlier to sear
 <details><summary> Expand </summary>
 
 The twitter data downloaded with rtweet is neatly organized into a usable table. The column ‘hours’ contains the time stamp of each tweet. Dealing with timestamps is often a headache in coding because there exists a myriad of formats used. Thankfully, rtweet’s `ts_plot` function makes it extremely straight forward to create a plot with respect to time: 
+
 ```
 evoTweetHours <- ts_data(evoTweets, by="hours")
 ts_plot(winterTweets, by="hours")
@@ -125,7 +127,7 @@ evoTweets <- lat_lng(evoTweets,coords=c("coords_coords"))
 evoTweetsGeo <- subset(evoTweets, place_type == 'city'| place_type == 'neighborhood'| place_type == 'poi' | !is.na(lat))
 evoTweetsGeo <- lat_lng(evoTweetsGeo,coords=c("bbox_coords"))
 ```
-                
+       
 `lat_lng()` converts the GPS coordinates into latitude and longitude coordinates. `sub_set()` selects all bounding boxes of the desired extent `lat_long` is used again to find the centroid of these boxes. The centroids and GPS points make up a new table named 'evoTweetsGeo'. Now I have point geometries that can be used for analysis. 
 </details>
 
@@ -157,6 +159,7 @@ stop_words <- stop_words %>% add_row(word="t.co",lexicon = "SMART")
 evoWords <- evoWords %>%
 anti_join(stop_words) 
  ```
+ 
 Unfortunately, most of our tweets were in Spanish, so the SMART list was not very useful. I could not easily find a similar list for the Spanish language, so it was done manually. In the fifth line, I added the following code for each word I wanted removed. 
 ```
 %>% add_row(word="SPANISH_STOP_WORD")
@@ -178,6 +181,7 @@ Then I made a graph of the most common words that appeared in the tweets.
        y = "Unique words",
        title = "Count of unique words found in tweets")
 ```
+
 </details>
 <img src="/lab9/Rplot01.png" width="500">
 
@@ -203,6 +207,7 @@ evoWordPairs %>%
        x = "", y = "") +
   theme_void()
   ```
+  
 </details>
 <img src="/lab9/Rplot02.png" width="500">
 <img src="/lab9/Rplot02-edit.png" width="300">
@@ -230,6 +235,7 @@ ggplot() +
         axis.title.x=element_blank(),
         axis.title.y=element_blank())
 ```
+
 </details>
 <img src="/lab9/Rplot04.png" width="500">
 
@@ -274,6 +280,7 @@ Exporting data to PostGIS on the rStudio side is covered in the "Learning rStudi
 ```sql
 INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext) values ( 102004, 'esri', 102004, '+proj=lcc +lat_1=33 +lat_2=45 +lat_0=39 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs ', 'PROJCS["USA_Contiguous_Lambert_Conformal_Conic",GEOGCS["GCS_North_American_1983",DATUM["North_American_Datum_1983",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic_2SP"],PARAMETER["False_Easting",0],PARAMETER["False_Northing",0],PARAMETER["Central_Meridian",-96],PARAMETER["Standard_Parallel_1",33],PARAMETER["Standard_Parallel_2",45],PARAMETER["Latitude_Of_Origin",39],UNIT["Meter",1],AUTHORITY["EPSG","102004"]]');
 ``` 
+
 </details>
 
 The tables that were imported from rStudio do not yet have usable geometry columns. I will add this with a `addgeometry()` function (and be sure to add the projection that was just imported!).
@@ -285,6 +292,7 @@ select addgeometrycolumn('novembertweets', 'geom', 102004, 'point', 2);
 UPDATE  novembertweets
 SET geom = st_transform (st_setsrid(st_makepoint(lng,lat),4326),102004);
 ```
+
 </details>
 
 Do the same for the Dorian tweets table and US counties. Now the layers are ready for spatial analysis. 
@@ -304,6 +312,7 @@ SELECT populate_geometry_columns('uscounties'::regclass);
 DELETE FROM uscounties
 WHERE statefp NOT IN ('54', '51', '50', '47', '45', '44', '42', '39', '37', '36', '34', '33', '29', '28', '25', '24', '23', '22', '21', '18', '17', '13', '12', '11', '10', '09', '05', '01');
 ```
+
 </details>
 
 #### Spatial Intersection 
@@ -335,6 +344,7 @@ FROM doriantweets
 where geoid is not null 
 GROUP BY geoid
 ```
+
 </details>
 
 Now, let us perform the other half of zonal statistics by adding a counting column to the counties layer for the Dorian and November tweets. For each county, the `group by` function groups all tweets by county ID, and the number of tweets are recorded in the counting column. This, we have seen many times before. 
@@ -365,6 +375,7 @@ where geoid is not null
 GROUP BY geoid) as ct
 where uscounties.geoid = ct.geoid
 ```
+
 </details>
 
 Finally the rate of tweets per 10,000 people is calculated for each county by normalizing the Dorian tweets by the population. We calculated a normalized difference score of Dorian tweet activity with respect to November tweets as a baseline number. A higher score would indicate higher than baseline activity during Dorian.
@@ -384,6 +395,7 @@ where (cast(doriancount as float) + cast(novembercount as float) ) > 0;
 UPDATE uscounties 
 SET ndti = 0 where ndti is NULL
 ```
+
 </details>
 
 Now the county layer is ready to be imported by GeoDa for spatial hotspot analysis. 
@@ -416,6 +428,7 @@ CREATE VIEW countiescentroids AS
 SELECT geoid, st_centroid(wkb_geometry) AS geom, tweetrate
 FROM countieseastg
 ```
+
 </details>
 
 The `Kernel Density Estimation` algorithm is found under processing toolbox. Running this with radius 100km and pixel size 500 meters produced a usable heatmap. I decided to overlay this with state borders for clarity. I isolated the borders in SQL from the Eastern counties layer with the following command:
@@ -428,6 +441,7 @@ SELECT statefp,
 FROM uscounties
 GROUP BY statefp
 ```
+
 </details>
 
 Download all the  SQL queries [here](/twit.sql)
