@@ -351,6 +351,7 @@ Now, let us perform the other half of zonal statistics by adding a counting colu
 
 <details><summary>Show Code </summary>
     
+    
 ``` sql
 ALTER TABLE uscounties
 ADD COLUMN  doriancount varchar(5); 
@@ -381,6 +382,7 @@ where uscounties.geoid = ct.geoid
 Finally the rate of tweets per 10,000 people is calculated for each county by normalizing the Dorian tweets by the population. We calculated a normalized difference score of Dorian tweet activity with respect to November tweets as a baseline number. A higher score would indicate higher than baseline activity during Dorian.
 
 <details><summary>Show Code </summary>
+    
     
 ``` sql
 ALTER TABLE uscounties
