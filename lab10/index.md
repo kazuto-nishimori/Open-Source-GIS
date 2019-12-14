@@ -62,4 +62,5 @@ We will now install Jupyter and Matplotlib. Jupyter is a platform that integrate
 conda install matplotlib
 conda install jupyter
 ```
-<img src="jupyter.png" width=500>
+
+<img src="jupyter.png" width=800>
