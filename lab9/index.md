@@ -436,6 +436,8 @@ FROM countieseastg
 The `Kernel Density Estimation` algorithm is found under processing toolbox. Running this with radius 100km and pixel size 500 meters produced a usable heatmap. I decided to overlay this with state borders for clarity. I isolated the borders in SQL from the Eastern counties layer with the following command:
 <details><summary>Show Code </summary>
     
+    
+    
 ``` sql 
 CREATE TABLE usstates AS
 SELECT statefp,
@@ -444,9 +446,11 @@ FROM uscounties
 GROUP BY statefp
 ```
 
+
+
 </details>
 
-Download all the  SQL queries [here](/lab9/twit.sql)
+Download all the  SQL queries [here](/twit.sql)
 
 ### Discussion  <a name="geog-e"></a>
 
