@@ -446,7 +446,7 @@ GROUP BY statefp
 
 </details>
 
-Download all the  SQL queries [here](/twit.sql)
+Download all the  SQL queries [here](/lab9/twit.sql)
 
 ### Discussion  <a name="geog-e"></a>
 
