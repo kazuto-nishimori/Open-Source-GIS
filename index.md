@@ -1,3 +1,6 @@
+## [Independent Project: GeoPandas and Data Management around Python](/lab10/index.md)
+This objective of this project is more learning oriented. I will get acquainted with the vast python ecosystem, and learn how to manage the numerous packages and modules into 'environments'. Then, I will use an opensource geospatial package called GeoPandas to create maps and plots and attempt to visualize partisan gerrymandering in Wisconsin. I will export these visualizations so that the analysis can be continued on other plaforms. 
+
 ## [Lab: Big Data and Twitter API](/lab9/index.md)
 Recently, big data has gathered the interest of many, and in the geography community, its use in the study of natural disasters and its potential as a tool for emergency responders are being examined closely. In this lab, the goal is to become familiar with twitter's API through rStudio, and import the geolocated tweets to PostGIS and GeoDa to perform spatial analysis. Specifically, we will examine activity during Hurricane Dorian that devastated the Bahamas and affected the East Coast of the United States. Of course, this event was in part overshadowed by DJT's infamous 'sharpiegate'. By examining twitter activity, I wish to uncover whether such a controversy could alter tweet activity in significant ways to affect emergency responders or academic research. 
 
