@@ -123,7 +123,7 @@ pre.hist(column='stdemnorm', bins=20)
 mpl.pyplot.title('Percentage of Democrat Votes to WI Assembly 2012, Precinct Level')
 mpl.pyplot.savefig("precinct-hist.png", dpi=300)
 ```
-<img src="lab10/precinct-hist.png" width=400>
+<img src="/lab10/precinct-hist.png" width=400>
 
 Before creating a map, I will check its coordinate reference system with this command:
 ```
@@ -136,7 +136,7 @@ pre.plot(column='stdemnorm', cmap='RdBu', legend=True);
 mpl.pyplot.title('Votes to WI Assembly 2012, Precinct Level')
 mpl.pyplot.savefig("precinct-choro.png", dpi=300)
 ```
-<img src="lab10/precinct-choro.png" width=400>
+<img src="/lab10/precinct-choro.png" width=400>
 
 ### District level voter distribution
 
@@ -149,8 +149,8 @@ dist.head()
 ```
 A plot and a map was created in the same way as I did in the precinct-level analysis. 
 
-<img src="lab10/district-hist.png" width=400>
-<img src="lab10/district-choro.png" width=400>
+<img src="/lab10/district-hist.png" width=400>
+<img src="/lab10/district-choro.png" width=400>
 
 ### Exporting Shapefile 
 
