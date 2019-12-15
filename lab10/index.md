@@ -5,12 +5,18 @@
 1. [Objective](#goal)
 2. [Software and Documentation](#sw)
 3. [Getting started with python](#pyt)
-   1. [Installing Anaconda ]
-   Setting up environment
-   Installing other modules
+   1. [Installing Anaconda](#pyt-a)
+   2. [Setting up environment](#pyt-b)
+   3. [Installing other modules](#pyt-c)
 4. [The Research Question and Data](#rq)
 5. [Maps and Plots on GeoPandas](#gp)
-   
+   1. [Setting up](#gp-a)
+   2. [Editing Columns](#gp-b)
+   3. [Precinct level voter distribution](#gp-c)
+   4. [District level voter distribution](#gp-d)
+   5. [Exporting to Shapefile](#gp-e)
+6. [Interpreting Results](#res)   
+
 
 ## Objective <a name="goal"></a>
  
@@ -36,11 +42,11 @@ This objective of this project is more learning oriented. I will get acquainted 
 ## Getting started with python  <a name="pyt"></a>
 The python software ecosystem is vast and complicated and it can be overwhelming at first. Here is a quick guide to all you should know. 
 
-### Installing Anaconda 
+### Installing Anaconda <a name="pyt-a"></a>
 
 Due to the complexity of the python environment, there exists dedicated software to manage workspace environments. In this project, I will be using the most common one, the free and opensource Anaconda. Anaconda is a great platform for managing ‘packages’. Most python tools, GeoPandas included, have ‘dependencies’ i.e. other modules on which it is dependent to run at all. Finding and installing each of these modules is a pain, but Anaconda automates this process. In addition, Anaconda facilitates the creation and maintenance of ‘environments’. It is recommended to create separate environments for each project, because projects could require different versions of the same module (or even python itself). Once Anaconda is installed, it will be accessible by its navigator software or through command-line.
 
-### Setting up environment
+### Setting up environment<a name="pyt-b"></a>
 To create an environment for GeoPandas, I used the following command that I borrowed from GeoPandas [installation guide](https://geopandas.readthedocs.io/en/latest/install.html). 
 
 ``` 
@@ -50,10 +56,9 @@ conda config --env --add channels conda-forge
 conda config --env --set channel_priority strict
 conda install python=3 geopandas
 
-``` 
-Insert Image
+```
 
-### Installing other modules
+### Installing other modules <a name="pyt-c"></a>
 
 Let us install the other packages. To do this through command-line, first type in the following to load the environment. Any command from this point will be executed within the environment. 
 
@@ -71,7 +76,7 @@ conda install jupyter
 <img src="jupyter.png" width=800>
 
 
-## The Research Question and Data 
+## The Research Question and Data <a name="rq"></a>
 
 Redistricting has been one of the most important political issues in the last few years. It is a pressing one too, now that the 2020 census is in sight. In June, there was also the [Supreme Court case] (https://www.nytimes.com/2019/06/27/us/politics/supreme-court-gerrymandering.html) where the conservative majority deemed the federal government powerless in regulating partisan gerrymandering. Some say that it is a menace to the democratic process, others point out that it is old as democracy itself, and after over two centuries of debate, we cannot decide on what counts as gerrymandering.  
 
@@ -79,11 +84,11 @@ Identifying gerrymandering is difficult, since to claim that a district is gerry
 
 I will use precinct level voter [data]( https://github.com/mggg-states/WI-shapefiles) assembled by the [Metric Geometry and Gerrymandering Group]( https://mggg.org/research) (MGGG), a Boston-based research team that pursues cutting edge research on gerrymandering. They also provide opensource tools and data to give the public access to the research as well.  
 
-## Maps and Plots on GeoPanda
+## Maps and Plots on GeoPanda <a name="gp"></a>
 
-### Setting up
-
+### Setting up <a name="gp-a"></a>
 The first step is open jupyter through Anaconda as shown below. This opens a file browser. Locate the folder in which the shapefiles are saved and create a new python file. 
+<img src="jupyter2.png" width=800>
 
 ``` python
 import geopandas as gpd
@@ -93,7 +98,7 @@ wisc = gpd.read_file("WI_ltsb_corrected_final.shp")
 ```
 This code imports the packages I will be using. Matplotlib is used to output the maps and plots later. 
 
-### Editing Columns
+### Editing Columns <a name="gp-b"></a>
 
 Editing attribute tables in GeoPanda is very easy. There is no need to even make a new column before populating it. I looked at the metadata on [MGGG](https://github.com/mggg-states/WI-shapefiles) to identify the columns I need for this analysis: the Democratic and Republican voter counts for the Wisconsin state senate and assembly. When there exist multiple candidates from a given party, I will sum them to get the total votes for that party. 
 
@@ -106,7 +111,7 @@ wisc['sttotvt'] = wisc.strepvt + wisc.stdemvt
 wisc = wisc[['geometry','ASM','sttotvt','strepvt','stdemvt']]
 wisc.head()
 ```
-### Precinct level voter distribution
+### Precinct level voter distribution <a name="gp-c"></a>
 
 I will calculate the ratio of Democratic votes to total votes which should give a number between 0 and 1 (0 being strongly Republican and 1 being strongly Democrat. However, before doing this, I must remove all the precincts with zero total votes to avoid errors. 
 
@@ -137,7 +142,7 @@ mpl.pyplot.savefig("precinct-choro.png", dpi=300)
 ```
 <img src="/lab10/precinct-choro.png" width=400>
 
-### District level voter distribution
+### District level voter distribution <a name="gp-d"></a>
 
 Let us perform a dissolve. This is incredibly simple. Only two criteria are needed: the column on which this dissolve is based and the aggregation function, which in our case is a simple sum. I calculated the ratio of Democratic votes much in the same way, but there was no need to remove zeros this time, as all districts have non-zero entries. 
 
@@ -151,7 +156,7 @@ A plot and a map was created in the same way as I did in the precinct-level anal
 <img src="/lab10/district-hist.png" width=400>
 <img src="/lab10/district-choro.png" width=400>
 
-### Exporting Shapefile 
+### Exporting Shapefile <a name="gp-e"></a>
 
 Exporting to shapefile is done with one function. 
 
@@ -159,7 +164,7 @@ Exporting to shapefile is done with one function.
 pre.to_file("precinct.shp")
 dist.to_file("district.shp")
 ```
-## Interpreting Results
+## Interpreting Results<a name="res"></a>
 |District|Precinct|
 |------|-----|
 |<img src="/lab10/district-choro.png" width=500>|<img src="/lab10/precinct-choro.png" width=500>|
