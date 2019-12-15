@@ -14,7 +14,7 @@
 
 ## Objective <a name="goal"></a>
  
-This objective of this project is more learning oriented. I will explore the 
+This objective of this project is more learning oriented. I will get acquainted with the vast python ecosystem, and learn how to manage the numerous packages and modules into 'environments'. Then, I will use an opensource geospatial package called GeoPandas to create maps and plots and attempt to visualize partisan gerrymandering in Wisconsin. I will export these visualizations so that the analysis can be continued on other plaforms. 
 
 ## Software and Documentation <a name="sw"></a>
 
@@ -75,7 +75,7 @@ conda install jupyter
 
 Redistricting has been one of the most important political issues in the last few years. It is a pressing one too, now that the 2020 census is in sight. In June, there was also the [Supreme Court case] (https://www.nytimes.com/2019/06/27/us/politics/supreme-court-gerrymandering.html) where the conservative majority deemed the federal government powerless in regulating partisan gerrymandering. Some say that it is a menace to the democratic process, others point out that it is old as democracy itself, and after over two centuries of debate, we cannot decide on what counts as gerrymandering.  
 
-Identifying gerrymandering is difficult, because to claim that a district is gerrymandered partially implies that there exists a ‘correct’ way to draw the border, which simply is not true. However, many people agree there are incorrect ways to draw them, and Wisconsin is a prime example. Wisconsin’s districts are drawn by the state assembly and in 2011, the Republican-controlled assembly redrew its districts with the explicit purpose of electing a strong Republican majority from a minority of voters, and it [worked]( https://www.jsonline.com/story/news/blogs/wisconsin-voter/2018/12/06/wisconsin-gerrymandering-data-shows-stark-impact-redistricting/2219092002/). Republicans have had an uncontested stronghold in the state assembly ever since. In this project, I will attempt to visualize the effects of Wisconsin’s partisan gerrymandering through maps and plots created on GeoPandas.  
+Identifying gerrymandering is difficult, since to claim that a district is gerrymandered partially implies that there exists a ‘correct’ way to draw the border, which simply is not true. However, many people agree there are incorrect ways to draw them, and Wisconsin is a prime example. Wisconsin’s districts are drawn by the state assembly and in 2011, the Republican-controlled assembly redrew its districts with the explicit purpose of electing a strong Republican majority from a minority of voters, and it [worked]( https://www.jsonline.com/story/news/blogs/wisconsin-voter/2018/12/06/wisconsin-gerrymandering-data-shows-stark-impact-redistricting/2219092002/). Republicans have had an uncontested stronghold in the state assembly ever since. In this project, I will attempt to visualize the effects of Wisconsin’s partisan gerrymandering through maps and plots created on GeoPandas.  
 
 I will use precinct level voter [data]( https://github.com/mggg-states/WI-shapefiles) assembled by the [Metric Geometry and Gerrymandering Group]( https://mggg.org/research) (MGGG), a Boston-based research team that pursues cutting edge research on gerrymandering. They also provide opensource tools and data to give the public access to the research as well.  
 
@@ -161,5 +161,16 @@ dist.to_file("district.shp")
 ```
 ## Interpreting Results
 |District|Precinct|
-|<img src="/lab10/district-choro.png" width=400>|<img src="/lab10/precinct-choro.png" width=400>|
+|------|-----|
+|<img src="/lab10/district-choro.png" width=500>|<img src="/lab10/precinct-choro.png" width=500>|
+
+Looking at the district and precinct level choropleths side by side, it is immediately clear that the borders were drawn to contain the heavily democratic precincts. This will increase 'wasted votes' since any votes after a majority will not affect election results. However, this does not necessarily reflect partisan gerrymandering. People of similar ideology often live in the same geography that is bounded by both physical and cultural boundaries. There is an argument to be made to draw district borders that reflect these different pockets of population. However, looking at the histogram, the effects of partisan gerrymandering is clearly seen. 
+
+|District|Precinct|
+|------|-----|
+|<img src="/lab10/district-hist.png" width=500>|<img src="/lab10/precinct-hist.png" width=500>|
+
+At the precinct-level, we see a more or less even distribution of percentages with a peak in the 45 - 50% democrat range(and a strong peak around the 100% mark). However, the district-level distribution looks very different. The width of the distribution has shrunk considerably, and the peak has shifted to the 40 - 45% range. The shrinking of the width suggests that precincts with slight Democratic majority were grouped with those with Republican majorities to suppress representation. 
+
+
 
