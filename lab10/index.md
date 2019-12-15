@@ -5,10 +5,16 @@
 1. [Objective](#goal)
 2. [Software and Documentation](#sw)
 3. [Getting started with python](#pyt)
+   1. [Installing Anaconda ]
+   Setting up environment
+   Installing other modules
+4. [The Research Question and Data](#rq)
+5. [Maps and Plots on GeoPandas](#gp)
+   
 
 ## Objective <a name="goal"></a>
  
-This objective of this project is more learning oriented. I will learn how to use 
+This objective of this project is more learning oriented. I will explore the 
 
 ## Software and Documentation <a name="sw"></a>
 
@@ -64,3 +70,96 @@ conda install jupyter
 ```
 
 <img src="jupyter.png" width=800>
+
+
+## The Research Question and Data 
+
+Redistricting has been one of the most important political issues in the last few years. It is a pressing one too, now that the 2020 census is in sight. In June, there was also the [Supreme Court case] (https://www.nytimes.com/2019/06/27/us/politics/supreme-court-gerrymandering.html) where the conservative majority deemed the federal government powerless in regulating partisan gerrymandering. Some say that it is a menace to the democratic process, others point out that it is old as democracy itself, and after over two centuries of debate, we cannot decide on what counts as gerrymandering.  
+
+Identifying gerrymandering is difficult, because to claim that a district is gerrymandered partially implies that there exists a ‘correct’ way to draw the border, which simply is not true. However, many people agree there are incorrect ways to draw them, and Wisconsin is a prime example. Wisconsin’s districts are drawn by the state assembly and in 2011, the Republican-controlled assembly redrew its districts with the explicit purpose of electing a strong Republican majority from a minority of voters, and it [worked]( https://www.jsonline.com/story/news/blogs/wisconsin-voter/2018/12/06/wisconsin-gerrymandering-data-shows-stark-impact-redistricting/2219092002/). Republicans have had an uncontested stronghold in the state assembly ever since. In this project, I will attempt to visualize the effects of Wisconsin’s partisan gerrymandering through maps and plots created on GeoPandas.  
+
+I will use precinct level voter [data]( https://github.com/mggg-states/WI-shapefiles) assembled by the [Metric Geometry and Gerrymandering Group]( https://mggg.org/research) (MGGG), a Boston-based research team that pursues cutting edge research on gerrymandering. They also provide opensource tools and data to give the public access to the research as well.  
+
+## Maps and Plots on GeoPanda
+
+### Setting up
+
+The first step is open jupyter through Anaconda as shown below. This opens a file browser. Locate the folder in which the shapefiles are saved and create a new python file. 
+
+``` python
+import geopandas as gpd
+import matplotlib as mpl
+import pandas
+wisc = gpd.read_file("WI_ltsb_corrected_final.shp")
+```
+This code imports the packages I will be using. Matplotlib is used to output the maps and plots later. 
+
+### Editing Columns
+
+Editing attribute tables in GeoPanda is very easy. There is no need to even make a new column before populating it. I looked at the metadata on [MGGG](https://github.com/mggg-states/WI-shapefiles) to identify the columns I need for this analysis: the Democratic and Republican voter counts for the Wisconsin state senate and assembly. When there exist multiple candidates from a given party, I will sum them to get the total votes for that party. 
+
+The following operation will make three new columns. The sum of votes to the state senate and assembly are calculated for Republicans and Democrats. Then, they are added to find the 'total' voter pool (excluding third parties but their contribution is negligible). Finally, the useful columns are isolated, including `ASM` which denotes the assembly district number. This will be used later to perform a dissolve. `wisc.head()` prints out the first five rows to make sure the operation was done correctly. 
+
+```python
+wisc['strepvt'] = wisc.WSSREP12 + wisc.WSSREP212 + wisc.WSAREP12 + wisc.WSAREP212
+wisc['stdemvt'] = wisc.WSSDEM12 + wisc.WSADEM12 + wisc.WSADEM212
+wisc['sttotvt'] = wisc.strepvt + wisc.stdemvt
+wisc = wisc[['geometry','ASM','sttotvt','strepvt','stdemvt']]
+wisc.head()
+```
+### Precinct level voter distribution
+
+I will calculate the ratio of Democratic votes to total votes which should give a number between 0 and 1 (0 being strongly Republican and 1 being strongly Democrat. However, before doing this, I must remove all the precincts with zero total votes to avoid errors. 
+
+```python
+pre = wisc.loc[wisc['sttotvt'] != 0]
+pre['stdemnorm'] = pre.stdemvt/pre.sttotvt
+pre.head()
+```
+Now, I will create a histogram of this ratio and save it as a png image file. `bins` signifies the number of bars in the chart.
+
+```python
+pre.hist(column='stdemnorm', bins=20)
+mpl.pyplot.title('Percentage of Democrat Votes to WI Assembly 2012, Precinct Level')
+mpl.pyplot.savefig("precinct-hist.png", dpi=300)
+```
+<img src="lab10/precinct-hist.png" width=400>
+
+Before creating a map, I will check its coordinate reference system with this command:
+```
+pre.crs
+```
+It returned a number `26916`, which corresponds to NAD83, zone 16N which is appropriate for this region. I will proceed with mapping. 
+
+```python
+pre.plot(column='stdemnorm', cmap='RdBu', legend=True);
+mpl.pyplot.title('Votes to WI Assembly 2012, Precinct Level')
+mpl.pyplot.savefig("precinct-choro.png", dpi=300)
+```
+<img src="lab10/precinct-choro.png" width=400>
+
+### District level voter distribution
+
+Let us perform a dissolve. This is incredibly simple. Only two criteria are needed: the column on which this dissolve is based and the aggregation function, which in our case is a simple sum. I calculated the ratio of Democratic votes much in the same way, but there was no need to remove zeros this time, as all districts have non-zero entries. 
+
+``` python
+dist = wisc.dissolve(by='ASM', aggfunc='sum')
+dist['stdemnorm'] = dist.stdemvt/dist.sttotvt
+dist.head()
+```
+A plot and a map was created in the same way as I did in the precinct-level analysis. 
+
+<img src="lab10/district-hist.png" width=400>
+<img src="lab10/district-choro.png" width=400>
+
+### Exporting Shapefile 
+
+Exporting to shapefile is done with one function. 
+
+```
+pre.to_file("precinct.shp")
+dist.to_file("district.shp")
+```
+## Interpreting Results
+
+
