@@ -30,13 +30,12 @@ This objective of this project is more learning oriented. I will explore the
 ### Documentation Referenced
 
 - [A helpful youtube tutorial](https://www.youtube.com/watch?v=slqZVgB8tIg&t=253s)
-- spatialreference.org 
-
-#### Works cited
+- [Geopandas userguide](http://geopandas.org/data_structures.html)
 
 
 ## Getting started with python  <a name="pyt"></a>
 The python software ecosystem is vast and complicated and it can be overwhelming at first. Here is a quick guide to all you should know. 
+
 ### Installing Anaconda 
 
 Due to the complexity of the python environment, there exists dedicated software to manage workspace environments. In this project, I will be using the most common one, the free and opensource Anaconda. Anaconda is a great platform for managing ‘packages’. Most python tools, GeoPandas included, have ‘dependencies’ i.e. other modules on which it is dependent to run at all. Finding and installing each of these modules is a pain, but Anaconda automates this process. In addition, Anaconda facilitates the creation and maintenance of ‘environments’. It is recommended to create separate environments for each project, because projects could require different versions of the same module (or even python itself). Once Anaconda is installed, it will be accessible by its navigator software or through command-line.
@@ -161,5 +160,6 @@ pre.to_file("precinct.shp")
 dist.to_file("district.shp")
 ```
 ## Interpreting Results
-
+|District|Precinct|
+|<img src="/lab10/district-choro.png" width=400>|<img src="/lab10/precinct-choro.png" width=400>|
 
