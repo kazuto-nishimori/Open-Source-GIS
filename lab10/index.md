@@ -73,7 +73,7 @@ conda install matplotlib
 conda install jupyter
 ```
 
-<img src="http://kazuto-nishimori.github.io/jupyter.png" width="800">
+<img src="http://kazuto-nishimori.github.io/lab10/jupyter.png" width="800">
 
 
 ## The Research Question and Data <a name="rq"></a>
@@ -88,7 +88,7 @@ I will use precinct level voter [data]( https://github.com/mggg-states/WI-shapef
 
 ### Setting up <a name="gp-a"></a>
 The first step is open jupyter through Anaconda as shown below. This opens a file browser. Locate the folder in which the shapefiles are saved and create a new python file. 
-<img src="http://kazuto-nishimori.github.io/jupyter2.png" width="800">
+<img src="http://kazuto-nishimori.github.io/lab10/jupyter2.png" width="800">
 
 ``` python
 import geopandas as gpd
