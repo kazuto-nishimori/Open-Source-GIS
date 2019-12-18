@@ -73,7 +73,7 @@ conda install matplotlib
 conda install jupyter
 ```
 
-<img src="jupyter.png" width=800>
+<img src="http://kazuto-nishimori.github.io/jupyter.png" width=800>
 
 
 ## The Research Question and Data <a name="rq"></a>
@@ -140,7 +140,7 @@ pre.plot(column='stdemnorm', cmap='RdBu', legend=True);
 mpl.pyplot.title('Votes to WI Assembly 2012, Precinct Level')
 mpl.pyplot.savefig("precinct-choro.png", dpi=300)
 ```
-<img src="/lab10/precinct-choro.png" width=400>
+<img src="http://kazuto-nishimori.github.io/lab10/precinct-choro.png" width=400>
 
 ### District level voter distribution <a name="gp-d"></a>
 
@@ -153,8 +153,8 @@ dist.head()
 ```
 A plot and a map was created in the same way as I did in the precinct-level analysis. 
 
-<img src="/lab10/district-hist.png" width=400>
-<img src="/lab10/district-choro.png" width=400>
+<img src="http://kazuto-nishimori.github.io/lab10/district-hist.png" width=400>
+<img src="http://kazuto-nishimori.github.io/lab10/district-choro.png" width=400>
 
 ### Exporting Shapefile <a name="gp-e"></a>
 
@@ -167,13 +167,13 @@ dist.to_file("district.shp")
 ## Interpreting Results<a name="res"></a>
 |District|Precinct|
 |------|-----|
-|<img src="/lab10/district-choro.png" width=500>|<img src="/lab10/precinct-choro.png" width=500>|
+|<img src="http://kazuto-nishimori.github.io/lab10/district-choro.png" width=500>|<img src="http://kazuto-nishimori.github.io/lab10/precinct-choro.png" width=500>|
 
 Looking at the district and precinct level choropleths side by side, it is immediately clear that the borders were drawn to contain the heavily democratic precincts. This will increase 'wasted votes' since any votes after a majority will not affect election results. However, this does not necessarily reflect partisan gerrymandering. People of similar ideology often live in the same geography that is bounded by both physical and cultural boundaries. There is an argument to be made to draw district borders that reflect these different pockets of population. However, looking at the histogram, the effects of partisan gerrymandering is clearly seen. 
 
 |District|Precinct|
 |------|-----|
-|<img src="/lab10/district-hist.png" width=500>|<img src="/lab10/precinct-hist.png" width=500>|
+|<img src="http://kazuto-nishimori.github.io/lab10/district-hist.png" width=500>|<img src="http://kazuto-nishimori.github.io/lab10/precinct-hist.png" width=500>|
 
 At the precinct-level, we see a more or less even distribution of percentages with a peak in the 45 - 50% democrat range(and a strong peak around the 100% mark). However, the district-level distribution looks very different. The width of the distribution has shrunk considerably, and the peak has shifted to the 40 - 45% range. The shrinking of the width suggests that precincts with slight Democratic majority were grouped with those with Republican majorities to suppress representation. 
 
