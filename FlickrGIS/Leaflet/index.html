@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Arrondissements_1.js"></script>
+        <script src="data/Invisible20Photos_2.js"></script>
+        <script src="data/Visible_3.js"></script>
+        <script src="data/MostVisible_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:21, minZoom:6
+        }).fitBounds([[48.846329873263564,2.2833571459395854],[48.87763939084049,2.3553033440771656]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var layer_OpenStreetMap_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 6,
+            maxZoom: 21,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OpenStreetMap_0;
+        map.addLayer(layer_OpenStreetMap_0);
+        function pop_Arrondissements_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['n_sq_ar'] !== null ? Autolinker.link(feature.properties['n_sq_ar'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['c_ar'] !== null ? Autolinker.link(feature.properties['c_ar'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['c_arinsee'] !== null ? Autolinker.link(feature.properties['c_arinsee'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['l_ar'] !== null ? Autolinker.link(feature.properties['l_ar'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['l_aroff'] !== null ? Autolinker.link(feature.properties['l_aroff'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['n_sq_co'] !== null ? Autolinker.link(feature.properties['n_sq_co'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['surface'] !== null ? Autolinker.link(feature.properties['surface'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['perimetre'] !== null ? Autolinker.link(feature.properties['perimetre'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objectid'] !== null ? Autolinker.link(feature.properties['objectid'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['longueur'] !== null ? Autolinker.link(feature.properties['longueur'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Arrondissements_1_0() {
+            return {
+                pane: 'pane_Arrondissements_1',
+                opacity: 1,
+                color: 'rgba(144,144,144,0.6823529411764706)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(120,179,178,0.13333333333333333)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Arrondissements_1');
+        map.getPane('pane_Arrondissements_1').style.zIndex = 401;
+        map.getPane('pane_Arrondissements_1').style['mix-blend-mode'] = 'normal';
+        var layer_Arrondissements_1 = new L.geoJson(json_Arrondissements_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Arrondissements_1',
+            layerName: 'layer_Arrondissements_1',
+            pane: 'pane_Arrondissements_1',
+            onEachFeature: pop_Arrondissements_1,
+            style: style_Arrondissements_1_0,
+        });
+        bounds_group.addLayer(layer_Arrondissements_1);
+        function pop_Invisible20Photos_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['left'] !== null ? Autolinker.link(feature.properties['left'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['top'] !== null ? Autolinker.link(feature.properties['top'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['right'] !== null ? Autolinker.link(feature.properties['right'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bottom'] !== null ? Autolinker.link(feature.properties['bottom'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? Autolinker.link(feature.properties['id'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lat'] !== null ? Autolinker.link(feature.properties['lat'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['long'] !== null ? Autolinker.link(feature.properties['long'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>pic</strong><br />' + (feature.properties['pic'] !== null ? Autolinker.link(feature.properties['pic'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Invisible20Photos_2_0() {
+            return {
+                pane: 'pane_Invisible20Photos_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.403921568627451)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,98,124,0.5215686274509804)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Invisible20Photos_2');
+        map.getPane('pane_Invisible20Photos_2').style.zIndex = 402;
+        map.getPane('pane_Invisible20Photos_2').style['mix-blend-mode'] = 'normal';
+        var layer_Invisible20Photos_2 = new L.geoJson(json_Invisible20Photos_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Invisible20Photos_2',
+            layerName: 'layer_Invisible20Photos_2',
+            pane: 'pane_Invisible20Photos_2',
+            onEachFeature: pop_Invisible20Photos_2,
+            style: style_Invisible20Photos_2_0,
+        });
+        bounds_group.addLayer(layer_Invisible20Photos_2);
+        map.addLayer(layer_Invisible20Photos_2);
+        function pop_Visible_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['left'] !== null ? Autolinker.link(feature.properties['left'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['top'] !== null ? Autolinker.link(feature.properties['top'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['right'] !== null ? Autolinker.link(feature.properties['right'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bottom'] !== null ? Autolinker.link(feature.properties['bottom'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? Autolinker.link(feature.properties['id'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lat'] !== null ? Autolinker.link(feature.properties['lat'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['long'] !== null ? Autolinker.link(feature.properties['long'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>pic</strong><br />' + (feature.properties['pic'] !== null ? Autolinker.link(feature.properties['pic'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Visible_3_0(feature) {
+            if (feature.properties['pic'] >= 0.000000 && feature.properties['pic'] <= 107.000000 ) {
+                return {
+                pane: 'pane_Visible_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,240,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['pic'] >= 107.000000 && feature.properties['pic'] <= 309.000000 ) {
+                return {
+                pane: 'pane_Visible_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,204,184,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['pic'] >= 309.000000 && feature.properties['pic'] <= 620.000000 ) {
+                return {
+                pane: 'pane_Visible_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,143,111,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['pic'] >= 620.000000 && feature.properties['pic'] <= 1012.000000 ) {
+                return {
+                pane: 'pane_Visible_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(244,77,55,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['pic'] >= 1012.000000 && feature.properties['pic'] <= 1450.000000 ) {
+                return {
+                pane: 'pane_Visible_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(197,22,27,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['pic'] >= 1450.000000 && feature.properties['pic'] <= 73066.000000 ) {
+                return {
+                pane: 'pane_Visible_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Visible_3');
+        map.getPane('pane_Visible_3').style.zIndex = 403;
+        map.getPane('pane_Visible_3').style['mix-blend-mode'] = 'normal';
+        var layer_Visible_3 = new L.geoJson(json_Visible_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Visible_3',
+            layerName: 'layer_Visible_3',
+            pane: 'pane_Visible_3',
+            onEachFeature: pop_Visible_3,
+            style: style_Visible_3_0,
+        });
+        bounds_group.addLayer(layer_Visible_3);
+        function pop_MostVisible_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['left'] !== null ? Autolinker.link(feature.properties['left'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['top'] !== null ? Autolinker.link(feature.properties['top'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['right'] !== null ? Autolinker.link(feature.properties['right'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bottom'] !== null ? Autolinker.link(feature.properties['bottom'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? Autolinker.link(feature.properties['id'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['lat'] !== null ? Autolinker.link(feature.properties['lat'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['long'] !== null ? Autolinker.link(feature.properties['long'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>pic</strong><br />' + (feature.properties['pic'] !== null ? Autolinker.link(feature.properties['pic'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MostVisible_4_0(feature) {
+            if (feature.properties['pic'] >= 0.000000 && feature.properties['pic'] <= 1450.000000 ) {
+                return {
+                pane: 'pane_MostVisible_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,240,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['pic'] >= 1450.000000 && feature.properties['pic'] <= 6677.000000 ) {
+                return {
+                pane: 'pane_MostVisible_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['pic'] >= 6677.000000 && feature.properties['pic'] <= 17418.000000 ) {
+                return {
+                pane: 'pane_MostVisible_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['pic'] >= 17418.000000 && feature.properties['pic'] <= 29115.000000 ) {
+                return {
+                pane: 'pane_MostVisible_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['pic'] >= 29115.000000 && feature.properties['pic'] <= 73066.000000 ) {
+                return {
+                pane: 'pane_MostVisible_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_MostVisible_4');
+        map.getPane('pane_MostVisible_4').style.zIndex = 404;
+        map.getPane('pane_MostVisible_4').style['mix-blend-mode'] = 'normal';
+        var layer_MostVisible_4 = new L.geoJson(json_MostVisible_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MostVisible_4',
+            layerName: 'layer_MostVisible_4',
+            pane: 'pane_MostVisible_4',
+            onEachFeature: pop_MostVisible_4,
+            style: style_MostVisible_4_0,
+        });
+        bounds_group.addLayer(layer_MostVisible_4);
+        map.addLayer(layer_MostVisible_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Most Visible<br /><table><tr><td style="text-align: center;"><img src="legend/MostVisible_4_00145000.png" /></td><td>0.0 - 1450.0</td></tr><tr><td style="text-align: center;"><img src="legend/MostVisible_4_14500667701.png" /></td><td>1450.0 - 6677.0</td></tr><tr><td style="text-align: center;"><img src="legend/MostVisible_4_667701741802.png" /></td><td>6677.0 - 17418.0</td></tr><tr><td style="text-align: center;"><img src="legend/MostVisible_4_1741802911503.png" /></td><td>17418.0 - 29115.0</td></tr><tr><td style="text-align: center;"><img src="legend/MostVisible_4_2911507306604.png" /></td><td>29115.0 - 73066.0</td></tr></table>': layer_MostVisible_4,'Visible<br /><table><tr><td style="text-align: center;"><img src="legend/Visible_3_0010700.png" /></td><td>0.0 - 107.0</td></tr><tr><td style="text-align: center;"><img src="legend/Visible_3_091.png" /></td><td>0 - 9</td></tr><tr><td style="text-align: center;"><img src="legend/Visible_3_9362.png" /></td><td>9 - 36</td></tr><tr><td style="text-align: center;"><img src="legend/Visible_3_36993.png" /></td><td>36 - 99</td></tr><tr><td style="text-align: center;"><img src="legend/Visible_3_993194.png" /></td><td>99 - 319</td></tr><tr><td style="text-align: center;"><img src="legend/Visible_3_319730665.png" /></td><td>319 - 73066</td></tr></table>': layer_Visible_3,'<img src="legend/Invisible20Photos_2.png" /> Invisible (<20 Photos)': layer_Invisible20Photos_2,'<img src="legend/Arrondissements_1.png" /> Arrondissements': layer_Arrondissements_1,"OpenStreetMap": layer_OpenStreetMap_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
