@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+    	<!-- leaflet dependencies -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  		integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   		crossorigin=""/>
+ 		<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   		integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   		crossorigin=""></script>
+   		<script src="data/leaflet.ajax.min.js"></script>
+   		<script type="text/javascript" src="test.geojson"></script>
+
+   		<!-- slider dependencies -->
+   		<link href="https://refreshless.com/nouislider/distribute/nouislider.css?v=1410" rel="stylesheet">
+    	<script src="https://refreshless.com/nouislider/distribute/nouislider.js?v=1410"></script>
+
+
+        <style>
+		html, body, #mapid {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        #hex1 {
+		  width: 20px;
+		  height: 20px;
+		}
+        .legendslider {
+            width: 98%;
+            padding: 20px;
+            margin: 0;
+            position: fixed;
+  			bottom: 0;
+        }
+
+        .legend {
+            width: 10%;
+            padding: 10px;
+            margin: 0;
+            position: fixed;
+  			left: 0;
+        }
+
+		.hexagon-wrapper {
+		  text-align: center;
+		  margin: 5px;
+		  position: relative;
+		  display: inline-block;
+		}
+
+		.leginputs{
+		  text-align: center;
+		  margin: 5px;
+		  position: relative;
+		  display: inline-block;
+		}
+
+		.hexagon {
+		  height: 100%;
+		  width: calc(100% * 0.57735);
+		  display: inline-block;
+		}
+		.hexagon:before {
+		  position: absolute;
+		  top: 0;
+		  right: calc((100% / 2) - ((100% * 0.57735) / 2));
+		  background-color: inherit;
+		  height: inherit;
+		  width: inherit;
+		  content: '';
+		  transform: rotateZ(60deg);
+		}
+
+		.hexagon:after {
+		  position: absolute;
+		  top: 0;
+		  right: calc((100% / 2) - ((100% * 0.57735) / 2));
+		  background-color: inherit;
+		  height: inherit;
+		  width: inherit;
+		  content: '';
+		  transform: rotateZ(-60deg);
+		}
+
+
+		.normaltext{
+			font-family: Futura;
+			font-size:12px;
+			margin-left: 0px;
+		}
+
+		input[type="text"]
+		{
+			font-family: Futura;
+			font-size:12px;
+			width:50px;
+		}
+
+		.leghex{
+		    padding: 10px;
+		    margin: 0;
+		    position: fixed;
+		  	right: 0;
+		  	bottom: 0;
+		  	padding-bottom: 48px;
+		  	padding-right: 120px;
+		}
+
+		.legnum{
+
+			padding: 10px;
+		    margin: 0;
+		    position: fixed;
+		  	right: 0;
+		  	bottom: 0;
+		  	padding-bottom: 50px;
+
+		}
+
+        </style> 
+
+        <title>Paris</title>
+	</head>
+	<body>
+		<style>
+		.c-1-color { background: #0C0CD7; }
+		.c-2-color { background: #3939D1; }
+		.c-3-color { background: #6666CB; }
+		.c-4-color { background: #9393C5; }
+		.c-5-color { background: #DEDEDE; }
+
+		</style>
+
+
+		<div style="z-index: 10000" class = "legendslider">
+            <div class="slider" id="slider-color" ></div>
+        </div>
+		
+		<div class = "leghex" style="z-index: 10000">
+		<div id="hex1" class="hexagon-wrapper">
+		    <div class="hexagon c-1-color"></div> 
+		</div> <br>
+		<div id="hex1" class="hexagon-wrapper">
+		    <div class="hexagon c-2-color"></div>
+		</div> <br>
+		<div id="hex1" class="hexagon-wrapper">
+		    <div class="hexagon c-3-color"></div>
+		</div> <br>
+		<div id="hex1" class="hexagon-wrapper">
+		    <div class="hexagon c-4-color"></div>
+		</div> <br>
+		<div id="hex1" class="hexagon-wrapper">
+		    <div class="hexagon c-5-color"></div>
+		</div>
+		</div>
+
+		<div class ="legnum" style="z-index: 10000">
+					<div class = "normaltext"> Number of Pictures<br>Taken in Each Hex</div>
+			        <div class = "leginputs"><input type="text" id="input4"></div><div id='maxinput' class = "leginputs normaltext"></div><br>
+		            <div class = "leginputs"><input type="text" id="input3"></div><div id="dyninput4" class = "leginputs normaltext"></div><br>
+		            <div class = "leginputs"><input type="text" id="input2"></div><div id="dyninput3" class = "leginputs normaltext"></div><br>
+		            <div class = "leginputs"><input type="text" id="input1"></div><div id="dyninput2" class = "leginputs normaltext"></div><br>
+		            <div class = "leginputs normaltext" style="margin-left: 8px">0</div><div style="margin-left: 45px"id="dyninput1" class = "leginputs normaltext"></div><br>
+		</div>
+            <script>
+
+            	/* ALL THE VARIABLES FOUND HERE!!*/
+            	var class1 = 1660;
+				var class2 = 7213;
+				var class3 = 20303;
+				var class4 = 41667;
+				const maxpic = 69186;
+				const maplat = 40.785091;
+				const maplon = -73.968285;
+
+
+				var slider = document.getElementById('slider-color');
+				var input1 = document.getElementById('input1');
+				var input2 = document.getElementById('input2');
+				var input3 = document.getElementById('input3');
+				var input4 = document.getElementById('input4');
+				var inputs = [input1,input2,input3,input4];
+				var classif = [class1,class2,class3,class4];
+				document.getElementById("maxinput").innerHTML = " - " + maxpic.toString();
+
+				noUiSlider.create(slider, {
+    				start: [Math.log(class1), Math.log(class2), Math.log(class3), Math.log(class4)],
+    				connect: [true, true, true, true, true],
+    				range: {
+        				'min': [0],
+        				'max': [Math.log(maxpic)],
+    				}
+				});
+
+				slider.noUiSlider.on('update', function (values, handle) {
+				    inputs[handle].value = Math.round(Math.exp(values[handle]));
+				    classif[handle] = Math.round(Math.exp(values[handle]));
+				});
+				var connect = slider.querySelectorAll('.noUi-connect');
+				var classes = ['c-5-color', 'c-4-color', 'c-3-color', 'c-2-color', 'c-1-color'];
+
+
+				for (var i = 0; i < connect.length; i++) {
+				    connect[i].classList.add(classes[i]);
+				}
+
+				inputs.forEach(function (input, handle) {
+				    input.addEventListener('change', function () {
+				    	var valuebefore = this.value;
+				        slider.noUiSlider.setHandle(handle, Math.log(this.value));
+				        this.value = valuebefore;
+				        classif[handle] = parseInt(this.value);
+				    });
+
+				});
+				</script>
+
+        <div id="mapid" > </div>
+
+        <script>
+
+			var mymap = L.map('mapid').setView([maplat,maplon], 13);
+
+
+			L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+			maxZoom: 18,
+			minZoom: 12,
+
+			attribution: 'Cartography by Kazuto Nishimori, JS Popup by Nathan Wies. Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> and Flickr API ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+			id: 'mapbox/streets-v11'
+			}).addTo(mymap);
+	
+			//var geojson = L.geoJson(hex).addTo(mymap);
+			var geojson = L.geoJson(hex, {
+    			style: style,
+    		}).addTo(mymap);
+
+			function getColor(d) {
+    		return 	d > classif[3] ? document.styleSheets[document.styleSheets.length - 1].cssRules[0].style.background :
+           			d > classif[2] ? document.styleSheets[document.styleSheets.length - 1].cssRules[1].style.background :
+           			d > classif[1] ? document.styleSheets[document.styleSheets.length - 1].cssRules[2].style.background :
+           			d > classif[0] ? document.styleSheets[document.styleSheets.length - 1].cssRules[3].style.background :
+                 				     document.styleSheets[document.styleSheets.length - 1].cssRules[4].style.background;
+			}; 
+
+
+			function style(feature) {
+    		return {
+        			fillColor: getColor(feature.properties.pic),
+        			weight: 0.1,
+        			opacity: 1,
+        			color: 'white',
+        			dashArray: '3',
+        			fillOpacity: 0.5
+    		};
+    		}
+
+
+			function updateMap() {
+			  	geojson.eachLayer(function(layer){
+					layer.setStyle(style(layer.feature));
+				}); 
+			  	document.getElementById("dyninput1").innerHTML = " - " + classif[0].toString();
+			  	document.getElementById("dyninput2").innerHTML = " - " + classif[1].toString();
+			  	document.getElementById("dyninput3").innerHTML = " - " + classif[2].toString();
+			  	document.getElementById("dyninput4").innerHTML = " - " + classif[3].toString();
+			  };
+
+			inputs.forEach(function (input, handle) {
+				    input.addEventListener('change', updateMap)});
+
+			slider.noUiSlider.on('update', updateMap);
+
+			
+
+
+		</script>
+	</body>
+</html>
