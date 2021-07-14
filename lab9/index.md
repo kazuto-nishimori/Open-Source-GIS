@@ -1,6 +1,6 @@
 # Big Data and Twitter API
 
-## Table of Contents
+## <details><summary>Table of Contents</summary>
 
 1. [Objective](#goal)
 2. [Software and Documentation](#sw)
@@ -25,6 +25,8 @@
     3. [Spatial Hotspot Analysis with GeoDa](#geog-c)
     4. [Kernel Density Map in QGIS](#geog-d)
     5. [Discussion](#geog-e)
+
+</details>
 
 ## Objective <a name="goal"></a>
 
@@ -248,13 +250,13 @@ dbWriteTable(con,'evo',evo, overwrite=TRUE)
 dbDisconnect(con)
 ```
 ### Download materials used <a name="rs-h"></a>
-- [r file](/twitlab.r)
-- [List of tweet IDs](/evoTweetID.csv)
+- [r file](twitlab.r)
+- [List of tweet IDs](evoTweetID.csv)
 
 
 ## Textual Analysis of Twitter Activity During Dorian <a name="text"></a>
 
-[Download the r file used in this portion of the lab.](/final.r)
+[Download the r file used in this portion of the lab.](final.r)
 
 Now that we have the toolset, let us answer the original research question. Did DJT's sharpiegate have an effect on twitter activity that was significant enough to alter emergency responders or academic research that would rely on these tweets? I will first look at the outputs from the textural analysis.
 
@@ -450,7 +452,7 @@ GROUP BY statefp
 
 </details>
 
-Download all the  SQL queries [here](/twit.sql)
+Download all the  SQL queries [here](twit.sql)
 
 ### Discussion  <a name="geog-e"></a>
 
