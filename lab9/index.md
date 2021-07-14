@@ -72,7 +72,7 @@ Recently, big data has gathered the interest of many, and in the geography commu
 
 We must first create a [developer account on twitter]( https://developer.twitter.com/). The approval process takes anywhere from a day to a few days, so it is important to do this ASAP. Once approved, twitter requires us to create an ‘app’ which is as simple as filling a form. They instantly give you a consumer API key that can be used by external software to access data.  
 
-<img src="/token.png" width="500">
+<img src="img/token.png" width="500">
 
 ### Important considerations with twitter data <a name="twit-b"></a>
 
