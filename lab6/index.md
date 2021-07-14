@@ -17,7 +17,6 @@
     3. [Selecting targeted waste sites](#ana-c)
     4. [Summing the trash score](#ana-d)
 7. [Visualising Results](#res)  
-8. [Interpreting Results](#int)  
 
 ## Objective <a name="goal"></a>
 
@@ -216,6 +215,3 @@ One thing PostGIS cannot do is visualizing data: this must be done in QGIS. Drag
 Below is a map comparing the distribution of waste site points to our final map. Notice that there are zero values in data-rich regions in the west. These areas are true-zeros whereas the zeros in and around Mbagala and Kurasini are most likely due to the lack of data. I suppose we can distinguish these regions by giving these true-zero sub-wards (sub-wards that intersect with waste sites) a value of zero, and giving other sub-wards a null value. However, this is beyond the scope of this lab.
 
 <img src="img/image8.PNG" width="400">
-
-
-## Interpreting Results <a name="int"></a>

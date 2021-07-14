@@ -1,6 +1,6 @@
 # Big Data and Twitter API
 
-## <details><summary>Table of Contents</summary>
+## Table of Contents
 
 1. [Objective](#goal)
 2. [Software and Documentation](#sw)
@@ -26,7 +26,6 @@
     4. [Kernel Density Map in QGIS](#geog-d)
     5. [Discussion](#geog-e)
 
-</details>
 
 ## Objective <a name="goal"></a>
 
