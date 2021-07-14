@@ -70,7 +70,7 @@ Recently, big data has gathered the interest of many, and in the geography commu
 
 We must first create a [developer account on twitter]( https://developer.twitter.com/). The approval process takes anywhere from a day to a few days, so it is important to do this ASAP. Once approved, twitter requires us to create an ‘app’ which is as simple as filling a form. They instantly give you a consumer API key that can be used by external software to access data.  
 
-<img src="/lab9/token.png" width="500">
+<img src="/token.png" width="500">
 
 ### Important considerations with twitter data <a name="twit-b"></a>
 
@@ -113,7 +113,7 @@ The twitter data downloaded with rtweet is neatly organized into a usable table.
 evoTweetHours <- ts_data(evoTweets, by="hours")
 ts_plot(winterTweets, by="hours")
 ```
-<img src="/lab9/Rplot00.png" width="500">
+<img src="/Rplot00.png" width="500">
 The plot agrees with what I expected. There is a sudden spike in tweets mentioning Evo Morales on the night of November 10, the day he announced his resignation. The tweets fluctuate up and down reflecting the waking hours of the tweeters, and each day the peaks diminish in height as they slowly lose interest in the topic.
 </details>
 
@@ -183,7 +183,7 @@ Then I made a graph of the most common words that appeared in the tweets.
 ```
 
 </details>
-<img src="img/lab9/Rplot01.png" width="500">
+<img src="img/Rplot01.png" width="500">
 
 The words "Evo" and "Morales" topped the charts, which is unsurprising since that was our search criteria. The usual suspects follow like "Bolivia", "pueblo" meaning people, and "fraude" because of the election fraud accusations he was facing at the time of his resignation.  
 
@@ -209,8 +209,8 @@ evoWordPairs %>%
   ```
 
 </details>
-<img src="img/lab9/Rplot02.png" width="500">
-<img src="img/lab9/Rplot02-edit.png" width="300">
+<img src="img/Rplot02.png" width="500">
+<img src="img/Rplot02-edit.png" width="300">
 
 Curiously enough, the word cloud reveals the political fragmentation within the twitter userbase. On the one hand, there is the political right tweeting about the election fraud charges. On the other hand there is the left tweeting about the army and the coup attempt. These two groups occupy different places on the map.
 
@@ -237,7 +237,7 @@ ggplot() +
 ```
 
 </details>
-<img src="img/lab9/Rplot04.png" width="500">
+<img src="img/Rplot04.png" width="500">
 
 ### Uploading results to PostGIS for further spatial analysis <a name="rs-g"></a>
 Finally, I will upload the data to PostGIS so that I can apply the toolset I have acquired throughout the semester. This is extremely simple with the use of the library `RPostgres`. Make sure to select only the columns needed as I did in line 2. There are certain operations that must be done in the PostGIS side, and I will discuss this in detail in the following sections.
@@ -259,8 +259,8 @@ dbDisconnect(con)
 Now that we have the toolset, let us answer the original research question. Did DJT's sharpiegate have an effect on twitter activity that was significant enough to alter emergency responders or academic research that would rely on these tweets? I will first look at the outputs from the textural analysis.
 
 ### Outputs <a name="text-a"></a>
-<img src="img/lab9/dorian-word-count.png" width="500">
-<img src="img/lab9/plot.png" width="500">
+<img src="img/dorian-word-count.png" width="500">
+<img src="img/plot.png" width="500">
 
 ### Discussion <a name="text-b"></a>
 
@@ -410,14 +410,14 @@ The first step is to connect to the PostGIS database. Then, I will create a spat
 
 Then go to `Space -> Local G* cluster map`. Make sure to include a significance map, cluster map, and row-standardized weights. Making a hotspot map is as simple as that.
 
-<img src="img/lab9/tw-rate-clust.PNG" width="600">
-<img src="img/lab9/tw-rate-sig.PNG" width="600">
+<img src="img/tw-rate-clust.PNG" width="600">
+<img src="img/tw-rate-sig.PNG" width="600">
 
 The tweet rate cluster map shows that there are sections of high tweet activity along the Eastern Seaboard from Southern Florida to the Chesapeake Bay. Tweet rate is low inland. The significance map shows how statistically significant the data is, and it appears that the significance is extremely good in the areas of interest, namely the hurricane's actual path along the coast, and Southern Alabama, where DJT sharpied-in the fictitious hurricane path.
 
 On the other hand, the normalized difference twitter index map showed a behaviour that was the complete opposite of what was predicted. This I believe could be due to the fact that the score ranges from -1 to 1, and somehow the negative numbers confused the algorithm.
 
-<img src="img/lab9/ndti-clust.PNG" width="600">
+<img src="img/ndti-clust.PNG" width="600">
 
 ### Kernel Density Map in QGIS <a name="geog-d"></a>
 Finally, I created a kernel density heatmap of the tweet rate during the hurricane. The algorithm requires point data, not shapefiles, so I will reduce the counties into centroids using the following code.
@@ -456,10 +456,10 @@ Download all the  SQL queries [here](/twit.sql)
 
 So did the DJT's sharpie gate have a significant influence on twitter activity? Let us take a look:
 
-<img src="img/lab9/kd.png" width="600">
-<img src="img/lab9/twrate_clust_1.png" width="600">
+<img src="img/kd.png" width="600">
+<img src="img/twrate_clust_1.png" width="600">
 <details><summary>Significance map</summary>
-    <img src="img/lab9/twrate_sig_1.png" width="600">
+    <img src="img/twrate_sig_1.png" width="600">
 </details>
 
 It seems that no, however dominant DJT might be in twitter discourse, his sharpied-in hurricane path to Alabama did not cause an upsurge of Dorian related tweets in that region. This we can conclude with statistical significance from the significance map. Instead, the tweet rate clearly highlights the actual path taken by Dorian along the Eastern Coast of USA. This supports Wang et al's finding that there is a correlation with areas with disaster-related tweets, and the actual affected geography (2016).
