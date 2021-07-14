@@ -87,7 +87,7 @@ install.packages(c("rtweet","tidycensus","tidytext","maps","RPostgres","igraph",
 ```
 Let us test the rtweet library by importing some tweets. I was working on this lab in early November during the aftermath of the coup attempt in Bolivia and the resignation of Evo Morales. I thought it would be interesting to analyze tweets in Florida relating to this event. 
 
-<details><summary> Show Code </summary>
+<details><summary markdown="span"> Show Code </summary>
     
 ```
 twitter_token <- create_token(
