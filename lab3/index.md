@@ -1,4 +1,4 @@
-# Global DEM and Error Propagation h
+# Global DEM and Error Propagation 
 
 ## Table of Contents
 
