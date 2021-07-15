@@ -1,6 +1,6 @@
 
 
-# Creating a QGIS Model: Introduction to Open Source
+# Creating a QGIS Model
 
 <iframe src="distance.html" title="description" width='100%' height='600px'></iframe>
 
