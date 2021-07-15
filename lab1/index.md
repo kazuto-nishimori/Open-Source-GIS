@@ -1,4 +1,4 @@
-<style>.site-header {display: none;}</style>
+<style></style>
 
 # Creating a QGIS Model: Introduction to Open Source
 
