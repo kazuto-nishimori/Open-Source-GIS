@@ -1,4 +1,4 @@
-<style></style>
+<style>.site-header {display: none;} h1{fontsize:50}</style>
 
 # Creating a QGIS Model: Introduction to Open Source
 
