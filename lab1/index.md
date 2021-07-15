@@ -4,7 +4,8 @@
 
 <iframe src="direction.html" title="An example output of my QGIS model" width='100%' height='600px'></iframe>
 An example output of my QGIS model&nbsp;
----&nbsp;
+---
+&nbsp;
 ## Table of Contents
 1. [Objective](#goal)
 2. [Software and Documentation](#sw)
@@ -15,12 +16,14 @@ An example output of my QGIS model&nbsp;
     4. [Plotting Results in DataPlotly](#model-d)
     5. [Room for Future Work](#model-e)
 4. [Discussion](#disc)&nbsp;
----&nbsp;
+---
+&nbsp;
 
 ## 1. Objective <a name="goal"></a>
 
 The goal of this lab is to be acquainted with the open source GIS environment; this can mean several things. In a myopic sense, this means learning to use QGIS, an open source GIS software. However, ‘open source’ is so much more than the software per se: it signifies the whole ecosystem of professionals and hobbyists that engage in the bottom up, grassroots creation of useful tools. This environment revolves around online forums and repositories like Github. Therefore, our objective is to creating a tool, publish it on the web, and create helpful documentation to allow others to use and modify it.&nbsp;
----&nbsp;
+---
+&nbsp;
 ## 2. Software and Documentation <a name="sw"></a>
 
 ### Software used
@@ -32,7 +35,8 @@ The goal of this lab is to be acquainted with the open source GIS environment; t
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 #### Works cited
 - Rey, Sergio J. “Show Me the Code: Spatial Analysis and Open Source.” Journal of Geographical Systems, vol. 11, no. 2, 2009, pp. 191–207. EBSCOhost, doi:https://link.springer.com/journal/volumesAndIssues/10109.&nbsp;
----&nbsp;
+---
+&nbsp;
 ## 3. The Distance and Direction QGIS Model <a name="model"></a>
 
 My model was designed to be used in urban geography analysis: there exists many theories like the distance-decay model that conceptualize the urban space as being organized radially out from the central business district. So, I made a tool that calculates the distance and direction with respect to the central business district for each polygon in the input shapefile. (Although you might find other uses too!)
@@ -95,7 +99,8 @@ Take a look also at a more conventional choropleth plot of the two data. You can
 
 In true open source fashion, I have decided to leave some space for future work. I have tried to convert the model to use SQL instead, but I could not get this to work. Converting the model to SQL gives us access to a whole world of useful PostgreSQL functions. SQL will most likely provide a solution to my second problem, which is that the distance is measured in the same unit as the projection, in degrees. I thought of converting it into meters through a simple multiplication. However, this will not produce accurate results since the WGS84 is based on an ellipsoid and the radius is different based on the position on the globe.&nbsp;
 
----&nbsp;
+---
+&nbsp;
 ## 4. Discussion <a name="disc"></a>
 
 As Sergio Rey claims, open source might be the only truly innovative concept in business that has appeared in the 21st century (2009). It is an ecosystem of innovation and product development where individuals create, share, and modify. Its closest analogue is the academic community where there exists the same culture around peer-review, collaboration, improvement and reputation. And as I have learned, to be a part of this culture of ‘openness’ is not an easy feat. My work had to be notated, each decision justified, and the process well-documented. The thoroughness with which one must complete a task so that someone, somewhere can pick up the pieces later is quite daunting.
