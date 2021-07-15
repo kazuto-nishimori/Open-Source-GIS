@@ -2,12 +2,11 @@
 
 # Creating a QGIS Model
 
-<iframe src="direction.html" title="An example output of my QGIS model" width='100%' height='600px'></iframe>
-An example output of my QGIS model&nbsp;
+<iframe src="direction.html" title="An example output of my QGIS model" width='100%' height='500px'></iframe>
+An example output of my QGIS model&nbsp;&nbsp;
 
 ---
 
-&nbsp;
 ## Table of Contents
 1. [Objective](#goal)
 2. [Software and Documentation](#sw)
