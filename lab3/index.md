@@ -21,25 +21,27 @@ This lab has two learning goals: 1) to become familiar with the open source terr
 
 ## 2. Software and Documentation <a name="sw"></a>
 
-### Software used
+### 2.1 Software used
 
 - [SAGA 6.2](https://www.qgis.org/en/site/)
 - [QGIS 3.8.1](https://www.qgis.org/en/site/)
 
-### Documentation Referenced
+### 2.2 Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 - [SAGA help documentation](http://www.saga-gis.org/saga_tool_doc/7.4.0/index.html)
 
+---
 
-## NASA Earthdata Portal  <a name="data"></a>
+## 3. NASA Earthdata Portal  <a name="data"></a>
 
 The [NASA Earthdata Portal](https://search.earthdata.nasa.gov/search) is a great resource for downloading high resolution digital elevation models from anywhere in the world. It is free to use, but require an account. For this lab, I will be examining Mount Kilimanjaro in Tanzania using two datasets: Shuttle Radar Topography Mission (SRTM) and the Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER). SRTM data was obtained in the Space Shuttle missions, where during orbit, two radar sensors were placed at a significant distance apart to measure the elevation of the terrain from parallax. ASTER, a joint US and Japanese venture uses a satellite to capture stereoscopic visible and infrared images. For both datasets, I will be using rasters at a resolution of 1 arcsecond, i.e. 30 meters per pixel width, which should provide enough definition. In the later sections, I will discuss the strengths and weaknesses of the datasets for our study region of Mount Kilimanjaro.
 
+---
 
-## SAGA Analysis <a name="saga"></a>
+## 4. SAGA Analysis <a name="saga"></a>
 An important note: Be sure to save the file often, as SAGA can crash unexpectedly.
 
-### Mosaic <a name="saga-a"></a>
+### 4.1 Mosaic <a name="saga-a"></a>
 
 Let us import the raster layers to SAGA. If there are multiple rasters covering the area of interest, as is the case with mine, there will be an obvious discontinuity between the rasters when opened in the same map. Fortunately, this is (probably) not due to the dataset, but the representation of the data, as colors are assigned based on the relative highs and lows of each raster. To fix this, I will make a mosaic of the rasters `Tools -> Mosaicking`. Choose the bilinear interpolation for the sampling method, since this is a quantitative raster. I will chose the appropriate bounding box coordinates to crop my final mosaic. Lastly, I will reproject the layer to the correct UTM zone `Tools -> Projection -> Proj.4 -> UTM Projection (Grid)`.
 <details><summary>Before Mosaic</summary>
@@ -49,13 +51,13 @@ Let us import the raster layers to SAGA. If there are multiple rasters covering 
 <img src="img/Capture2.PNG" width="500">
 </details>
 
-### Hillshade <a name="saga-b"></a>
+### 4.2 Hillshade <a name="saga-b"></a>
 
 Hillshading is a great place to start, as it facilitates the visualisation of our data. `Tools -> Terrain Analysis -> Lighting, Visibility -> Analytical Hillshading`. Parameters should be modified as desired. One thing to note is that the default position of the sun is often at an angle that is physically impossible i.e. rays from the north in the northern hemisphere. Especially in fields such as cartography, it is important to make a conscious decision about the placement of the sun, whether to favor realism or legibility (the default setting looks natural to right-handed individuals who illuminate their desk from the upper left position).
 
 <img src="img/Capture3.PNG" width="500">
 
-### Sink drainage and removal <a name="saga-c"></a>
+### 4.3 Sink drainage and removal <a name="saga-c"></a>
 
 Let us perform a preprocessing step to prepare our raster for hydrological analysis. First, I run the sink drainage route tool to detect sinks based on unusual water flow `Tools -> Terrain Analysis -> Preprocessing -> Sink Drainage Route`. Sinks are usually due to noise in the dataset that causes bumps in the terrain:
 
@@ -70,7 +72,7 @@ Let us perform a preprocessing step to prepare our raster for hydrological analy
 
 To get accurate water flow route and channels, these sinks must be removed using the sink removal tool `Tools -> Terrain Analysis -> Preprocessing -> Sink Removal`. The output is identical to the original DEM to the naked eye.
 
-### Flow accumulation <a name="saga-d"></a>
+### 4.4 Flow accumulation <a name="saga-d"></a>
 
 Next, I will run the flow accumulation function `Tools -> Terrain Analysis -> Hydrology -> Flow Accumulation (Top-Down)`. This tool maps out, for each cell, how many cells contribute to its water flow. This is helpful in detecting where streams start and how they build up.
 
@@ -81,7 +83,7 @@ Next, I will run the flow accumulation function `Tools -> Terrain Analysis -> Hy
 <img src="img/Capture7.PNG" width="500">
 </details>
 
-### Channel Network <a name="saga-e"></a>
+### 4.5 Channel Network <a name="saga-e"></a>
 
 Finally, a useful tool is the channel network tool that creates both a raster and vector layer of water channels. They can be exported to be used in other GIS software. `Tools -> Terrain Analysis -> Channels -> Chanel Network`
 
@@ -92,8 +94,9 @@ Finally, a useful tool is the channel network tool that creates both a raster an
 <img src="img/Capture9.PNG" width="500">
 </details>
 
+---
 
-## SAGA automation with Batch Script <a name="auto"></a>
+## 5. SAGA automation with Batch Script <a name="auto"></a>
 
 SAGA analysis does not have to be done on the graphic user interface. Instead, there is a command-line tool, so one could easily write up a batch script to automate the analysis I did in the above section. This requires a little getting-used-to but it is exceedingly straightforward.
 <img src="img/Capture.PNG" width="600">
@@ -107,7 +110,9 @@ The files I used are available for download here:
 - [batch file](test.bat)
 - [DEM file](ASTKilimanjaroDEMmosaic.sgrd)
 
-## Comparing ASTER and SRTM <a name="comp"></a>
+---
+
+## 6. Comparing ASTER and SRTM <a name="comp"></a>
 
 Now that we have successfully automated the process, we can easily run a different dataset. I ran both the SRTM and ASTER rasters through the batch file. However, before doing that, I had to mosaic and reproject the rasters. The batch file for this process can be downloaded [here](mosaic_utmproj_dem_AST.bat).
 
@@ -147,6 +152,8 @@ Finally, I noticed channel network gets confused in extremely flat areas. This m
 
 <img src="img/flat.PNG" width="600">
 
-#### Which is better?
+---
+
+#### 7. Which is better?
 
 It is quite clear from these comparisons that ASTER data is a much more reliable digital elevation model compared to the SRTM, at least in the region around Mount Kilimanjaro.
