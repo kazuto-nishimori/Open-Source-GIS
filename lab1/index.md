@@ -1,4 +1,4 @@
-# Creating a QGIS Model: Introduction to Open Source
+# Creating a QGIS Model: Introduction to Open Source lala
 
 ## Table of Contents
 1. [Objective](#goal)
@@ -30,7 +30,7 @@ The goal of this lab is to be acquainted with the open source GIS environment; t
 ## The Distance and Direction QGIS Model <a name="model"></a>
 
 My model was designed to be used in urban geography analysis: there exists many theories like the distance-decay model that conceptualize the urban space as being organized radially out from the central business district. So, I made a tool that calculates the distance and direction with respect to the central business district for each polygon in the input shapefile. (Although you might find other uses too!)
-- Download the model [here](dist_dir.model3) 
+- Download the model [here](dist_dir.model3)
 
 ### The Input <a name="model-a"></a>
 
