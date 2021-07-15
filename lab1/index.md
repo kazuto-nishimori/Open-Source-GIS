@@ -2,7 +2,7 @@
 
 # Creating a QGIS Model: Introduction to Open Source
 
-<iframe src="distance.html" title="description" width='100%'></iframe>
+<iframe src="distance.html" title="description" width='100%' height='700px'></iframe>
 
 ## Table of Contents
 1. [Objective](#goal)
