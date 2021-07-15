@@ -2,8 +2,8 @@
 
 # Creating a QGIS Model
 
-<iframe src="distance.html" title="description" width='100%' height='600px'></iframe>
-Example output from our distance decay model.
+<iframe src="direction.html" title="An example output of my QGIS model" width='100%' height='600px'></iframe>
+An example output of my QGIS model
 <br>
 ---
 <br>
@@ -87,8 +87,8 @@ Here are the outputs of the model:
 
 Using DataPlotly, an open source plugin to QGIS, graphing data is made very easy. The plugin uses [D3](https://d3js.org/), an opensource javascript based data visualization scheme, to create a html file that can be uploaded to the web. I made a distance and direction graph using the outputs of our QGIS model, and plotted the Hispanic population density, as well as median rent in San Antonio.
 
-- [Distance Plot](distance.html)
-- [Direction Plot](direction.html)
+<iframe src="distance.html" title="Distance Plot" width='100%' height='600px'></iframe>
+<iframe src="direction.html" title="Direction Plot" width='100%' height='600px'></iframe>
 
 Take a look also at a more conventional choropleth plot of the two data. You can see that our distance and direction plots can reveal patterns that are more difficult to see in the choropleth visualization. For example, with the distance plot, the effects of urban decay and suburbanization are striking. There is a clear upward trend in rent from the inner city to the suburb.
 
