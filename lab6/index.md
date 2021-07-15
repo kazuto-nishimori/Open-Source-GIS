@@ -28,6 +28,8 @@ The goal of this lab is to use OpenStreetMap (OSM) and Tanzania Resilience Acade
 
 source:[The Straight Times](https://www.straitstimes.com/world/africa/tanzania-slum-uses-drones-to-map-out-flood-risk)
 
+---
+
 ## 2. Software and Documentation <a name="sw"></a>
 
 ### 2.1 Software used
