@@ -13,14 +13,14 @@
     5. [Channel Network ](#saga-e)
 5. [SAGA automation with Batch Script ](#saga)
 6. [Comparing ASTER and SRTM](#comp)
-\
+<br>
 ---
-\
+<br>
 ## 1. Objective <a name="goal"></a>
 This lab has two learning goals: 1) to become familiar with the open source terrain analysis software [SAGA](http://www.saga-gis.org/en/index.html) and 2) to learn to examine and compare raster datasets with a critical lens. SAGA is an opensource terrain analysis software has been around since 2004, and it is ideal for physical geography analysis using raster data. I will use two datasets, ASTER and SRTM, and through the analysis I will identify the dataset that is better suited for the study region.
-\
+<br>
 ---
-\
+<br>
 ## 2. Software and Documentation <a name="sw"></a>
 
 ### 2.1 Software used
@@ -31,15 +31,15 @@ This lab has two learning goals: 1) to become familiar with the open source terr
 ### 2.2 Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 - [SAGA help documentation](http://www.saga-gis.org/saga_tool_doc/7.4.0/index.html)
-\
+<br>
 ---
-\
+<br>
 ## 3. NASA Earthdata Portal  <a name="data"></a>
 
 The [NASA Earthdata Portal](https://search.earthdata.nasa.gov/search) is a great resource for downloading high resolution digital elevation models from anywhere in the world. It is free to use, but require an account. For this lab, I will be examining Mount Kilimanjaro in Tanzania using two datasets: Shuttle Radar Topography Mission (SRTM) and the Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER). SRTM data was obtained in the Space Shuttle missions, where during orbit, two radar sensors were placed at a significant distance apart to measure the elevation of the terrain from parallax. ASTER, a joint US and Japanese venture uses a satellite to capture stereoscopic visible and infrared images. For both datasets, I will be using rasters at a resolution of 1 arcsecond, i.e. 30 meters per pixel width, which should provide enough definition. In the later sections, I will discuss the strengths and weaknesses of the datasets for our study region of Mount Kilimanjaro.
-\
+<br>
 ---
-\
+<br>
 ## 4. SAGA Analysis <a name="saga"></a>
 An important note: Be sure to save the file often, as SAGA can crash unexpectedly.
 
@@ -52,13 +52,13 @@ Let us import the raster layers to SAGA. If there are multiple rasters covering 
 <details><summary>After Mosaic</summary>
 <img src="img/Capture2.PNG" width="500">
 </details>
-\
+<br>
 ### 4.2 Hillshade <a name="saga-b"></a>
 
 Hillshading is a great place to start, as it facilitates the visualisation of our data. `Tools -> Terrain Analysis -> Lighting, Visibility -> Analytical Hillshading`. Parameters should be modified as desired. One thing to note is that the default position of the sun is often at an angle that is physically impossible i.e. rays from the north in the northern hemisphere. Especially in fields such as cartography, it is important to make a conscious decision about the placement of the sun, whether to favor realism or legibility (the default setting looks natural to right-handed individuals who illuminate their desk from the upper left position).
 
 <img src="img/Capture3.PNG" width="500">
-\
+<br>
 
 ### 4.3 Sink drainage and removal <a name="saga-c"></a>
 
@@ -84,7 +84,7 @@ Next, I will run the flow accumulation function `Tools -> Terrain Analysis -> Hy
     </details>
 <details><summary>Zoom in</summary>
 <img src="img/Capture7.PNG" width="500">
-</details>\
+</details><br>
 
 ### 4.5 Channel Network <a name="saga-e"></a>
 
@@ -95,10 +95,10 @@ Finally, a useful tool is the channel network tool that creates both a raster an
     </details>
 <details><summary>Zoom in</summary>
 <img src="img/Capture9.PNG" width="500">
-</details>\
-\
+</details><br>
+<br>
 ---
-\
+<br>
 ## 5. SAGA automation with Batch Script <a name="auto"></a>
 
 SAGA analysis does not have to be done on the graphic user interface. Instead, there is a command-line tool, so one could easily write up a batch script to automate the analysis I did in the above section. This requires a little getting-used-to but it is exceedingly straightforward.
@@ -112,9 +112,9 @@ Using variables with the `set` function can minimize mistakes and make the batch
 The files I used are available for download here:
 - [batch file](test.bat)
 - [DEM file](ASTKilimanjaroDEMmosaic.sgrd)
-\
+<br>
 ---
-\
+<br>
 ## 6. Comparing ASTER and SRTM <a name="comp"></a>
 
 Now that we have successfully automated the process, we can easily run a different dataset. I ran both the SRTM and ASTER rasters through the batch file. However, before doing that, I had to mosaic and reproject the rasters. The batch file for this process can be downloaded [here](mosaic_utmproj_dem_AST.bat).
@@ -153,10 +153,10 @@ The striations were severe enough to affect the channel simulations in this regi
 
 Finally, I noticed channel network gets confused in extremely flat areas. This might not have to do so much with the accuracy of the DEM; small differences in elevation will have significant effects in how the channel networks are drawn. Examine this close-up of a farm and a lake. The channel networks do badly in the flat farmland, and go haywire on the lake.
 
-<img src="img/flat.PNG" width="600">\
-\
+<img src="img/flat.PNG" width="600"><br>
+<br>
 ---
-\
+<br>
 #### 7. Which is better?
 
 It is quite clear from these comparisons that ASTER data is a much more reliable digital elevation model compared to the SRTM, at least in the region around Mount Kilimanjaro.
