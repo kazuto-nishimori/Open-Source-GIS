@@ -1,4 +1,6 @@
-# Creating a QGIS Model: Introduction to Open Source lala
+<style>.site-header {display: none;}</style>
+
+# Creating a QGIS Model: Introduction to Open Source
 
 ## Table of Contents
 1. [Objective](#goal)
