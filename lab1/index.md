@@ -30,6 +30,7 @@ The goal of this lab is to be acquainted with the open source GIS environment; t
 ---
 
 &nbsp;
+
 ## 2. Software and Documentation <a name="sw"></a>
 
 ### Software used
