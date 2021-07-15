@@ -4,11 +4,10 @@
 
 1. [Objective](#goal)
 2. [Software and Documentation](#sw)
-3. [Something brief on twitter data and VGI](#intro)
-4. [Getting Started with twitter API](#twit)
+3. [Getting Started with twitter API](#twit)
     1. [Creating developer account ](#twit-a)
     2. [Important considerations with twitter data](#twit-b)
-5. [Learning rStudio](#rs)
+4. [Learning rStudio](#rs)
     1. [Setting up the environment](#rs-a)
     2. [Temporal analysis](#rs-b)
     3. [Extracting precise geographies](#rs-c)
@@ -16,24 +15,27 @@
     5. [Text analysis](#rs-e)
     6. [Spatial analysis](#rs-f)
     7. [Uploading results to PostGIS for further spatial analysis](#rs-g)
-4. [Textual Analysis of Twitter Activity During Dorian](#text)
+5. [Textual Analysis of Twitter Activity During Dorian](#text)
     1. [Outputs](#text-a)
     2. [Discussion](#text-b)
-5. [Geographic Analysis of Twitter Activity During Dorian](#geog)
+6. [Geographic Analysis of Twitter Activity During Dorian](#geog)
     1. [Setting up PostGIS](#geog-a)
     2. [Spatial Operations in PostGIS](#geog-b)
     3. [Spatial Hotspot Analysis with GeoDa](#geog-c)
     4. [Kernel Density Map in QGIS](#geog-d)
-    5. [Discussion](#geog-e)
+7. [Discussion](#geog-e)
 
+---
 
-## Objective <a name="goal"></a>
+## 1. Objective <a name="goal"></a>
 
 Recently, big data has gathered the interest of many, and in the geography community, its use in the study of natural disasters and its potential as a tool for emergency responders are being examined closely. In this lab, the goal is to become familiar with twitter's API through rStudio, and import the geolocated tweets to PostGIS and GeoDa to perform spatial analysis. Specifically, we will examine activity during Hurricane Dorian that devastated the Bahamas and affected the East Coast of the United States. Of course, this event was in part overshadowed by DJT's infamous 'sharpiegate'. By examining twitter activity, I wish to uncover whether such a controversy could alter tweet activity in significant ways to affect emergency responders or academic research.
 
-## Software and Documentation <a name="sw"></a>
+---
 
-### Software used
+## 2. Software and Documentation <a name="sw"></a>
+
+### 2.1 Software used
 
 - [QGIS 3.8.1](https://www.qgis.org/en/site/)
 - [PostGIS 2.5.3](https://postgis.net/source/)
@@ -55,7 +57,7 @@ Recently, big data has gathered the interest of many, and in the geography commu
 
 </details>
 
-### Documentation Referenced
+### 2.2 Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 - https://www.w3resource.com/
 - spatialreference.org
@@ -65,22 +67,26 @@ Recently, big data has gathered the interest of many, and in the geography commu
 - Sarah Elwood, et al. “Researching Volunteered Geographic Information: Spatial Data, Geographic Research, and New Social Practice.” Annals of the Association of American Geographers, vol. 102, no. 3, 2012, p. 571. EBSCOhost, doi:10.1080/00045608.2011.595657.
 - Wang, Z. (. 1. )., et al. “Spatial, Temporal, and Content Analysis of Twitter for Wildfire Hazards.” Natural Hazards, vol. 83, no. 1, pp. 523–540. EBSCOhost, doi:10.1007/s11069-016-2329-6. Accessed 11 Dec. 2019.
 
-## Getting started with twitter API  <a name="twit"></a>
+---
 
-### Creating developer account <a name="twit-a"></a>
+## 3. Getting started with twitter API  <a name="twit"></a>
+
+### 3.1 Creating developer account <a name="twit-a"></a>
 
 We must first create a [developer account on twitter]( https://developer.twitter.com/). The approval process takes anywhere from a day to a few days, so it is important to do this ASAP. Once approved, twitter requires us to create an ‘app’ which is as simple as filling a form. They instantly give you a consumer API key that can be used by external software to access data.  
 
 <img src="img/token.png" width="500">
 
-### Important considerations with twitter data <a name="twit-b"></a>
+### 3.2 Important considerations with twitter data <a name="twit-b"></a>
 
 Twitter’s data is becoming more monetized and restricted for non-paying developers. With a free account, we are limited to tweets from the past 7 days, and only 18,000 tweets can be downloaded every 15 minutes. In addition, all developers must abide by these [restricted use cases](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases). Most notably, twitter forbids developers to extract sensitive data such as race, sexual orientation, religious and political beliefs about its users. In addition, redistribution of twitter data is restricted to 50,000 per day per user, and they can never be published (in a paper or a public Github repository). Instead, if one wishes to publish data for research reproducibility, one can publish only the unique tweet id’s, which can then be ‘rehydrated’ by a third party. Of course, this third party must own a paid developer account.
 
-## Learning rStudio <a name="rs"></a>
+---
+
+## 4. Learning rStudio <a name="rs"></a>
 In this section, I cover how to import tweets and census data, as well as how to create graphs visualisations in rStudio. Since I will only be using some of these techniques in the lab, I have collapsed the sections that are not immedeately relevant.
 
-### Setting up the environment <a name="rs-a"></a>
+### 4.1 Setting up the environment <a name="rs-a"></a>
 
 rStudio is an opensource data science software with a diverse ecosystem of libraries. I will be using quite a few of these including 'rtweet', to connect with twitter API and 'tidycensus' to connect with the US census API. The first step is to install these libraries into the project using the following command:
 ```
@@ -105,7 +111,7 @@ evoTweets <- search_tweets("Evo OR Morales", n=10000, retryonratelimit=FALSE, in
 The `search_tweets` command uses the API information we obtained earlier to search for tweets with keywords “Evo” or “Morales” in a 350km radius around central Florida (28.3, -81.6) and populates a table called “evoTweets”. No retweets were included. Now that I have the tweets, there is a plethora of things I can do with this data.
 
 
-### Temporal analysis <a name="rs-b"></a>
+### 4.2 Temporal analysis <a name="rs-b"></a>
 <details><summary> Expand </summary>
 
 The twitter data downloaded with rtweet is neatly organized into a usable table. The column ‘hours’ contains the time stamp of each tweet. Dealing with timestamps is often a headache in coding because there exists a myriad of formats used. Thankfully, rtweet’s `ts_plot` function makes it extremely straight forward to create a plot with respect to time:
@@ -118,7 +124,7 @@ ts_plot(winterTweets, by="hours")
 The plot agrees with what I expected. There is a sudden spike in tweets mentioning Evo Morales on the night of November 10, the day he announced his resignation. The tweets fluctuate up and down reflecting the waking hours of the tweeters, and each day the peaks diminish in height as they slowly lose interest in the topic.
 </details>
 
-### Extracting precise geographies <a name="rs-c"></a>
+### 4.3 Extracting precise geographies <a name="rs-c"></a>
 
 As geographers, we are naturally interested in tweets with precise geographic information. However, since users must opt-in to share this data, it is only available in about 1-5 percent of all tweets. There are two types of geographic information in tweets, the first being the GPS coordinates that give the precise location of the user. Of course, not everyone is comfortable sharing their location with this much precision, so they might opt to share a place name instead, which could range in extent from a point-of-interest, neighborhood, town, to state. This place information is reported as a bounding box instead of a point. Let us select all tweets that report geographic information at the city level or smaller.
 <details><summary> Show Code </summary>
@@ -132,7 +138,7 @@ evoTweetsGeo <- lat_lng(evoTweetsGeo,coords=c("bbox_coords"))
 `lat_lng()` converts the GPS coordinates into latitude and longitude coordinates. `sub_set()` selects all bounding boxes of the desired extent `lat_long` is used again to find the centroid of these boxes. The centroids and GPS points make up a new table named 'evoTweetsGeo'. Now I have point geometries that can be used for analysis.
 </details>
 
-### Network analysis <a name="rs-d"></a>
+### 4.4 Network analysis <a name="rs-d"></a>
 <details><summary> Expand </summary>
 
 I can perform network analysis on rStudio using the igraph library.
@@ -146,7 +152,7 @@ plot.igraph(evoTweetNetwork)
 Since I excluded retweets, there isn’t much here to see. This analysis would be useful to visualize who the 'gatekeepers' of tweets are. As Wang et al. mentioined, on twitter there exists a few elite users and opinion leaders whom many users rely on for information. If I had retweet data, these users would be immediately visible as the major nodes of the network.
 </details>
 
-### Textual analysis <a name="rs-e"></a>
+### 4.5 Textual analysis <a name="rs-e"></a>
 
 The first step in text analysis is to isolate the words from the text which is done in the first three lines of the code. Then we must remove stop words. These are words such as articles and short function words (e.g. "the", "and", "like") that are not useful in natural language processing. The SMART list is a handy tool that contains all the major stop words in the English language. In line five, I delete all stop words from our list of words.
 <details><summary> Show Code </summary>
@@ -215,7 +221,7 @@ evoWordPairs %>%
 
 Curiously enough, the word cloud reveals the political fragmentation within the twitter userbase. On the one hand, there is the political right tweeting about the election fraud charges. On the other hand there is the left tweeting about the army and the coup attempt. These two groups occupy different places on the map.
 
-### Spatial analysis <a name="rs-f"></a>
+### 4.6 Spatial analysis <a name="rs-f"></a>
 I can even do spatial analysis on r. To do this, let us import county shapefiles using the US census API. I first signed up for an account on their [website](https://api.census.gov/data/key_signup.html). Then I can use the ‘tidycensus’ library to import the files. I will filter just the Florida counties for this exercise.
 ```
 Counties <- get_estimates("county",product="population",output="wide",geometry=TRUE,keep_geo_vars=TRUE, key="YOUR_API_KEY")
@@ -240,7 +246,7 @@ ggplot() +
 </details>
 <img src="img/Rplot04.png" width="500">
 
-### Uploading results to PostGIS for further spatial analysis <a name="rs-g"></a>
+### 4.7 Uploading results to PostGIS for further spatial analysis <a name="rs-g"></a>
 Finally, I will upload the data to PostGIS so that I can apply the toolset I have acquired throughout the semester. This is extremely simple with the use of the library `RPostgres`. Make sure to select only the columns needed as I did in line 2. There are certain operations that must be done in the PostGIS side, and I will discuss this in detail in the following sections.
 ```
 con <- dbConnect(RPostgres::Postgres(), dbname='yourdatabase', host='hostname', user='yourUserName', password='yourPassword')
@@ -248,31 +254,34 @@ evo <- select(evoTweetsGeo,c("user_id","status_id","text","lat","lng"),starts_wi
 dbWriteTable(con,'evo',evo, overwrite=TRUE)
 dbDisconnect(con)
 ```
-### Download materials used <a name="rs-h"></a>
+#### Download materials used <a name="rs-h"></a>
 - [r file](twitlab.r)
 - [List of tweet IDs](evoTweetID.csv)
 
+---
 
-## Textual Analysis of Twitter Activity During Dorian <a name="text"></a>
+## 5. Textual Analysis of Twitter Activity During Dorian <a name="text"></a>
 
 [Download the r file used in this portion of the lab.](final.r)
 
 Now that we have the toolset, let us answer the original research question. Did DJT's sharpiegate have an effect on twitter activity that was significant enough to alter emergency responders or academic research that would rely on these tweets? I will first look at the outputs from the textural analysis.
 
-### Outputs <a name="text-a"></a>
+### 5.1 Outputs <a name="text-a"></a>
 <img src="img/dorian-word-count.png" width="500">
 <img src="img/plot.png" width="500">
 
-### Discussion <a name="text-b"></a>
+### 5.2 Discussion <a name="text-b"></a>
 
 In terms of word count, 'sharpiegate' along with mentions of DJT dominates the discussion on twitter. However, word count is not always a useful indicator of people's interest. This is because there is not an equivalent 'buzzword' for calling out for help, or expressing support to the victims. It makes sense that the words that top the charts are controversial, 'viral' topics that are marketed well using buzzwords. Looking at the word cloud, the mentions of 'sharpiegate' all but disappear. It appears that most tweets mention the victims, or give some words of encouragement and support. DJT makes an appearence on the map but only occupies the periphery of the word cloud.
 
-## Geographic Analysis of Twitter Activity During Dorian <a name="geog"></a>
+---
+
+## 6. Geographic Analysis of Twitter Activity During Dorian <a name="geog"></a>
 
 It will be interesting to see the geographic distribution of twitter activity during the hurricane. From rStudio, I will import the US counties, Dorian tweets, as well as tweets from November which I can compare as a baseline twitter activity. A comparison of Dorian tweets with baseline activity can be more telling than a simple population-based normalization, since twitter is not as universal as other socialmedia such as facebook.
 
 
-### Setting up PostGIS <a name="geog-a"></a>
+### 6.1 Setting up PostGIS <a name="geog-a"></a>
 
 Exporting data to PostGIS on the rStudio side is covered in the "Learning rStudio" section. Once this is done, we will firstly install the lambert conformal conic (ESRI:102004) spatial reference system to PostGIS. (This projection preserves shapes well) A website called spatialreference.org provides SQL queries that you can copy-and-paste.
 
@@ -298,7 +307,7 @@ SET geom = st_transform (st_setsrid(st_makepoint(lng,lat),4326),102004);
 
 Do the same for the Dorian tweets table and US counties. Now the layers are ready for spatial analysis.
 
-### Spatial Operations in PostGIS <a name="geog-b"></a>
+### 6.2 Spatial Operations in PostGIS <a name="geog-b"></a>
 
 #### Dropping states outside of study area
 
@@ -403,7 +412,7 @@ SET ndti = 0 where ndti is NULL
 
 Now the county layer is ready to be imported by GeoDa for spatial hotspot analysis.
 
-### Spatial Hotspot Analysis with GeoDa <a name="geog-c"></a>
+### 6.3 Spatial Hotspot Analysis with GeoDa <a name="geog-c"></a>
 
 GeoDa in an open source spatial statistics software and I will be using their G* function in this lab. G* is akin to a Z score, but tailored to geographic analysis; it reveals clusters of hot- and cold-spots in the map. I will make hotspot maps for both tweet rate and the normalized difference index.
 
@@ -420,7 +429,7 @@ On the other hand, the normalized difference twitter index map showed a behaviou
 
 <img src="img/ndti-clust.PNG" width="600">
 
-### Kernel Density Map in QGIS <a name="geog-d"></a>
+### 6.4 Kernel Density Map in QGIS <a name="geog-d"></a>
 Finally, I created a kernel density heatmap of the tweet rate during the hurricane. The algorithm requires point data, not shapefiles, so I will reduce the counties into centroids using the following code.
 
 <details><summary>Show Code </summary>
@@ -453,7 +462,9 @@ GROUP BY statefp
 
 Download all the  SQL queries [here](twit.sql)
 
-### Discussion  <a name="geog-e"></a>
+---
+
+### 7. Discussion  <a name="geog-e"></a>
 
 So did the DJT's sharpie gate have a significant influence on twitter activity? Let us take a look:
 

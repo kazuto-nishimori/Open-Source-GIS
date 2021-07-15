@@ -18,20 +18,21 @@
     3. [Sources of uncertainty](#rv-c)
 7. [Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability](#conc)
 
+---
 
-## Objective <a name="goal"></a>
+## 1. Objective <a name="goal"></a>
 This lab has two large goals. Firstly, we will reproduce a vulnerability map published in Applied Geography by Malcolm, Weaver, and Krakowka using the datasets and methodologies outlined in their article. Secondly, we will critique the methods used by the authors and discuss the broader issue of replicability in vulnerability analysis. This lab is an opportunity to dive deep into the reproducibility and replicability discussion that is becoming a hot issue in the social science community.
 
-## Software and Documentation <a name="sw"></a>
+## 2. Software and Documentation <a name="sw"></a>
 
-### Software used
+### 2.1 Software used
 
 - [QGIS 3.8.1](https://www.qgis.org/en/site/) with [GRASS 7.6.1](https://grass.osgeo.org/download/) and [GDAL 3.0.2](https://gdal.org/download.html)
 - [PostGIS 2.5.3](https://postgis.net/source/)
 - [PostgreSQL 11.5](https://www.postgresql.org/download/)
 - raster2pgsql plugin (comes with PostGIS)
 
-### Documentation Referenced
+### 2.2 Documentation Referenced
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 - https://www.w3resource.com/
 
@@ -42,7 +43,9 @@ This lab has two large goals. Firstly, we will reproduce a vulnerability map pub
 - National Academies of Sciences, Engineering, and Medicine 2019. Reproducibility
 and Replicability in Science. Washington, DC: The National Academies Press. https://doi.org/10.17226/25303.
 
-## Reproducibility and Replicability <a name="randr"></a>
+---
+
+## 3. Reproducibility and Replicability <a name="randr"></a>
 
 Reproducibility and replicability, which has always been an important consideration in the natural sciences, has been an increasingly important topic of discussion in the social sciences as well. The National Academies of Sciences, Engineering, and Medicine in their report on this issue defines the terms as the following:
 
@@ -52,13 +55,15 @@ Reproducibility is often neglected in the field of geography. The analysis done 
 
 Replicability translated into geography can be understood in two ways. The first is whether two geographers arrive to the same conclusion about a place by using separate data sources but identical methodology. Unless the study is conducted in a data-rich place (or the extent is small so that data collection can be done by a small team of researchers), it is of course difficult to test this kind of replicability. The second is whether the same methodology employed with a different dataset from another place leads to the same conclusion. This is a tricky undertaking because no two places are alike, and different places experience different sociopolitical, environmental and economic forces. For example, a study on the segregation pattern in American suburbs cannot be meaningfully replicated in the context of a French suburb. In this lab, we will explore what replicability means in vulnerability research.
 
-## Malcomb et al.: Conceptualization and Methodology <a name="malc"></a>
+---
 
-### Conceptual rationale <a name="malc-a"></a>
+## 4. Malcomb et al.: Conceptualization and Methodology <a name="malc"></a>
+
+### 4.1 Conceptual rationale <a name="malc-a"></a>
 
 Malawi is small landlocked nation in Southeastern Africa, and despite its size, its population density is one of the highest in the region, and is expected to double by 2035. 85% of the population live in rural areas and most rely on rain-fed agriculture; food security is a growing concern. Facing climate change, there is a strong interest in measuring vulnerability to ensure that funding streams of development loans are directed to the households most in need. As Hinkel has pointed out, “Assessing vulnerability thus has moved from being an academic exercise to being a political necessity” (2011). However, existing indices of vulnerability, they claim, have largely neglected the human dimensions, only focusing on indicators of flood, drought, precipitation and temperature. The goal of the authors is to create a new model of vulnerability assessment that “accounts for the complex physical and cultural dynamics at the household level” and one that is easily replicable to other countries.
 
-### Methodology <a name="malc-b"></a>
+### 4.2 Methodology <a name="malc-b"></a>
 
 The model the authors created is a hierarchical one that divides vulnerability into four ‘metathemes’ which they identified through field work and interviews. These interviews were intended to reveal the “household social and economic practices in the context of environmental uncertainty”. This community level interview was interpreted with the help of local government, NGO’s, and development organizations.
 
@@ -71,9 +76,11 @@ These metathemes were subdivided into indicators based on the interviews and dat
 
 <img src="img/metatheme.png" width="800">
 
-## Reproducing Adaptive Capacity Map <a name="rac"></a>
+---
 
-### Data Used <a name="rac-a"></a>
+## 5 Reproducing Adaptive Capacity Map <a name="rac"></a>
+
+### 5.1 Data Used <a name="rac-a"></a>
 
 #### Demographic and Health Surveys (DHS)
 
@@ -89,7 +96,7 @@ The shape file for the major lakes of Malawi made by OpenStreetMap was obtained 
 Download Malawi lake shapefile [here](major_lakes.shp).
 Download TA and DHS cluster shapefiles [here](mwi_data.zip).
 
-### Retracing the steps <a name="rac-b"></a>
+### 5.2 Retracing the steps <a name="rac-b"></a>
 We followed Malcolm et al.’s methodology and instructions (where they existed) to attempt to reproduce the Adaptive Capacity map. However, the results were much less than satisfactory, even though we started with the same dataset as the authors. We attribute this to the significant holes in their explanation of important decisions (i.e. sources of biases) that went into the production of the map.
 
 To create this map, the first step was to add a column to our survey data table that indicates the id of the TA in which it resides, since the results would later be aggregated by TA. However, the survey data has no coordinate information, only the cluster id. So, we added a TA id column to a separate shapefile containing the point geometries of the clusters and this column was populated using a simple `st_intersects()` operation with the TA layer. Then, this TA id column was joined to the survey table via cluster id.  
@@ -126,7 +133,7 @@ The map we created is similar but it is no reproduction of the one by Malcomb et
 The SQL file for all the operations done in this step is found [here](vulnerabilitySQL.sql). You can look through the code to see how we decided to quantify the results.
 
 
-### Uncertainty propagation and ethics of data presentation<a name="rac-c"></a>
+### 5.3 Uncertainty propagation and ethics of data presentation<a name="rac-c"></a>
 
 Attempting to reproduce the map raised questions of uncertainty propagation that was never brought up by the authors. As Tate (2013) reminds us, when we deal with aggregation, we must always consider the areal unit problem which "manifests as a combination of a scale problem, where correlations between variables often increase with the level of aggregation, and an aggregation problem, in which correlations between enumeration units might depend as much on the manner of the aggregation as the relationships between variables".
 
@@ -136,10 +143,11 @@ A similar guarantee does not exist at the level of the traditional authorities. 
 
 This also raises a question about the ethics of data presentation by the USAID. Although the DHS survey is extensive, there are only 850 clusters nationwide; that is, on average 30 clusters chosen per district to best represent that district. Then, how much do the real coordinates of those clusters truly mean? Put another way, imagine you are tasked to find 30 people in a large concert hall to best represent the audience. The real coordinates of these 30 people, i.e. their seat numbers, mean very little, in so much as guaranteeing that they were in fact attending the concert. The seat numbers cannot be used to conclude anything about the population geography within the concert hall, but the 30 people as a sample together can be used to infer conclusions about the population geography within the larger city: the kind of person who attends a certain concert hall in a certain neighborhood. Thus, the geolocations of the clusters are only useful, in so much as guaranteeing that they lie within the district. This raises the question of whether it is even appropriate/ethical on the part of USAID to publish point data that can be used inappropriately. Is it not more fitting to publish the survey data with their district name but without cluster numbers?
 
+---
 
-## Reproducing Vulnerability Map <a name="rv"></a>
+## 6. Reproducing Vulnerability Map <a name="rv"></a>
 
-### Data used <a name="rv-a"></a>
+### 6.1 Data used <a name="rv-a"></a>
 
 The vulnerability map is the synthesis of the map created above, the livelihood sensitivity map, and the physical exposure map. Two additional data sources are required.
 
@@ -155,7 +163,7 @@ The authors used the Drought Physical Exposure raster from 2012. The file I foun
 
 The flood risk data was however, problematic. The file when downloaded using the `Data-Extraction` feature had the wrong extent, and was corrupt. Therefore, it was necessary (although not ideal) to download the global raster. It had to be cropped later. This raster gives a quintile scale based on the amount of risk. The data is from in 2011, same as the authors’. The reference system is WGS84 with spatial resolution of 0.08333 in decimal degrees or 1200 meters.
 
-### Retracing the steps <a name="rv-b"></a>
+### 6.2 Retracing the steps <a name="rv-b"></a>
 
 Because of data unavailability, the sensitivity portion could not be reproduced. Our final map (which is 80% of Malcolm et al.’s map) is the weighted sum of the capacity map, converted into raster form and the two reclassified rasters for drought and flood.
 
@@ -179,7 +187,7 @@ FINAL_SCORE = (6 - (DROUGHT_QUINTILE + (FLOOD + 1))) * 0.2 + CAPACITY
 
 Download the models used for [low-res](vulnerability.model3) and [high-res](vulnerability-2.model3).
 
-### Sources of uncertainty <a name="rv-c"></a>
+### 6.3 Sources of uncertainty <a name="rv-c"></a>
 
 Looking at the map we created and the one created by the authors, the difference is immediately apparent. Although the southern portion looks more or less similar, the region to the West and North of Lilongwe is completely unalike. Of course, this is likely due in part to the 20% of data we are lacking. However, there might be more to it. The map by the authors cite the ‘Dartmouth Flood Observatory Data 1999-2007’ as one of their data sources in the map, even though they claimed to have used the UNEP flood data in their paper. Did they encounter the same error when trying to download the flood data from UNEP and changed data sources? If so, it is appalling that the authors did not mention so in their article.
 
@@ -193,7 +201,9 @@ This is because for each pixel in the flood raster, there are four pixels in the
 
 The drought layer brings another source of uncertainty and error. Unlike the other layers, this raster presents its data in absolute terms: the number of people exposed to drought. Tate (2013) mentions in his paper that "using absolute size, the areas of greatest vulnerability will always be those with the greatest population". To be consistent with the other layers, the authors ought to have normalized the values by population before reclassifying it into quintiles.
 
-## Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability <a name="conc"></a>
+---
+
+## 7. Comments on Uncertainty in Vulnerability Research, Reproducibility, and Replicability <a name="conc"></a>
 
 In attempting to reproduce the maps made by Malcomb et al., we have discovered uncertainty at the micro-level. When decisions are made without regard to the uncertainty of the dataset, these uncertainties will be propagated and even be magnified, potentially altering the final output in significant ways. For example, we saw this when the authors aggregated data at a higher spatial resolution than appropriate, creating misleading outputs. We also observed the sensitivity of vulnerability models to small variations in procedure. The capacity map was recreated using the same data and method, but small differences in procedure lead to significantly different outputs.
 
