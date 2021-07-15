@@ -4,7 +4,9 @@
 
 <iframe src="direction.html" title="An example output of my QGIS model" width='100%' height='600px'></iframe>
 An example output of my QGIS model&nbsp;
+
 ---
+
 &nbsp;
 ## Table of Contents
 1. [Objective](#goal)
@@ -16,13 +18,17 @@ An example output of my QGIS model&nbsp;
     4. [Plotting Results in DataPlotly](#model-d)
     5. [Room for Future Work](#model-e)
 4. [Discussion](#disc)&nbsp;
+
 ---
+
 &nbsp;
 
 ## 1. Objective <a name="goal"></a>
 
 The goal of this lab is to be acquainted with the open source GIS environment; this can mean several things. In a myopic sense, this means learning to use QGIS, an open source GIS software. However, ‘open source’ is so much more than the software per se: it signifies the whole ecosystem of professionals and hobbyists that engage in the bottom up, grassroots creation of useful tools. This environment revolves around online forums and repositories like Github. Therefore, our objective is to creating a tool, publish it on the web, and create helpful documentation to allow others to use and modify it.&nbsp;
+
 ---
+
 &nbsp;
 ## 2. Software and Documentation <a name="sw"></a>
 
@@ -35,7 +41,9 @@ The goal of this lab is to be acquainted with the open source GIS environment; t
 - Lab Instructions by Professor Holler: [request document by email](mailto:jholler@middlebury.edu)
 #### Works cited
 - Rey, Sergio J. “Show Me the Code: Spatial Analysis and Open Source.” Journal of Geographical Systems, vol. 11, no. 2, 2009, pp. 191–207. EBSCOhost, doi:https://link.springer.com/journal/volumesAndIssues/10109.&nbsp;
+
 ---
+
 &nbsp;
 ## 3. The Distance and Direction QGIS Model <a name="model"></a>
 
@@ -100,11 +108,12 @@ Take a look also at a more conventional choropleth plot of the two data. You can
 In true open source fashion, I have decided to leave some space for future work. I have tried to convert the model to use SQL instead, but I could not get this to work. Converting the model to SQL gives us access to a whole world of useful PostgreSQL functions. SQL will most likely provide a solution to my second problem, which is that the distance is measured in the same unit as the projection, in degrees. I thought of converting it into meters through a simple multiplication. However, this will not produce accurate results since the WGS84 is based on an ellipsoid and the radius is different based on the position on the globe.&nbsp;
 
 ---
+
 &nbsp;
 ## 4. Discussion <a name="disc"></a>
 
 As Sergio Rey claims, open source might be the only truly innovative concept in business that has appeared in the 21st century (2009). It is an ecosystem of innovation and product development where individuals create, share, and modify. Its closest analogue is the academic community where there exists the same culture around peer-review, collaboration, improvement and reputation. And as I have learned, to be a part of this culture of ‘openness’ is not an easy feat. My work had to be notated, each decision justified, and the process well-documented. The thoroughness with which one must complete a task so that someone, somewhere can pick up the pieces later is quite daunting.
 
-Rey also discusses some of the disadvantages of opensource, namely the inaccessibility for those less technically skilled. This I can admit I have experienced while working on this project. Opensource software is a patch work of code by difference people, including other opensource software. In the case of QGIS, it relies on SpatialLite for geodatabase functionality. DataPlotly runs on D3. If anything should go wrong, it can be very difficult for entry level users to find the appropriate help documentation. In my case, I could not find a way to have my model output distance in meters. One must be resourceful and modify codes from online forums to patch the problems that one encounters.
+Rey also discusses some of the disadvantages of opensource, namely its inaccessibility for those less technically skilled. This I can admit I have experienced while working on this project. Opensource software is a patch work of code by difference people, including other opensource software. In the case of QGIS, it relies on SpatialLite for geodatabase functionality. DataPlotly runs on D3. If anything should go wrong, it can be very difficult for entry level users to find the appropriate help documentation. In my case, I could not find a way to have my model output distance in meters. One must be resourceful and modify codes from online forums to patch the problems that one encounters.
 
 However, the advantages are also numerous. For example, people approach opensource software with a different mindset than they do a proprietary one. As Rey discusses, the user of proprietary software is often bounded by the functionality of the software, and they forget to think beyond the existing capabilities. On the other hand, the trajectory of opensource software is driven by the needs of the user. So, they work in quite the opposite way where the imagination of the user drives opensource innovation, whereas the functionality of proprietary software bounds the imagination. A great example of this was the direction plot in DataPlotly. In math and in geography, polar graphs are drawn differently, and the DataPlotly plugin only supported the math version of the graph (measured counterclockwise from the positive x-axis). A direction plot plotted in this way, however is not too useful in geography research. We could have easily abandoned the direction plot altogether, but our professor Joe Holler made small modifications to the code which gave the user an option between these two polar plots (it later became part of the plugin). This lab, although small in scope, was a great first step into the world of opensource.
